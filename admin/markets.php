@@ -304,6 +304,7 @@ $admin_market_image = $is_market_url ? htmlspecialchars($market['market_image'])
      alt="<?php echo htmlspecialchars($market['market_name']); ?>" 
      class="market-image"
      onerror="this.src='../assets/images/default-market.jpg'">
+                                <?php else: ?>
                                 <div class="market-image" style="display: flex; align-items: center; justify-content: center; font-size: 60px;">🏪</div>
                             <?php endif; ?>
                             
