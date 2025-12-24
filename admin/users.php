@@ -159,6 +159,8 @@ $stats = $pdo->query($stats_query)->fetch();
         .alert { padding: 15px; margin-bottom: 20px; border-radius: 5px; }
         .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        
     </style>
 </head>
 <body>
