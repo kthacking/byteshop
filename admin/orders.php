@@ -372,37 +372,65 @@ $stats = $pdo->query($stats_query)->fetch();
         function viewOrderDetails(orderId) {
             // Show modal
             document.getElementById('orderModal').classList.add('show');
+            document.getElementById('orderDetailsContent').innerHTML = '<p style="text-align:center; padding:20px;">Loading...</p>';
             
             // Fetch order details
             fetch(`../api/get_order_details.php?order_id=${orderId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        // Use either data.order or data.data.order (for backward compatibility)
+                        const order = data.order || data.data.order;
+                        const items = data.items || data.data.items;
+                        
                         let html = '<div style="margin-bottom: 20px;">';
-                        html += `<h4 style="margin-bottom: 10px;">Order #${data.data.order.order_id}</h4>`;
-                        html += `<p><strong>Date:</strong> ${data.data.order.order_date}</p>`;
-                        html += `<p><strong>Total:</strong> ₹${parseFloat(data.data.order.total_amount).toFixed(2)}</p>`;
+                        html += `<h4 style="margin-bottom: 10px;">Order #${order.order_id}</h4>`;
+                        html += `<p><strong>Customer:</strong> ${order.customer_name}</p>`;
+                        html += `<p><strong>Email:</strong> ${order.customer_email}</p>`;
+                        html += `<p><strong>Phone:</strong> ${order.customer_phone || 'N/A'}</p>`;
+                        html += `<p><strong>Date:</strong> ${new Date(order.order_date).toLocaleString()}</p>`;
+                        html += `<p><strong>Status:</strong> <span class="status-badge ${order.order_status}">${order.order_status.toUpperCase()}</span></p>`;
+                        html += `<p><strong>Payment:</strong> ${order.payment_method}</p>`;
+                        html += `<p><strong>Delivery Address:</strong><br>${order.delivery_address.replace(/\n/g, '<br>')}</p>`;
+                        html += `<p style="margin-top:10px;"><strong>Total:</strong> <span style="font-size:20px; color:#27ae60;">₹${parseFloat(order.total_amount).toFixed(2)}</span></p>`;
                         html += '</div>';
                         
-                        html += '<h4 style="margin: 20px 0 10px 0;">Order Items:</h4>';
-                        data.data.items.forEach(item => {
-                            html += '<div class="order-item">';
-                            html += `<h4>${item.product_name}</h4>`;
-                            html += `<p>Market: ${item.market_name}</p>`;
-                            html += `<p>Quantity: ${item.quantity} × ₹${parseFloat(item.price).toFixed(2)} = ₹${parseFloat(item.subtotal).toFixed(2)}</p>`;
+                        html += '<h4 style="margin: 20px 0 10px 0; border-top: 2px solid #ecf0f1; padding-top: 20px;">Order Items:</h4>';
+                        
+                        items.forEach(item => {
+                            // Detect if image is URL or local file
+                            let imageSrc = '../assets/images/default-product.jpg';
+                            if (item.product_image) {
+                                if (item.product_image.startsWith('http://') || item.product_image.startsWith('https://')) {
+                                    imageSrc = item.product_image;
+                                } else {
+                                    imageSrc = '../uploads/products/' + item.product_image;
+                                }
+                            }
+                            
+                            html += '<div class="order-item" style="display: flex; gap: 15px; align-items: center;">';
+                            html += `<img src="${imageSrc}" alt="${item.product_name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;" onerror="this.src='../assets/images/default-product.jpg'">`;
+                            html += '<div style="flex: 1;">';
+                            html += `<h4 style="margin-bottom: 5px;">${item.product_name}</h4>`;
+                            html += `<p style="color: #7f8c8d; font-size: 13px;">🏪 ${item.market_name}</p>`;
+                            html += `<p style="color: #7f8c8d; font-size: 13px;">🏷️ ${item.category}</p>`;
+                            html += `<p style="margin-top: 5px;"><strong>Qty:</strong> ${item.quantity} × ₹${parseFloat(item.price).toFixed(2)} = <strong>₹${parseFloat(item.subtotal).toFixed(2)}</strong></p>`;
+                            html += '</div>';
                             html += '</div>';
                         });
                         
                         document.getElementById('orderDetailsContent').innerHTML = html;
                     } else {
-                        document.getElementById('orderDetailsContent').innerHTML = '<p>Error loading order details</p>';
+                        document.getElementById('orderDetailsContent').innerHTML = `<p style="color: #e74c3c; text-align: center; padding: 20px;">${data.message}</p>`;
                     }
                 })
                 .catch(error => {
-                    document.getElementById('orderDetailsContent').innerHTML = '<p>Error loading order details</p>';
+                    console.error('Error:', error);
+                    document.getElementById('orderDetailsContent').innerHTML = '<p style="color: #e74c3c; text-align: center; padding: 20px;">Error loading order details. Please try again.</p>';
                 });
         }
 
+        
         function closeOrderModal() {
             document.getElementById('orderModal').classList.remove('show');
         }
@@ -414,6 +442,7 @@ $stats = $pdo->query($stats_query)->fetch();
             }
         });
     </script>
+
     
 </body>
 </html>

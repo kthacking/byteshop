@@ -561,7 +561,7 @@ function getStatusProgress($status) {
 </div>
 
 <script>
-    function viewOrderDetails(orderId) {
+   function viewOrderDetails(orderId) {
         const modal = document.getElementById('orderModal');
         const modalBody = document.getElementById('modalBody');
         
@@ -574,10 +574,14 @@ function getStatusProgress($status) {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    let html = '<div style="margin-bottom: 1rem;"><strong>Delivery Address:</strong><br>' + data.order.delivery_address + '</div>';
+                    // Use either data.order or data.data.order (for backward compatibility)
+                    const order = data.order || data.data.order;
+                    const items = data.items || data.data.items;
+                    
+                    let html = '<div style="margin-bottom: 1rem;"><strong>Delivery Address:</strong><br>' + order.delivery_address + '</div>';
                     html += '<h4 style="margin: 1.5rem 0 1rem; color: #667eea;">Order Items</h4>';
                     
-                    data.items.forEach(item => {
+                    items.forEach(item => {
                         // Detect if image is URL or local file
                         let imageSrc = '../assets/images/default-product.jpg';
                         if (item.product_image) {
@@ -608,21 +612,21 @@ function getStatusProgress($status) {
                         <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid #f0f0f0;">
                             <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #667eea;">
                                 <span>Total Amount</span>
-                                <span>₹${parseFloat(data.order.total_amount).toFixed(2)}</span>
+                                <span>₹${parseFloat(order.total_amount).toFixed(2)}</span>
                             </div>
                         </div>
                     `;
                     
                     modalBody.innerHTML = html;
                 } else {
-                    modalBody.innerHTML = '<p style="text-align: center; color: #e74c3c;">Failed to load order details.</p>';
+                    modalBody.innerHTML = '<p style="text-align: center; color: #e74c3c;">Failed to load order details: ' + data.message + '</p>';
                 }
             })
             .catch(error => {
-                modalBody.innerHTML = '<p style="text-align: center; color: #e74c3c;">Error loading order details.</p>';
+                console.error('Error:', error);
+                modalBody.innerHTML = '<p style="text-align: center; color: #e74c3c;">Error loading order details. Please try again.</p>';
             });
     }
-
     function closeModal() {
         document.getElementById('orderModal').classList.remove('active');
     }
