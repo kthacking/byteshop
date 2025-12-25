@@ -574,7 +574,6 @@ $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market
             <div class="products-grid">
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
-                        <div class="product-card">
                         <?php if ($product['product_image']): ?>
                             <?php
                             // Detect if image is URL or local file
