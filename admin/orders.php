@@ -701,7 +701,7 @@ $stats = $pdo->query($stats_query)->fetch();
         </div>
     </div>
 
-<script>
+    <!-- <script>
     function viewOrderDetails(orderId) {
         const modal = document.getElementById('orderModal');
         const contentDiv = document.getElementById('orderDetailsContent');
@@ -863,7 +863,7 @@ $stats = $pdo->query($stats_query)->fetch();
             closeOrderModal();
         }
     });
-</script>
+</script> -->
 <style>
     /* Animation */
     @keyframes fadeIn {
@@ -1099,7 +1099,239 @@ $stats = $pdo->query($stats_query)->fetch();
     }
 </style>
 
+<script>
+    function viewOrderDetails(orderId) {
+        const modal = document.getElementById('orderModal');
+        const contentDiv = document.getElementById('orderDetailsContent');
 
+        modal.classList.add('show');
+        contentDiv.innerHTML =
+            '<div style="padding:50px; text-align:center;"><div class="spinner-border text-primary"></div></div>';
+
+        fetch(`../api/get_order_details.php?order_id=${orderId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const order = data.order || data.data.order;
+                    const items = data.items || data.data.items;
+
+                    // --- Logic for Timeline ---
+                    const steps = ['pending', 'processing', 'shipped', 'delivered'];
+                    const currentStatus = order.order_status.toLowerCase();
+                    let activeIndex = steps.indexOf(currentStatus);
+                    if (activeIndex === -1 && currentStatus === 'completed') activeIndex = 3;
+
+                    const renderTimeline = () => {
+                        if (currentStatus === 'cancelled') {
+                            return `<div class="alert alert-danger" style="margin:20px 0; text-align:center;">🚫 This order has been Cancelled</div>`;
+                        }
+
+                        let timelineHtml = '<div class="od-timeline">';
+                        const labels = ['Order Placed', 'Processing', 'Out for Delivery', 'Delivered'];
+
+                        steps.forEach((step, index) => {
+                            let className = 'od-step';
+                            if (index < activeIndex) className += ' completed';
+                            if (index === activeIndex) className += ' active';
+
+                            timelineHtml += `
+                        <div class="${className}">
+                            <div class="od-step-circle">${index + 1}</div>
+                            <div class="od-step-label">${labels[index]}</div>
+                        </div>`;
+                        });
+                        timelineHtml += '</div>';
+                        return timelineHtml;
+                    };
+
+                    const subtotal = items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
+                    const grandTotal = parseFloat(order.total_amount);
+                    const shippingCost = grandTotal > subtotal ? (grandTotal - subtotal) : 0;
+
+                    let html = `
+            <div class="od-modal-body">
+                <div class="od-top-bar">
+                    <div class="od-title-group">
+                        <h2>Order #${order.order_id}</h2>
+                        <span>Placed on ${new Date(order.order_date).toLocaleDateString()} at ${new Date(order.order_date).toLocaleTimeString()}</span>
+                    </div>
+                    <div class="od-actions">
+                        <button class="btn-action" onclick="printOrderDetails()">🖨️ Print</button>
+                        <button class="btn-action">⬇️ Invoice</button>
+                    </div>
+                </div>
+
+                ${renderTimeline()}
+
+                <div class="od-content-wrapper">
+                    <div class="od-details-grid">
+                        <div class="od-box">
+                            <div class="od-subtitle">Customer Details</div>
+                            <div class="od-data-point"><strong>${order.customer_name}</strong></div>
+                            <div class="od-data-point">📧 ${order.customer_email}</div>
+                            <div class="od-data-point">📞 ${order.customer_phone || '--'}</div>
+                        </div>
+                        <div class="od-box">
+                            <div class="od-subtitle">Shipping To</div>
+                            <div class="od-data-point">📍 ${order.delivery_address.replace(/\n/g, '<br>')}</div>
+                            <div style="margin-top:15px;" class="od-subtitle">Payment Method</div>
+                            <div class="od-data-point">💳 ${order.payment_method}</div>
+                        </div>
+                    </div>
+
+                    <table class="od-products-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th style="text-align:right;">Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                    items.forEach(item => {
+                        let img = item.product_image ?
+                            (item.product_image.startsWith('http') ? item.product_image :
+                                `../uploads/products/${item.product_image}`) :
+                            '../assets/images/default-product.jpg';
+
+                        html += `
+                    <tr>
+                        <td>
+                            <div class="od-product-flex">
+                                <img src="${img}" class="od-thumb" onerror="this.src='../assets/images/default-product.jpg'">
+                                <div>
+                                    <div style="font-weight:600; color:#2c3e50;">${item.product_name}</div>
+                                    <div style="font-size:0.8rem; color:#999;">Seller: ${item.market_name}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="color:#666;">${item.category}</td>
+                        <td style="text-align:right;">
+                            <div style="color:#2c3e50; font-weight:600;">₹${parseFloat(item.subtotal).toFixed(2)}</div>
+                            <div style="font-size:0.75rem; color:#999;">${item.quantity} x ₹${parseFloat(item.price).toFixed(2)}</div>
+                        </td>
+                    </tr>`;
+                    });
+
+                    html += `
+                        </tbody>
+                    </table>
+
+                    <div style="padding: 20px 0;">
+                        <div class="od-summary-row">
+                            <span>Subtotal</span>
+                            <span>₹${subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="od-summary-row">
+                            <span>Shipping & Handling</span>
+                            <span>${shippingCost > 0 ? '₹'+shippingCost.toFixed(2) : 'Free'}</span>
+                        </div>
+                        <div class="od-summary-row od-summary-total">
+                            <span>Grand Total</span>
+                            <span>₹${grandTotal.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+                    contentDiv.innerHTML = html;
+                } else {
+                    contentDiv.innerHTML = `<div class="alert alert-danger m-4">${data.message}</div>`;
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+
+    // NEW FUNCTION: Print only the modal content
+    function printOrderDetails() {
+        const printContent = document.getElementById('orderDetailsContent').innerHTML;
+        const originalContent = document.body.innerHTML;
+
+        // Create a temporary wrapper with print styles
+        document.body.innerHTML = `
+        <html>
+            <head>
+                <title>Print Order</title>
+                <style>
+                    @media print {
+                        @page {
+                            size: A4;
+                            margin: 15mm;
+                        }
+                        body {
+                            margin: 0;
+                            padding: 0;
+                            font-family: Arial, sans-serif;
+                        }
+                        .od-actions {
+                            display: none !important;
+                        }
+                        .od-modal-body {
+                            box-shadow: none !important;
+                        }
+                    }
+                    ${getOrderModalStyles()}
+                </style>
+            </head>
+            <body>
+                ${printContent}
+            </body>
+        </html>
+    `;
+
+        window.print();
+
+        // Restore original content
+        document.body.innerHTML = originalContent;
+
+        // Re-attach event listeners after restoring content
+        window.location.reload();
+    }
+
+    // Helper function to include existing styles
+    function getOrderModalStyles() {
+        return `
+        .od-modal-body { max-width: 900px; margin: 0 auto; }
+        .od-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
+        .od-title-group h2 { margin: 0; color: #2c3e50; font-size: 1.8rem; }
+        .od-title-group span { color: #7f8c8d; font-size: 0.9rem; }
+        .od-actions { display: flex; gap: 10px; }
+        .btn-action { padding: 8px 16px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer; font-size: 0.9rem; }
+        .od-timeline { display: flex; justify-content: space-between; margin: 30px 0; position: relative; }
+        .od-timeline::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: #e0e0e0; z-index: 0; }
+        .od-step { flex: 1; text-align: center; position: relative; z-index: 1; }
+        .od-step-circle { width: 40px; height: 40px; border-radius: 50%; background: #e0e0e0; color: #999; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; transition: all 0.3s; }
+        .od-step.completed .od-step-circle { background: #27ae60; color: white; }
+        .od-step.active .od-step-circle { background: #3498db; color: white; box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2); }
+        .od-step-label { font-size: 0.85rem; color: #7f8c8d; font-weight: 500; }
+        .od-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .od-box { background: #f8f9fa; padding: 20px; border-radius: 8px; }
+        .od-subtitle { font-weight: 700; color: #2c3e50; margin-bottom: 12px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .od-data-point { margin: 8px 0; color: #555; line-height: 1.6; }
+        .od-products-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .od-products-table thead { background: #34495e; color: white; }
+        .od-products-table th, .od-products-table td { padding: 15px; text-align: left; border-bottom: 1px solid #ecf0f1; }
+        .od-product-flex { display: flex; align-items: center; gap: 15px; }
+        .od-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
+        .od-summary-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #ecf0f1; font-size: 0.95rem; }
+        .od-summary-total { font-weight: 700; font-size: 1.2rem; color: #2c3e50; border-top: 2px solid #34495e; margin-top: 10px; padding-top: 15px; }
+    `;
+    }
+
+
+    function closeOrderModal() {
+        document.getElementById('orderModal').classList.remove('show');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('orderModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeOrderModal();
+        }
+    });
+</script>
 
 </body>
 
