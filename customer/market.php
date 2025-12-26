@@ -297,7 +297,7 @@ $price_range = $stmt->fetch();
         max-width: 100%;
         margin: 2rem auto;
         padding: 0 2rem;
-        
+
     }
 
     .products-grid {
@@ -349,11 +349,14 @@ $price_range = $stmt->fetch();
         font-weight: 600;
         margin: 0.5rem 0;
         color: #333;
+        
+        position: relative;
+        top: -60px;
+        max-width: 100%;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         display: -webkit-box;
-        position: relative;
-        top: -60px;
+        word-break: break-word;
         overflow: hidden;
 
     }
@@ -415,6 +418,11 @@ $price_range = $stmt->fetch();
         line-height: 1.4;
         position: relative;
         top: -150px;
+        max-width: 100%;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        word-break: break-word;
 
     }
 
@@ -456,176 +464,187 @@ $price_range = $stmt->fetch();
     }
 
     /* Based on Uiverse.io by Creatlydev - Resized */
-  /* SUPER STYLES */
-.btn-cart {
-    cursor: pointer;
-    border: none;
-    /* Changed to a Super Gradient */
-    background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
-    color: #fff;
-    width: 80px;
-    height: 80px;
-    top: -30px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    display: grid;
-    place-content: center;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
-    font-weight: 700; /* Made text bolder */
-    padding: 0;
-    font-size: 11px;
-    /* Added a glow effect */
-    box-shadow: 0 10px 20px rgba(255, 0, 188, 0.3); 
-}
-
-/* Logic to handle Disabled/Out of Stock */
-.btn-cart:disabled {
-    background: #bdc3c7; /* Flat grey */
-    cursor: not-allowed;
-    width: auto;
-    height: auto;
-    padding: 10px 20px;
-    border-radius: 8px;
-    top: 0;
-    font-size: 14px;
-    box-shadow: none; /* No glow for disabled */
-}
-
-.button__text {
-    position: absolute;
-    inset: 0;
-    animation: text-rotation 8s linear infinite;
-}
-
-.button__text>span {
-    position: absolute;
-    transform: rotate(calc(28deg * var(--index)));
-    inset: 4px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Slight shadow on text for readability */
-}
-
-.button__circle {
-    position: relative;
-    width: 32px;
-    height: 32px;
-    overflow: hidden;
-    background: #fff;
-    /* Text color inside the circle matches the gradient vibe */
-    color: #6e00ff; 
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-
-.button__icon {
-    width: 12px;
-}
-
-.button__icon--copy {
-    position: absolute;
-    transform: translate(-150%, 150%);
-}
-
-/* Hover Effects */
-.btn-cart:hover:not(:disabled) {
-    /* Change background to deep dark on hover */
-    background: #111; 
-    transform: scale(1.1) translateY(-5px); /* Grows and floats up */
-    box-shadow: 0 15px 30px rgba(110, 0, 255, 0.4); /* Stronger glow on hover */
-}
-
-.btn-cart:hover:not(:disabled) .button__circle {
-    background: #111; /* Circle turns dark */
-    color: #fff; /* Icon turns white */
-}
-
-.btn-cart:hover:not(:disabled) .button__icon {
-    color: #fff;
-}
-
-.btn-cart:hover:not(:disabled) .button__icon:first-child {
-    transition: transform 0.3s ease-in-out;
-    transform: translate(150%, -150%);
-}
-
-.btn-cart:hover:not(:disabled) .button__icon--copy {
-    transition: transform 0.3s ease-in-out 0.1s;
-    transform: translate(0);
-}
-
-@keyframes text-rotation {
-    to {
-        rotate: 360deg;
+    /* SUPER STYLES */
+    .btn-cart {
+        cursor: pointer;
+        border: none;
+        /* Changed to a Super Gradient */
+        background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
+        color: #fff;
+        width: 80px;
+        height: 80px;
+        top: -30px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        display: grid;
+        place-content: center;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Bouncy transition */
+        font-weight: 700;
+        /* Made text bolder */
+        padding: 0;
+        font-size: 11px;
+        /* Added a glow effect */
+        box-shadow: 0 10px 20px rgba(255, 0, 188, 0.3);
     }
-}
+
+    /* Logic to handle Disabled/Out of Stock */
+    .btn-cart:disabled {
+        background: #bdc3c7;
+        /* Flat grey */
+        cursor: not-allowed;
+        width: auto;
+        height: auto;
+        padding: 10px 20px;
+        border-radius: 8px;
+        top: 0;
+        font-size: 14px;
+        box-shadow: none;
+        /* No glow for disabled */
+    }
+
+    .button__text {
+        position: absolute;
+        inset: 0;
+        animation: text-rotation 8s linear infinite;
+    }
+
+    .button__text>span {
+        position: absolute;
+        transform: rotate(calc(28deg * var(--index)));
+        inset: 4px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        /* Slight shadow on text for readability */
+    }
+
+    .button__circle {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        background: #fff;
+        /* Text color inside the circle matches the gradient vibe */
+        color: #6e00ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .button__icon {
+        width: 12px;
+    }
+
+    .button__icon--copy {
+        position: absolute;
+        transform: translate(-150%, 150%);
+    }
+
+    /* Hover Effects */
+    .btn-cart:hover:not(:disabled) {
+        /* Change background to deep dark on hover */
+        background: #111;
+        transform: scale(1.1) translateY(-5px);
+        /* Grows and floats up */
+        box-shadow: 0 15px 30px rgba(110, 0, 255, 0.4);
+        /* Stronger glow on hover */
+    }
+
+    .btn-cart:hover:not(:disabled) .button__circle {
+        background: #111;
+        /* Circle turns dark */
+        color: #fff;
+        /* Icon turns white */
+    }
+
+    .btn-cart:hover:not(:disabled) .button__icon {
+        color: #fff;
+    }
+
+    .btn-cart:hover:not(:disabled) .button__icon:first-child {
+        transition: transform 0.3s ease-in-out;
+        transform: translate(150%, -150%);
+    }
+
+    .btn-cart:hover:not(:disabled) .button__icon--copy {
+        transition: transform 0.3s ease-in-out 0.1s;
+        transform: translate(0);
+    }
+
+    @keyframes text-rotation {
+        to {
+            rotate: 360deg;
+        }
+    }
 
     /* Based on Uiverse.io by vinodjangid07 */
-   /* SUPER STYLE - VIEW BUTTON */
-.btn-view {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    /* Super Gradient (matches cart button) */
-    background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
-    border: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Glowing shadow instead of outline */
-    box-shadow: 0 5px 15px rgba(255, 0, 188, 0.4);
-    cursor: pointer;
-    /* Bouncy animation */
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    overflow: hidden;
-    position: relative;
-    text-decoration: none;
-}
+    /* SUPER STYLE - VIEW BUTTON */
+    .btn-view {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        /* Super Gradient (matches cart button) */
+        background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
+        border: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* Glowing shadow instead of outline */
+        box-shadow: 0 5px 15px rgba(255, 0, 188, 0.4);
+        cursor: pointer;
+        /* Bouncy animation */
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+    }
 
-.svgIcon {
-    width: 12px;
-    transition-duration: 0.3s;
-}
+    .svgIcon {
+        width: 12px;
+        transition-duration: 0.3s;
+    }
 
-.svgIcon path {
-    fill: white;
-}
+    .svgIcon path {
+        fill: white;
+    }
 
-.btn-view:hover {
-    width: 140px;
-    border-radius: 50px;
-    /* Deep Black on hover for premium contrast */
-    background: #000;
-    align-items: center;
-    /* Stronger glow on hover */
-    box-shadow: 0 10px 25px rgba(110, 0, 255, 0.5);
-    transform: scale(1.05); /* Slight pop */
-}
+    .btn-view:hover {
+        width: 140px;
+        border-radius: 50px;
+        /* Deep Black on hover for premium contrast */
+        background: #000;
+        align-items: center;
+        /* Stronger glow on hover */
+        box-shadow: 0 10px 25px rgba(110, 0, 255, 0.5);
+        transform: scale(1.05);
+        /* Slight pop */
+    }
 
-.btn-view:hover .svgIcon {
-    transition-duration: 0.3s;
-    transform: translateY(-200%);
-}
+    .btn-view:hover .svgIcon {
+        transition-duration: 0.3s;
+        transform: translateY(-200%);
+    }
 
-.btn-view::before {
-    position: absolute;
-    bottom: -20px;
-    content: "View Details";
-    color: white;
-    font-size: 0px;
-    white-space: nowrap; /* Ensures text doesn't wrap awkwardly during animation */
-}
+    .btn-view::before {
+        position: absolute;
+        bottom: -20px;
+        content: "View Details";
+        color: white;
+        font-size: 0px;
+        white-space: nowrap;
+        /* Ensures text doesn't wrap awkwardly during animation */
+    }
 
-.btn-view:hover::before {
-    font-size: 13px;
-    opacity: 1;
-    bottom: unset;
-    transition-duration: 0.3s;
-}
+    .btn-view:hover::before {
+        font-size: 13px;
+        opacity: 1;
+        bottom: unset;
+        transition-duration: 0.3s;
+    }
 
     /* Empty State */
     .empty-state {
@@ -880,7 +899,7 @@ $price_range = $stmt->fetch();
                                     d="M288 32c-80.8 0-145.5 46.8-192.8 80.6C48.3 156 16 205.8 16 256c0 50.2 32.3 100 79.2 143.4C142.5 433.2 207.2 480 288 480s145.5-46.8 192.8-80.6c46.9-33.5 79.2-83.3 79.2-133.4 0-50.2-32.3-100-79.2-143.4C433.5 78.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1-288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z">
                                 </path>
                             </svg>
-                            
+
                         </a>
                     </div>
 

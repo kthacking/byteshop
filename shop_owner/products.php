@@ -971,7 +971,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <div class="form-group">
                     <label>Product Details (Optional)</label>
                     <textarea name="details" placeholder="Enter product description, features, specifications..."
-                        minlength="140" maxlength="160" required>
+                        minlength="60" maxlength="200" required>
                      </textarea>
                 </div>
 
@@ -996,7 +996,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
                 <div class="form-group">
                     <label>Product Name *</label>
-                    <input type="text" name="product_name" id="edit_product_name" required>
+                    <input type="text" name="product_name" id="edit_product_name" required  minlength="20"
+    maxlength="80">
                 </div>
 
                 <div class="form-grid">
@@ -1055,7 +1056,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <div class="form-group">
                     <label>Product Details (Optional)</label>
                     <textarea name="details" id="edit_details"
-                        placeholder="Enter product description, features, specifications..."></textarea>
+                        placeholder="Enter product description, features, specifications..."  minlength="60"
+    maxlength="200"></textarea>
                 </div>
 
                 <div style="display: flex; gap: 10px; margin-top: 20px;">
