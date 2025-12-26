@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             color: #333;
         }
 
-        .navbar {
+        /* .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 1rem 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 
         .navbar a:hover {
             opacity: 0.8;
-        }
+        } */
 
         .container {
             max-width: 1200px;
@@ -410,7 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     </style>
 </head>
 <body>
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="navbar-content">
             <h1>🛒 ByteShop</h1>
             <div>
@@ -420,8 +420,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <a href="../logout.php">Logout</a>
             </div>
         </div>
-    </nav>
-
+    </nav> -->
+        <?php include '../includes/customer_header.php'; ?>
     <div class="container">
         <h2 style="font-size: 2rem; color: #333;">Checkout</h2>
 

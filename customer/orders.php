@@ -83,7 +83,7 @@ function getStatusProgress($status) {
             color: #333;
         }
 
-        .navbar {
+        /* .navbar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 1rem 2rem;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -111,10 +111,10 @@ function getStatusProgress($status) {
 
         .navbar a:hover {
             opacity: 0.8;
-        }
+        } */
 
         .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -447,18 +447,18 @@ function getStatusProgress($status) {
     </style>
 </head>
 <body>
-    <nav class="navbar">
+    <!-- <nav class="navbar">
         <div class="navbar-content">
-            <h1 🛒 ByteShop</h1>
-<div>
-<a href="index.php">Home</a>
-<a href="cart.php">Cart</a>
-<a href="orders.php">My Orders</a>
-<a href="../logout.php">Logout</a>
-</div>
-</div>
-</nav>
-
+            <h1>🛒 ByteShop</h1>
+        <div>
+            <a href="index.php">Home</a>
+            <a href="cart.php">Cart</a>
+            <a href="orders.php">My Orders</a>
+            <a href="../logout.php">Logout</a>
+        </div>
+       </div>
+    </nav> -->
+        <?php include '../includes/customer_header.php'; ?>
 <div class="container">
     <div class="page-header">
         <h2>My Orders</h2>

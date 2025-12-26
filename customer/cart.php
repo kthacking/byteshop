@@ -122,16 +122,14 @@ $grand_total = $subtotal + $shipping;
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 100%;
         }
 
-        .header {
+        /* .header {
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -145,9 +143,9 @@ $grand_total = $subtotal + $shipping;
         .header h1 {
             color: #667eea;
             font-size: 28px;
-        }
+        } */
 
-        .nav-links a {
+        /* .nav-links a {
             margin-left: 20px;
             color: #667eea;
             text-decoration: none;
@@ -157,7 +155,7 @@ $grand_total = $subtotal + $shipping;
 
         .nav-links a:hover {
             color: #764ba2;
-        }
+        } */
 
         .alert {
             padding: 15px;
@@ -438,7 +436,7 @@ $grand_total = $subtotal + $shipping;
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
+        <!-- Header
         <div class="header">
             <h1>🛒 Shopping Cart</h1>
             <div class="nav-links">
@@ -446,8 +444,8 @@ $grand_total = $subtotal + $shipping;
                 <a href="orders.php">My Orders</a>
                 <a href="../logout.php">Logout</a>
             </div>
-        </div>
-
+        </div> -->
+        <?php include '../includes/customer_header.php'; ?>
         <!-- Messages -->
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>

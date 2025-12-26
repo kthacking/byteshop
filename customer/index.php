@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once '../config/db.php';
+require_once '../includes/session.php';
+require_once '../includes/helpers.php';
 
 // Check if user is logged in and is a customer
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'customer') {
@@ -79,13 +81,13 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 20px 20px;
 }
 
 /* ===== Navigation Bar ===== */
-.navbar {
+/* .navbar {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     padding: 1rem 0;
@@ -131,7 +133,7 @@ body {
 .nav-links a:hover,
 .nav-links a.active {
     background-color: rgba(255,255,255,0.2);
-}
+} */
 
 /* ===== Hero Section ===== */
 .hero {
@@ -410,7 +412,7 @@ body {
 }
 
 /* ===== Responsive Design ===== */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .navbar .container {
         flex-direction: column;
         gap: 15px;
@@ -450,11 +452,11 @@ body {
     .market-content h3 {
         font-size: 1.2rem;
     }
-}
+} */
 </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Navigation
     <nav class="navbar">
         <div class="container">
             <div class="nav-brand">
@@ -468,10 +470,12 @@ body {
                 <a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
-    </nav>
+    </nav> -->
+    <?php include '../includes/customer_header.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero">
+        
         <div class="container">
             <h2>Discover Amazing Markets</h2>
             <p>Shop from multiple vendors, all in one place</p>
@@ -537,12 +541,12 @@ body {
                             <div class="market-image">
                                 <?php if (!empty($market['market_image'])): ?>
                                     <?php
-// Detect if image is URL or local file
-$is_url = preg_match('/^https?:\/\//i', $market['market_image']);
-$image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market['market_image'];
-?>
+        // Detect if image is URL or local file
+        $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
+        $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market['market_image'];
+        ?>
 
-<img src="<?php echo htmlspecialchars($image_src); ?>" 
+     <img src="<?php echo htmlspecialchars($image_src); ?>" 
      alt="<?php echo htmlspecialchars($market['market_name']); ?>"
      onerror="this.src='../assets/images/placeholder.jpg'">
                                 <?php else: ?>
@@ -607,6 +611,8 @@ $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market
         </div>
     </footer>
 
-    <script src="../assets/js/customer.js"></script>
+<script src="../assets/js/customer.js"></script>
+
+
 </body>
 </html>

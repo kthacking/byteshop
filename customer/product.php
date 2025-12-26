@@ -82,7 +82,7 @@ $reviews = $stmt->fetchAll();
         }
 
         /* Header */
-        .header {
+        /* .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 1rem 0;
@@ -140,7 +140,8 @@ $reviews = $stmt->fetchAll();
             font-size: 0.7rem;
             font-weight: bold;
         }
-
+        */
+        
         /* Breadcrumb */
         .breadcrumb {
             max-width: 1400px;
@@ -156,7 +157,7 @@ $reviews = $stmt->fetchAll();
 
         .breadcrumb a:hover {
             text-decoration: underline;
-        }
+        } 
 
         /* Product Detail Container */
         .product-detail {
@@ -559,7 +560,7 @@ $reviews = $stmt->fetchAll();
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header
     <header class="header">
         <div class="header-content">
             <a href="index.php" class="logo">🛒 ByteShop</a>
@@ -574,8 +575,8 @@ $reviews = $stmt->fetchAll();
                 <a href="../logout.php">Logout</a>
             </nav>
         </div>
-    </header>
-
+    </header> -->
+        <?php include '../includes/customer_header.php'; ?>
     <!-- Breadcrumb -->
     <div class="breadcrumb">
         <a href="index.php">Home</a> / 

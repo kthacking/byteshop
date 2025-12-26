@@ -679,7 +679,7 @@ $price_range = $stmt->fetch();
 
 <body>
     <!-- Header -->
-    <header class="header">
+    <!-- <header class="header">
         <div class="header-content">
             <a href="index.php" class="logo">🛒 ByteShop</a>
             <nav class="nav-links">
@@ -693,7 +693,8 @@ $price_range = $stmt->fetch();
                 <a href="../logout.php">Logout</a>
             </nav>
         </div>
-    </header>
+    </header> -->
+    <?php include '../includes/customer_header.php'; ?>
 
     <!-- Market Header -->
     <div class="market-header">
@@ -922,7 +923,7 @@ $price_range = $stmt->fetch();
         <?php endif; ?>
     </div>
 
-    <script>
+<script>
     // Load cart count on page load
     window.addEventListener('DOMContentLoaded', updateCartCount);
 
@@ -962,7 +963,7 @@ $price_range = $stmt->fetch();
                 alert('Failed to add product to cart');
             });
     }
-    </script>
+</script>
 </body>
 
 </html>
