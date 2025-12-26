@@ -7,6 +7,8 @@
 
 require_once '../config/db.php';
 require_once '../includes/session.php';
+require_once '../includes/helpers.php';
+
 
 // Require admin access
 require_admin();
@@ -208,32 +210,46 @@ try {
         }
 
         .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            /* max-width: 1400px;
+            margin: 0 auto; */
+            flex: 1; padding: 30px;
         }
 
-        .nav-links {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+    /* Navigation Links (Top of Container) */
+    .nav-links {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        flex-wrap: wrap;
+    }
 
-        .nav-links a {
-            color: #667eea;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            margin-right: 1rem;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
+    .nav-links a {
+        padding: 0.7rem 1.2rem;
+        background: white;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        border: 2px solid transparent;
+    }
 
-        .nav-links a:hover {
-            background: #f0f0f0;
-        }
+    .nav-links a:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
 
+    .nav-links a.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: #667eea;
+    }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -396,14 +412,14 @@ try {
     </div>
 
     <div class="container">
-        <div class="nav-links">
-            <a href="index.php">Dashboard</a>
-            <a href="users.php">Users</a>
-            <a href="markets.php">Markets</a>
-            <a href="products.php">Products</a>
-            <a href="orders.php">Orders</a>
-            <a href="analytics.php">Analytics & Reports</a>
-        </div>
+         <div class="nav-links">
+        <a href="index.php" class="active">Dashboard</a>
+        <a href="users.php">Users</a>
+        <a href="markets.php">Markets</a>
+        <a href="products.php">Products</a>
+        <a href="orders.php">Orders</a>
+        <a href="analytics.php">Analytics & Reports</a>
+    </div>
 
         <!-- Stats Grid -->
         <div class="stats-grid">
@@ -615,5 +631,4 @@ try {
             }
         });
     </script>
-</body>
-</html>
+    <?php include '../includes/admin_footer.php'; ?>

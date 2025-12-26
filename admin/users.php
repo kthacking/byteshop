@@ -6,6 +6,7 @@
 
 require_once '../config/db.php';
 require_once '../includes/session.php';
+require_once '../includes/helpers.php';
 
 // Require admin access
 require_admin();
@@ -98,15 +99,15 @@ $stats = $pdo->query($stats_query)->fetch();
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
         
-        .container { display: flex; min-height: 100vh; }
+        
         
         /* Sidebar */
-        .sidebar { width: 250px; background: #2c3e50; color: white; padding: 20px; }
+        /* .sidebar { width: 250px; background: #2c3e50; color: white; padding: 20px; }
         .sidebar h2 { margin-bottom: 30px; color: #3498db; }
         .sidebar ul { list-style: none; }
         .sidebar ul li { margin: 15px 0; }
         .sidebar ul li a { color: white; text-decoration: none; display: block; padding: 10px; border-radius: 5px; transition: 0.3s; }
-        .sidebar ul li a:hover, .sidebar ul li a.active { background: #34495e; }
+        .sidebar ul li a:hover, .sidebar ul li a.active { background: #34495e; } */
         
         /* Main Content */
         .main-content { flex: 1; padding: 30px; }
@@ -159,26 +160,63 @@ $stats = $pdo->query($stats_query)->fetch();
         .alert { padding: 15px; margin-bottom: 20px; border-radius: 5px; }
         .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+     .container {
+            /* max-width: 1400px;
+            margin: 2rem auto; */
+            flex: 1; padding: 30px;
+           
+        }
+    /* Navigation Links (Top of Container) */
+    .nav-links {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        flex-wrap: wrap;
+    }
 
+    .nav-links a {
+        padding: 0.7rem 1.2rem;
+        background: white;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        border: 2px solid transparent;
+    }
+
+    .nav-links a:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .nav-links a.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: #667eea;
+    }
         
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <h2>ByteShop Admin</h2>
-            <ul>
-                <li><a href="index.php">📊 Dashboard</a></li>
-                <li><a href="users.php" class="active">👥 Users</a></li>
-                <li><a href="markets.php">🏪 Markets</a></li>
-                <li><a href="products.php">📦 Products</a></li>
-                <li><a href="orders.php">🛒 Orders</a></li>
-                <li><a href="analytics.php">📈 Analytics</a></li>
-                <li><a href="../logout.php">🚪 Logout</a></li>
-            </ul>
-        </div>
-
+        
+         <div class="nav-links">
+        <a href="index.php">Dashboard</a>
+        <a href="users.php" class="active">Users</a>
+        <a href="markets.php">Markets</a>
+        <a href="products.php">Products</a>
+        <a href="orders.php">Orders</a>
+        <a href="analytics.php">Analytics & Reports</a>
+      </div>
+    
         <!-- Main Content -->
         <div class="main-content">
             <div class="header">

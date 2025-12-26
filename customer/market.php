@@ -694,9 +694,9 @@ $price_range = $stmt->fetch();
             </nav>
         </div>
     </header> -->
-    <?php include '../includes/customer_header.php'; ?>
+    <?php include '../includes/customer_header.php'; ?>xcbn/ bn
 
-    <!-- Market Header -->
+    <!-- Market Header -
     <div class="market-header">
         <?php if ($market['market_image']): ?>
         <?php

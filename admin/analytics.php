@@ -190,9 +190,9 @@ $top_customers = $top_customers_stmt->fetchAll();
         }
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
+            /* max-width: 1400px;
+            margin: 0 auto; */
+            flex: 1; padding: 30px;
         }
 
         /* Header */
@@ -222,19 +222,42 @@ $top_customers = $top_customers_stmt->fetchAll();
             font-size: 14px;
         }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            padding: 8px 16px;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
+        
+    /* Navigation Links (Top of Container) */
+    .nav-links {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        flex-wrap: wrap;
+    }
 
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.2);
-        }
+    .nav-links a {
+        padding: 0.7rem 1.2rem;
+        background: white;
+        color: #333;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+        border: 2px solid transparent;
+    }
 
+    .nav-links a:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .nav-links a.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: #667eea;
+    }
         /* Filter Section */
         .filter-section {
             background: white;
@@ -465,12 +488,16 @@ $top_customers = $top_customers_stmt->fetchAll();
                     Welcome, <strong><?php echo get_user_name(); ?></strong> (Admin)
                 </div>
                 <div class="nav-links">
-                    <a href="index.php">Dashboard</a>
-                    <a href="../logout.php">Logout</a>
+                  <a href="index.php">Dashboard</a>
+                    <a href="users.php">Users</a>
+                    <a href="markets.php">Markets</a>
+                    <a href="products.php">Products</a>
+                    <a href="orders.php">Orders</a>
+                    <a href="analytics.php"  class="active">Analytics & Reports</a>
                 </div>
             </div>
         </div>
-
+        
         <!-- Filter Section -->
         <div class="filter-section">
             <h2>🔍 Filter Data</h2>
