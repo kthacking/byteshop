@@ -382,15 +382,14 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        padding: 20px;
     }
 
     .container {
-        max-width: 1400px;
+        max-width: 100%;
         margin: 0 auto;
     }
 
-    .header {
+    /* .header {
         background: white;
         padding: 20px 30px;
         border-radius: 10px;
@@ -418,7 +417,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     .header .user-info span {
         color: #667eea;
         font-weight: bold;
-    }
+    } */
 
     .btn {
         padding: 10px 20px;
@@ -506,9 +505,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     .content-box {
         background: white;
         padding: 30px;
-        border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
+        margin-bottom: 0px;
     }
 
     .content-box h2 {
@@ -781,12 +779,16 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     .product-card:hover .product-image {
         transform: scale(1.05);
     }
+    #adbt{
+        position: relative;
+        float:right;
+    }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="header">
+        <!-- <div class="header">
             <div>
                 <h1>🛍️ Product Management</h1>
                 <p style="color: #666; margin-top: 5px;">
@@ -800,7 +802,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <a href="index.php" class="btn btn-secondary">← Dashboard</a>
                 <a href="../logout.php" class="btn btn-danger">Logout</a>
             </div>
-        </div>
+        </div> -->
+        <?php include '../includes/shop_owner_header.php'; ?>
 
         <?php if ($success_msg): ?>
         <div class="alert alert-success">✓ <?php echo $success_msg; ?></div>
@@ -810,7 +813,22 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         <div class="alert alert-error">✗ <?php echo $error_msg; ?></div>
         <?php endif; ?>
 
-        <!-- Stats -->
+        
+
+        <!-- Add Product Button -->
+        <div class="content-box">
+            <h1>🛍️ Product Management</h1>
+                <p style="color: #666; margin-top: 5px;">
+                    Market: <strong><?php echo htmlspecialchars($market['market_name']); ?></strong>
+                </p>
+                <span class="security-badge">🔒 Owner ID: <?php echo $owner_id; ?> | Market ID:
+                    <?php echo $market_id; ?></span>
+            <button class="btn btn-success" onclick="openAddModal()" id="adbt">+ Add New Product</button>
+            <br>
+            <br>
+            <br>
+            <br>
+            <!-- Stats -->
         <div class="stats-bar">
             <div class="stat-card">
                 <h3><?php echo count($products); ?></h3>
@@ -825,12 +843,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <p>Out of Stock</p>
             </div>
         </div>
-
-        <!-- Add Product Button -->
-        <div class="content-box">
-            <button class="btn btn-success" onclick="openAddModal()">+ Add New Product</button>
         </div>
-
+            
         <!-- Products Grid -->
         <div class="content-box">
             <h2>Your Products (Market ID: <?php echo $market_id; ?>)</h2>

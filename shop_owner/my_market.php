@@ -169,15 +169,14 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+       .container {
+            max-width: 100%;
         }
 
-        .header {
+
+        /* .header {
             background: white;
             padding: 20px;
             border-radius: 10px;
@@ -206,12 +205,13 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
 
         .nav-links a:hover {
             background: #764ba2;
-        }
+        } */
 
         .card {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
+            padding: 30px 130px;
+            margin-top:0px;
+            border-radius: 0px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
@@ -352,30 +352,13 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
             margin-top: 5px;
         }
 
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .nav-links {
-                margin-top: 15px;
-            }
-
-            .nav-links a {
-                margin: 5px;
-            }
-        }
+       
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
+        <!-- <div class="header">
             <h1>🏪 My Market</h1>
             <div class="nav-links">
                 <a href="index.php">Dashboard</a>
@@ -383,7 +366,8 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
                 <a href="orders.php">Orders</a>
                 <a href="../logout.php">Logout</a>
             </div>
-        </div>
+        </div> -->
+        <?php include '../includes/shop_owner_header.php'; ?>
 
         <!-- Market Form Card -->
         <div class="card">

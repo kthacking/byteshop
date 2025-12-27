@@ -163,18 +163,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 0px;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
         }
         
         .header {
             background: white;
             padding: 25px;
-            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             margin-bottom: 30px;
         }
@@ -549,13 +548,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 </head>
 <body>
     <div class="container">
-        <a href="index.php" class="back-link">← Back to Dashboard</a>
+        <?php include '../includes/shop_owner_header.php'; ?>
         
         <div class="header">
+            
             <h1>📦 My Orders</h1>
-            <?php if (isset($market_name)): ?>
-                <p class="market-info">Showing orders for: <strong><?php echo htmlspecialchars($market_name); ?></strong></p>
-            <?php endif; ?>
+            
         </div>
         
         <?php if (isset($_SESSION['success_message'])): ?>

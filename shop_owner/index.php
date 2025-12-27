@@ -143,7 +143,7 @@ if ($market) {
             color: #333;
         }
 
-        /* Header */
+        /* Header
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -184,11 +184,11 @@ if ($market) {
             display: flex;
             align-items: center;
             gap: 1rem;
-        }
+        } */
 
         /* Container */
         .container {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 2rem auto;
             padding: 0 2rem;
         }
@@ -439,7 +439,7 @@ if ($market) {
 </head>
 <body>
     <!-- Header -->
-    <div class="header">
+    <!-- <div class="header">
         <div class="header-content">
             <div class="logo">ByteShop | Shop Owner</div>
             <nav class="nav">
@@ -453,7 +453,8 @@ if ($market) {
                 </div>
             </nav>
         </div>
-    </div>
+    </div> -->
+    <?php include '../includes/shop_owner_header.php'; ?>
 
     <div class="container">
         <!-- Welcome Section -->
