@@ -161,7 +161,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - ByteShop</title>
-    <style>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -169,23 +169,29 @@ try {
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-            color: #333;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
         }
 
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
             color: white;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border-bottom: 1px solid #2a2a2a;
         }
 
         .navbar h1 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .navbar .user-info {
@@ -194,156 +200,210 @@ try {
             gap: 1rem;
         }
 
+        .navbar .user-info span {
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+
         .navbar .logout-btn {
-            background: rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
-            transition: background 0.3s;
+            transition: all 0.3s;
+            font-weight: 600;
         }
 
         .navbar .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
         }
 
         .container {
-            /* max-width: 1400px;
-            margin: 0 auto; */
-            flex: 1; padding: 30px;
+            flex: 1;
+            padding: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-    /* Navigation Links (Top of Container) */
-    .nav-links {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 12px;
-        flex-wrap: wrap;
-    }
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+            padding: 1.2rem;
+            background: #161616;
+            border-radius: 16px;
+            flex-wrap: wrap;
+            border: 1px solid #2a2a2a;
+        }
 
-    .nav-links a {
-        padding: 0.7rem 1.2rem;
-        background: white;
-        color: #333;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.3s;
-        font-size: 0.9rem;
-        border: 2px solid transparent;
-    }
+        .nav-links a {
+            padding: 0.8rem 1.5rem;
+            background: #1f1f1f;
+            color: #b0b0b0;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: 1px solid #2a2a2a;
+        }
 
-    .nav-links a:hover {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-    }
+        .nav-links a:hover {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.3);
+            border-color: transparent;
+        }
 
-    .nav-links a.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-color: #667eea;
-    }
+        .nav-links a.active {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border-color: transparent;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            transition: all 0.3s;
+            border: 1px solid #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.2);
+            border-color: #ff6b35;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-card .icon {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         .stat-card h3 {
-            font-size: 2rem;
-            color: #667eea;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .stat-card p {
-            color: #666;
-            font-size: 0.9rem;
+            color: #909090;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .stat-card small {
+            color: #707070;
+            font-size: 0.85rem;
         }
 
         .revenue-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .revenue-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s;
+        }
+
+        .revenue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
         }
 
         .revenue-card h4 {
             font-size: 0.9rem;
             opacity: 0.9;
             margin-bottom: 0.5rem;
+            font-weight: 500;
         }
 
         .revenue-card h2 {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            font-weight: 700;
         }
 
         .charts-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .chart-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            border: 1px solid #2a2a2a;
         }
 
         .chart-card h3 {
-            margin-bottom: 1rem;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 0.8rem;
+            font-weight: 600;
         }
 
         .table-section {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+            margin-bottom: 2.5rem;
+            border: 1px solid #2a2a2a;
         }
 
         .table-section h3 {
-            margin-bottom: 1rem;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+            border-bottom: 2px solid #ff6b35;
+            padding-bottom: 0.8rem;
+            font-weight: 600;
         }
 
         table {
@@ -352,33 +412,62 @@ try {
         }
 
         th, td {
-            padding: 0.75rem;
+            padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #2a2a2a;
         }
 
         th {
-            background: #f8f9fa;
+            background: #0f0f0f;
             font-weight: 600;
-            color: #667eea;
+            color: #ff6b35;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: #b0b0b0;
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: #1f1f1f;
         }
 
         .badge {
-            padding: 0.25rem 0.75rem;
+            padding: 0.4rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .badge-placed { background: #e3f2fd; color: #1976d2; }
-        .badge-packed { background: #fff3e0; color: #f57c00; }
-        .badge-shipped { background: #e8f5e9; color: #388e3c; }
-        .badge-delivered { background: #c8e6c9; color: #2e7d32; }
-        .badge-cancelled { background: #ffebee; color: #c62828; }
+        .badge-placed { 
+            background: rgba(33, 150, 243, 0.15); 
+            color: #2196f3;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+        .badge-packed { 
+            background: rgba(255, 152, 0, 0.15); 
+            color: #ff9800;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+        }
+        .badge-shipped { 
+            background: rgba(156, 39, 176, 0.15); 
+            color: #9c27b0;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+        .badge-delivered { 
+            background: rgba(76, 175, 80, 0.15); 
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        .badge-cancelled { 
+            background: rgba(244, 67, 54, 0.15); 
+            color: #f44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
 
         canvas {
             max-height: 300px;
@@ -397,8 +486,12 @@ try {
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            .container {
+                padding: 20px;
+            }
         }
-    </style>
+</style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
@@ -569,6 +662,10 @@ try {
     </div>
 
     <script>
+        // Chart.js defaults for dark theme
+        Chart.defaults.color = '#b0b0b0';
+        Chart.defaults.borderColor = '#2a2a2a';
+
         // Monthly Revenue Chart
         const revenueCtx = document.getElementById('revenueChart').getContext('2d');
         new Chart(revenueCtx, {
@@ -578,10 +675,11 @@ try {
                 datasets: [{
                     label: 'Revenue (₹)',
                     data: <?php echo json_encode(array_column($monthly_revenue, 'revenue')); ?>,
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    borderColor: '#ff6b35',
+                    backgroundColor: 'rgba(255, 107, 53, 0.1)',
                     tension: 0.4,
-                    fill: true
+                    fill: true,
+                    borderWidth: 2
                 }]
             },
             options: {
@@ -589,6 +687,18 @@ try {
                 maintainAspectRatio: true,
                 plugins: {
                     legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            color: '#2a2a2a'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#2a2a2a'
+                        }
+                    }
                 }
             }
         });
@@ -601,7 +711,7 @@ try {
                 labels: <?php echo json_encode(array_column($order_status_data, 'order_status')); ?>,
                 datasets: [{
                     data: <?php echo json_encode(array_column($order_status_data, 'count')); ?>,
-                    backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b']
+                    backgroundColor: ['#ff6b35', '#f7931e', '#2196f3', '#9c27b0', '#4caf50']
                 }]
             },
             options: {
@@ -619,7 +729,7 @@ try {
                 datasets: [{
                     label: 'Products',
                     data: <?php echo json_encode(array_column($category_distribution, 'count')); ?>,
-                    backgroundColor: '#667eea'
+                    backgroundColor: '#ff6b35'
                 }]
             },
             options: {
@@ -627,8 +737,21 @@ try {
                 maintainAspectRatio: true,
                 plugins: {
                     legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            color: '#2a2a2a'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: '#2a2a2a'
+                        }
+                    }
                 }
             }
         });
     </script>
-    <?php include '../includes/admin_footer.php'; ?>
+</body>
+</html>
