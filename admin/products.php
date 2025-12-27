@@ -123,7 +123,7 @@ $stats = $pdo->query($stats_query)->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products Management - ByteShop Admin</title>
-    <style>
+<style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
         
@@ -254,7 +254,7 @@ $stats = $pdo->query($stats_query)->fetch();
         color: white;
         border-color: #667eea;
     }
-    </style>
+</style>
 </head>
 <body>
     <div class="container">

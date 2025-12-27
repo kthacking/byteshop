@@ -153,6 +153,148 @@ try {
 } catch(PDOException $e) {
     die("Error fetching dashboard data: " . $e->getMessage());
 }
+
+// Fetch data for Total Revenue Chart (Last 12 months)
+$stmt = $pdo->query("
+    SELECT 
+        DATE_FORMAT(order_date, '%b') as month_name,
+        MONTH(order_date) as month_num,
+        SUM(total_amount) as revenue
+    FROM orders
+    WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+    GROUP BY YEAR(order_date), MONTH(order_date)
+    ORDER BY order_date ASC
+");
+$total_revenue_chart = $stmt->fetchAll();
+
+// Create arrays for chart (fill missing months with 0)
+$total_revenue_months = [];
+$total_revenue_values = [];
+$month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// Fill all 12 months
+for ($i = 0; $i < 12; $i++) {
+    $total_revenue_months[] = $month_names[$i];
+    $total_revenue_values[] = 0;
+}
+
+// Update with actual data
+foreach ($total_revenue_chart as $row) {
+    $month_index = (int)$row['month_num'] - 1;
+    $total_revenue_values[$month_index] = (float)$row['revenue'];
+}
+
+// Fetch data for Today's Revenue Chart (Hourly breakdown)
+$stmt = $pdo->query("
+    SELECT 
+        HOUR(order_date) as hour,
+        SUM(total_amount) as revenue
+    FROM orders
+    WHERE DATE(order_date) = CURDATE()
+    GROUP BY HOUR(order_date)
+    ORDER BY hour ASC
+");
+$today_revenue_chart = $stmt->fetchAll();
+
+// Create hourly data - cumulative throughout the day
+$today_hours = ['6AM', '8AM', '10AM', '12PM', '2PM', '4PM', '6PM', '8PM'];
+$today_revenue_values = [0, 0, 0, 0, 0, 0, 0, 0];
+
+// If there's data for today, accumulate it
+if (!empty($today_revenue_chart)) {
+    $cumulative = 0;
+    $hour_data = [];
+    
+    // First, collect all hourly data
+    foreach ($today_revenue_chart as $row) {
+        $hour_data[(int)$row['hour']] = (float)$row['revenue'];
+    }
+    
+    // Then create cumulative values for display hours
+    $display_hours = [6, 8, 10, 12, 14, 16, 18, 20];
+    foreach ($display_hours as $index => $hour) {
+        // Add all revenue from hours up to and including this hour
+        for ($h = 0; $h <= $hour; $h++) {
+            if (isset($hour_data[$h])) {
+                $cumulative += $hour_data[$h];
+                unset($hour_data[$h]); // Remove to avoid counting twice
+            }
+        }
+        $today_revenue_values[$index] = $cumulative;
+    }
+} else {
+    // No orders today - show last 7 days hourly pattern instead
+    $stmt = $pdo->query("
+        SELECT 
+            HOUR(order_date) as hour,
+            AVG(total_amount) as revenue
+        FROM orders
+        WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        GROUP BY HOUR(order_date)
+        ORDER BY hour ASC
+    ");
+    $week_hourly = $stmt->fetchAll();
+    
+    $hour_mapping = [6 => 0, 8 => 1, 10 => 2, 12 => 3, 14 => 4, 16 => 5, 18 => 6, 20 => 7];
+    foreach ($week_hourly as $row) {
+        $hour = (int)$row['hour'];
+        if (isset($hour_mapping[$hour])) {
+            $today_revenue_values[$hour_mapping[$hour]] = (float)$row['revenue'];
+        }
+    }
+}
+
+// Fetch data for This Month Chart (Weekly breakdown)
+$stmt = $pdo->query("
+    SELECT 
+        WEEK(order_date, 1) - WEEK(DATE_SUB(order_date, INTERVAL DAYOFMONTH(order_date) - 1 DAY), 1) + 1 as week_num,
+        SUM(total_amount) as revenue
+    FROM orders
+    WHERE MONTH(order_date) = MONTH(CURDATE())
+    AND YEAR(order_date) = YEAR(CURDATE())
+    GROUP BY week_num
+    ORDER BY week_num ASC
+");
+$month_revenue_chart = $stmt->fetchAll();
+
+// Create weekly data
+$month_weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+$month_revenue_values = [0, 0, 0, 0];
+
+foreach ($month_revenue_chart as $row) {
+    $week = (int)$row['week_num'] - 1;
+    if ($week >= 0 && $week < 4) {
+        $month_revenue_values[$week] = (float)$row['revenue'];
+    }
+}
+
+// Fetch data for Average Order Value Chart (Last 7 days)
+$stmt = $pdo->query("
+    SELECT 
+        DATE_FORMAT(order_date, '%a') as day_name,
+        DAYOFWEEK(order_date) as day_num,
+        AVG(total_amount) as avg_value
+    FROM orders
+    WHERE order_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    GROUP BY DATE(order_date)
+    ORDER BY order_date ASC
+");
+$avg_order_chart = $stmt->fetchAll();
+
+// Create daily data
+$avg_days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+$avg_order_values = [0, 0, 0, 0, 0, 0, 0];
+
+foreach ($avg_order_chart as $row) {
+    // MySQL DAYOFWEEK returns 1 (Sunday) to 7 (Saturday)
+    // Convert to 0 (Monday) to 6 (Sunday)
+    $day_index = (int)$row['day_num'] - 2;
+    if ($day_index < 0) $day_index = 6; // Sunday
+    
+    if ($day_index >= 0 && $day_index < 7) {
+        $avg_order_values[$day_index] = (float)$row['avg_value'];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -170,7 +312,7 @@ try {
 
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
+            background: #fa7f0cff;
             color: #e0e0e0;
         }
 
@@ -332,40 +474,73 @@ try {
             color: #707070;
             font-size: 0.85rem;
         }
+       /* Revenue Cards - Add to existing styles */
+.revenue-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
 
-        .revenue-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
+.revenue-card {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+}
 
-        .revenue-card {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
-            transition: all 0.3s;
-        }
+.revenue-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+}
 
-        .revenue-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
-        }
+.revenue-card h4 {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
 
-        .revenue-card h4 {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
+.revenue-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    transition: opacity 0.3s;
+}
 
-        .revenue-card h2 {
-            font-size: 2rem;
-            font-weight: 700;
-        }
+.revenue-card .chart-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+}
 
+.revenue-card:hover .chart-container {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.revenue-card:hover h4,
+.revenue-card:hover h2 {
+    opacity: 0;
+}
+
+.revenue-card canvas {
+    max-height: 100px;
+}
+
+        
         .charts-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -544,26 +719,149 @@ try {
 
         <!-- Revenue Stats -->
         <div class="revenue-stats">
-            <div class="revenue-card">
-                <h4>Total Revenue</h4>
-                <h2>₹<?php echo number_format($total_revenue, 2); ?></h2>
-            </div>
-
-            <div class="revenue-card">
-                <h4>Today's Revenue</h4>
-                <h2>₹<?php echo number_format($today_revenue, 2); ?></h2>
-            </div>
-
-            <div class="revenue-card">
-                <h4>This Month</h4>
-                <h2>₹<?php echo number_format($month_revenue, 2); ?></h2>
-            </div>
-
-            <div class="revenue-card">
-                <h4>Average Order Value</h4>
-                <h2>₹<?php echo number_format($avg_order_value, 2); ?></h2>
-            </div>
+    <div class="revenue-card">
+        <h4>Total Revenue</h4>
+        <h2>₹<?php echo number_format($total_revenue, 2); ?></h2>
+        <div class="chart-container">
+            <canvas id="totalRevenueChart"></canvas>
         </div>
+    </div>
+
+    <div class="revenue-card">
+        <h4>Today's Revenue</h4>
+        <h2>₹<?php echo number_format($today_revenue, 2); ?></h2>
+        <div class="chart-container">
+            <canvas id="todayRevenueChart"></canvas>
+        </div>
+    </div>
+
+    <div class="revenue-card">
+        <h4>This Month</h4>
+        <h2>₹<?php echo number_format($month_revenue, 2); ?></h2>
+        <div class="chart-container">
+            <canvas id="monthRevenueChart"></canvas>
+        </div>
+    </div>
+
+    <div class="revenue-card">
+        <h4>Average Order Value</h4>
+        <h2>₹<?php echo number_format($avg_order_value, 2); ?></h2>
+        <div class="chart-container">
+            <canvas id="avgOrderChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Add this JavaScript before the closing </script> tag -->
+<script>
+// Revenue Card Charts - Initialize after page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Common options for mini charts
+    const miniChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                enabled: true,
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                titleColor: '#ffffff',
+                bodyColor: '#ffffff',
+                borderColor: 'rgba(255, 255, 255, 0.3)',
+                borderWidth: 1,
+                padding: 8,
+                displayColors: false,
+                callbacks: {
+                    label: function(context) {
+                        return '₹' + context.parsed.y.toLocaleString('en-IN', {maximumFractionDigits: 2});
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                display: false,
+                grid: { display: false }
+            },
+            y: {
+                display: false,
+                grid: { display: false }
+            }
+        },
+        elements: {
+            point: { radius: 0, hitRadius: 10, hoverRadius: 3 },
+            line: { tension: 0.4, borderWidth: 2 }
+        }
+    };
+
+    // Total Revenue Chart - Last 12 months from database
+    new Chart(document.getElementById('totalRevenueChart'), {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($total_revenue_months); ?>,
+            datasets: [{
+                data: <?php echo json_encode($total_revenue_values); ?>,
+                borderColor: 'rgba(255, 255, 255, 0.9)',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                fill: true
+            }]
+        },
+        options: miniChartOptions
+    });
+
+    // Today's Revenue Chart - Hourly from database
+    new Chart(document.getElementById('todayRevenueChart'), {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($today_hours); ?>,
+            datasets: [{
+                data: <?php echo json_encode($today_revenue_values); ?>,
+                borderColor: 'rgba(255, 255, 255, 0.9)',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                fill: true
+            }]
+        },
+        options: miniChartOptions
+    });
+
+    // This Month Chart - Weekly from database
+    new Chart(document.getElementById('monthRevenueChart'), {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($month_weeks); ?>,
+            datasets: [{
+                data: <?php echo json_encode($month_revenue_values); ?>,
+                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+                borderColor: 'rgba(255, 255, 255, 0.9)',
+                borderWidth: 2,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            ...miniChartOptions,
+            scales: {
+                ...miniChartOptions.scales,
+                x: { ...miniChartOptions.scales.x, grid: { display: false } }
+            }
+        }
+    });
+
+    // Average Order Value Chart - Last 7 days from database
+    new Chart(document.getElementById('avgOrderChart'), {
+        type: 'line',
+        data: {
+            labels: <?php echo json_encode($avg_days); ?>,
+            datasets: [{
+                data: <?php echo json_encode($avg_order_values); ?>,
+                borderColor: 'rgba(255, 255, 255, 0.9)',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                fill: true
+            }]
+        },
+        options: miniChartOptions
+    });
+});
+</script>
 
         <!-- Charts Section -->
         <div class="charts-section">
