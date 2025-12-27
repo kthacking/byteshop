@@ -159,7 +159,7 @@ $stats = $pdo->query($stats_query)->fetch();
      .container {
         flex: 1; 
         padding: 27px; /* 90% of 30px */
-        max-width: 1440px; /* 90% of 1600px */
+        max-width: 100%; /* 90% of 1600px */
         margin: 0 auto;
     }
 

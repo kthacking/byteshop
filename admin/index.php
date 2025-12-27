@@ -312,7 +312,7 @@ foreach ($avg_order_chart as $row) {
 
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fa7f0cff;
+            background: #161615ff;
             color: #e0e0e0;
         }
 
@@ -367,7 +367,7 @@ foreach ($avg_order_chart as $row) {
         .container {
             flex: 1;
             padding: 30px;
-            max-width: 1600px;
+            max-width: 100%;
             margin: 0 auto;
         }
 
@@ -519,11 +519,11 @@ foreach ($avg_order_chart as $row) {
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 1.5rem;
+    padding: 1.5rem 3px 0px 0px ;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    background: linear-gradient(135deg, #a230d6ff 0%, #f7931e 100%);
 }
 
 .revenue-card:hover .chart-container {
@@ -647,6 +647,16 @@ foreach ($avg_order_chart as $row) {
         canvas {
             max-height: 300px;
         }
+        /* Auto hover behaves like real hover */
+.revenue-card.auto-hover .chart-container {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.revenue-card.auto-hover h4,
+.revenue-card.auto-hover h2 {
+    opacity: 0;
+}
 
         @media (max-width: 768px) {
             .stats-grid {
@@ -718,7 +728,7 @@ foreach ($avg_order_chart as $row) {
         </div>
 
         <!-- Revenue Stats -->
-        <div class="revenue-stats">
+<div class="revenue-stats">
     <div class="revenue-card">
         <h4>Total Revenue</h4>
         <h2>₹<?php echo number_format($total_revenue, 2); ?></h2>
@@ -769,7 +779,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 bodyColor: '#ffffff',
                 borderColor: 'rgba(255, 255, 255, 0.3)',
                 borderWidth: 1,
-                padding: 8,
+                padding: 88,
                 displayColors: false,
                 callbacks: {
                     label: function(context) {
@@ -790,7 +800,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         elements: {
             point: { radius: 0, hitRadius: 10, hoverRadius: 3 },
-            line: { tension: 0.4, borderWidth: 2 }
+            line: { tension: 1, borderWidth: 2 }
         }
     };
 
@@ -806,7 +816,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 fill: true
             }]
         },
-        options: miniChartOptions
+        options: { miniChartOptions}
+            
     });
 
     // Today's Revenue Chart - Hourly from database
@@ -821,7 +832,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 fill: true
             }]
         },
-        options: miniChartOptions
+        options: {miniChartOptions}
     });
 
     // This Month Chart - Weekly from database
@@ -837,12 +848,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 borderRadius: 4
             }]
         },
-        options: {
-            ...miniChartOptions,
-            scales: {
-                ...miniChartOptions.scales,
-                x: { ...miniChartOptions.scales.x, grid: { display: false } }
-            }
+        options: {miniChartOptions
+            
         }
     });
 
@@ -858,9 +865,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 fill: true
             }]
         },
-        options: miniChartOptions
+        options: {miniChartOptions }
     });
 });
+
+// AUTO HOVER LOOP FOR REVENUE CARDS
+const revenueCards = document.querySelectorAll('.revenue-card');
+let currentIndex = 0;
+
+function autoHoverLoop() {
+    // remove auto-hover from all
+    revenueCards.forEach(card => card.classList.remove('auto-hover'));
+
+    // add auto-hover to current card
+    revenueCards[currentIndex].classList.add('auto-hover');
+
+    // move to next card
+    currentIndex = (currentIndex + 1) % revenueCards.length;
+}
+
+// start loop
+setInterval(autoHoverLoop, 900); // 3 seconds each card
+
+// allow manual hover to override temporarily
+revenueCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        revenueCards.forEach(c => c.classList.remove('auto-hover'));
+    });
+});
+
 </script>
 
         <!-- Charts Section -->
@@ -1002,21 +1035,86 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Order Status Chart
-        const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
-        new Chart(orderStatusCtx, {
-            type: 'doughnut',
-            data: {
-                labels: <?php echo json_encode(array_column($order_status_data, 'order_status')); ?>,
-                datasets: [{
-                    data: <?php echo json_encode(array_column($order_status_data, 'count')); ?>,
-                    backgroundColor: ['#ff6b35', '#f7931e', '#2196f3', '#9c27b0', '#4caf50']
-                }]
+        const orderStatusCtx = document
+    .getElementById('orderStatusChart')
+    .getContext('2d');
+
+new Chart(orderStatusCtx, {
+    type: 'radar',
+    data: {
+        labels: <?php echo json_encode(array_column($order_status_data, 'order_status')); ?>,
+        datasets: [{
+            label: 'Order Status Distribution',
+            data: <?php echo json_encode(array_column($order_status_data, 'count')); ?>,
+
+            fill: true,
+            backgroundColor: 'rgba(37, 99, 235, 0.15)',
+            borderColor: '#2563eb',
+            borderWidth: 2,
+
+            pointBackgroundColor: '#2563eb',
+            pointBorderColor: '#ffffff',
+            pointHoverRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        animation: {
+            duration: 800,
+            easing: 'easeOutQuart'
+        },
+
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    color: '#e5e7eb',
+                    font: {
+                        size: 12,
+                        weight: '500'
+                    }
+                }
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true
+            tooltip: {
+                backgroundColor: '#111827',
+                titleColor: '#f9fafb',
+                bodyColor: '#f9fafb',
+                borderColor: '#374151',
+                borderWidth: 1,
+                padding: 10,
+                callbacks: {
+                    label(context) {
+                        return `${context.label}: ${context.parsed.r}`;
+                    }
+                }
             }
-        });
+        },
+
+        scales: {
+            r: {
+                angleLines: {
+                    color: '#1f2933'
+                },
+                grid: {
+                    color: '#1f2933'
+                },
+                pointLabels: {
+                    color: '#e5e7eb',
+                    font: {
+                        size: 11,
+                        weight: '500'
+                    }
+                },
+                ticks: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+
 
         // Category Distribution Chart
         const categoryCtx = document.getElementById('categoryChart').getContext('2d');

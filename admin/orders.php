@@ -99,365 +99,472 @@ $stats = $pdo->query($stats_query)->fetch();
     }
 
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f5f5f5;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        color: #e0e0e0;
+        min-height: 100vh;
     }
 
-     .container {
-            /* max-width: 1400px;
-            margin: 0 auto; */
-            flex: 1; padding: 30px;
-        }
-     /* Navigation Links (Top of Container) */
-    .nav-links {
+   .nav-links {
         display: flex;
-        gap: 0.5rem;
-        margin-bottom: 2rem;
-        padding: 1rem;
-        background: #f8f9fa;
-        border-radius: 12px;
+        gap: 0.72rem; /* 90% of 0.8rem */
+        margin-bottom: 2.25rem; /* 90% of 2.5rem */
+        padding: 1.08rem; /* 90% of 1.2rem */
+        background: #161616;
+        border-radius: 14.4px; /* 90% of 16px */
         flex-wrap: wrap;
+        border: 1px solid #2a2a2a;
     }
 
     .nav-links a {
-        padding: 0.7rem 1.2rem;
-        background: white;
-        color: #333;
+        padding: 0.72rem 1.35rem; /* 90% of 0.8rem 1.5rem */
+        background: #1f1f1f;
+        color: #b0b0b0;
         text-decoration: none;
-        border-radius: 8px;
+        border-radius: 9px; /* 90% of 10px */
         font-weight: 600;
         transition: all 0.3s;
-        font-size: 0.9rem;
-        border: 2px solid transparent;
+        font-size: 0.81rem; /* 90% of 0.9rem */
+        border: 1px solid #2a2a2a;
     }
 
     .nav-links a:hover {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        transform: translateY(-1.8px); /* 90% of -2px */
+        box-shadow: 0 5.4px 14.4px rgba(255, 107, 53, 0.3); /* 90% scale */
+        border-color: transparent;
     }
 
     .nav-links a.active {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
-        border-color: #667eea;
+        border-color: transparent;
+    }
+     .container {
+        flex: 1; 
+        padding: 27px; /* 90% of 30px */
+        max-width: 100%; /* 90% of 1600px */
+        margin: 0 auto;
     }
 
-    /* Sidebar */
-    /* .sidebar {
-        width: 250px;
-        background: #2c3e50;
-        color: white;
-        padding: 20px;
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        overflow-y: auto;
-    }
-
-    .sidebar h2 {
-        margin-bottom: 30px;
-        color: #3498db;
-    }
-
-    .sidebar ul {
-        list-style: none;
-    }
-
-    .sidebar ul li {
-        margin: 15px 0;
-    }
-
-    .sidebar ul li a {
-        color: white;
-        text-decoration: none;
-        display: block;
-        padding: 10px;
-        border-radius: 5px;
-        transition: 0.3s;
-    }
-
-    .sidebar ul li a:hover,
-    .sidebar ul li a.active {
-        background: #34495e;
-    } */
 
     /* Main Content */
     .main-content {
         flex: 1;
-        padding: 30px;
+        padding: 27px;
     }
 
     .header {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 25.2px;
+        border-radius: 14.4px;
+        margin-bottom: 27px;
+        box-shadow: 0 7.2px 28.8px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 107, 53, 0.15);
     }
 
     .header h1 {
-        color: #2c3e50;
-        margin-bottom: 10px;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 1.98rem;
+        font-weight: 700;
+        margin-bottom: 7.2px;
+    }
+
+    .header p {
+        color: #a0a0a0;
+        font-size: 0.9rem;
     }
 
     /* Stats Cards */
     .stats-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
+        grid-template-columns: repeat(auto-fit, minmax(162px, 1fr));
+        gap: 18px;
+        margin-bottom: 27px;
     }
 
     .stat-card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 21.6px;
+        border-radius: 14.4px;
+        box-shadow: 0 7.2px 28.8px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2.7px;
+        background: linear-gradient(90deg, transparent, currentColor, transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4.5px);
+        box-shadow: 0 10.8px 36px rgba(255, 107, 53, 0.3);
+        border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    .stat-card:hover::before {
+        opacity: 1;
     }
 
     .stat-card h3 {
-        color: #7f8c8d;
-        font-size: 14px;
-        margin-bottom: 10px;
+        color: #a0a0a0;
+        font-size: 0.765rem;
+        margin-bottom: 10.8px;
+        text-transform: uppercase;
+        letter-spacing: 0.9px;
+        font-weight: 600;
     }
 
     .stat-card .number {
-        font-size: 28px;
-        font-weight: bold;
-        color: #2c3e50;
+        font-size: 2.25rem;
+        font-weight: 700;
     }
 
     .stat-card.blue .number {
-        color: #3498db;
+        color: #4a9eff;
+    }
+
+    .stat-card.blue::before {
+        color: #4a9eff;
     }
 
     .stat-card.green .number {
-        color: #27ae60;
+        color: #00d4aa;
+    }
+
+    .stat-card.green::before {
+        color: #00d4aa;
     }
 
     .stat-card.orange .number {
-        color: #e67e22;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stat-card.orange::before {
+        color: #ff6b35;
     }
 
     .stat-card.purple .number {
-        color: #9b59b6;
+        color: #a55eea;
+    }
+
+    .stat-card.purple::before {
+        color: #a55eea;
     }
 
     .stat-card.red .number {
-        color: #e74c3c;
+        color: #ff4757;
+    }
+
+    .stat-card.red::before {
+        color: #ff4757;
     }
 
     /* Filters */
     .filters {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 21.6px;
+        border-radius: 14.4px;
+        margin-bottom: 22.5px;
+        box-shadow: 0 7.2px 28.8px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .filters form {
         display: flex;
-        gap: 12px;
+        gap: 12.6px;
         flex-wrap: wrap;
         align-items: end;
     }
 
     .filters .form-group {
         flex: 1;
-        min-width: 160px;
+        min-width: 162px;
     }
 
     .filters label {
         display: block;
-        margin-bottom: 5px;
-        color: #555;
-        font-weight: 500;
-        font-size: 14px;
+        margin-bottom: 7.2px;
+        color: #b0b0b0;
+        font-weight: 600;
+        font-size: 0.765rem;
+        text-transform: uppercase;
+        letter-spacing: 0.45px;
     }
 
     .filters select,
     .filters input {
         width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 14px;
+        padding: 10.8px 14.4px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 9px;
+        font-size: 0.855rem;
+        color: #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+    .filters select:focus,
+    .filters input:focus {
+        outline: none;
+        border-color: #ff6b35;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.1);
+    }
+
+    .filters select option {
+        background: #1a1a1a;
+        color: #e0e0e0;
     }
 
     .filters button {
-        padding: 10px 20px;
-        background: #3498db;
+        padding: 10.8px 25.2px;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 9px;
         cursor: pointer;
+        font-weight: 600;
+        font-size: 0.855rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 3.6px 13.5px rgba(255, 107, 53, 0.3);
     }
 
     .filters button:hover {
-        background: #2980b9;
+        transform: translateY(-1.8px);
+        box-shadow: 0 5.4px 22.5px rgba(255, 107, 53, 0.5);
     }
 
     /* Orders List */
     .orders-list {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 13.5px;
     }
 
     .order-card {
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: 0.3s;
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 14.4px;
+        padding: 18px;
+        box-shadow: 0 7.2px 28.8px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .order-card:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10.8px 36px rgba(255, 107, 53, 0.3);
+        border-color: rgba(255, 107, 53, 0.3);
+        transform: translateY(-2.7px);
     }
 
     .order-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 15px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #ecf0f1;
+        margin-bottom: 13.5px;
+        padding-bottom: 13.5px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     .order-id {
-        font-size: 18px;
-        font-weight: bold;
-        color: #2c3e50;
+        font-size: 1.62rem;
+        font-weight: 700;
+        color: #ffffff;
     }
 
     .order-date {
-        color: #7f8c8d;
-        font-size: 14px;
+        color: #a0a0a0;
+        font-size: 0.855rem;
     }
 
     .order-body {
         display: grid;
         grid-template-columns: 2fr 1fr 1fr;
-        gap: 20px;
-        margin-bottom: 15px;
+        gap: 18px;
+        margin-bottom: 13.5px;
     }
 
     .customer-info h4 {
-        color: #2c3e50;
-        margin-bottom: 8px;
-        font-size: 16px;
+        color: #ffffff;
+        margin-bottom: 7.2px;
+        font-size: 1.17rem;
+        font-weight: 600;
     }
 
     .customer-info p {
-        color: #7f8c8d;
-        font-size: 14px;
-        margin: 5px 0;
+        color: #a0a0a0;
+        font-size: 0.855rem;
+        margin: 4.5px 0;
     }
 
     .order-stats {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 9px;
     }
 
     .stat-item {
-        background: #ecf0f1;
-        padding: 10px;
-        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10.8px;
+        border-radius: 9px;
         text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .stat-item .label {
-        font-size: 12px;
-        color: #7f8c8d;
+        font-size: 0.72rem;
+        color: #a0a0a0;
+        text-transform: uppercase;
+        letter-spacing: 0.45px;
     }
 
     .stat-item .value {
-        font-size: 20px;
-        font-weight: bold;
-        color: #2c3e50;
+        font-size: 1.62rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-top: 4.5px;
     }
 
     .order-actions {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 9px;
     }
 
     /* Status Badge */
     .status-badge {
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 500;
+        padding: 7.2px 13.5px;
+        border-radius: 18px;
+        font-size: 0.765rem;
+        font-weight: 600;
         display: inline-block;
+        border: 1px solid;
+        letter-spacing: 0.45px;
     }
 
     .status-badge.placed {
-        background: #3498db;
-        color: white;
+        background: rgba(74, 158, 255, 0.15);
+        color: #4a9eff;
+        border-color: rgba(74, 158, 255, 0.3);
     }
 
     .status-badge.packed {
-        background: #f39c12;
-        color: white;
+        background: rgba(247, 147, 30, 0.15);
+        color: #f7931e;
+        border-color: rgba(247, 147, 30, 0.3);
     }
 
     .status-badge.shipped {
-        background: #9b59b6;
-        color: white;
+        background: rgba(165, 94, 234, 0.15);
+        color: #a55eea;
+        border-color: rgba(165, 94, 234, 0.3);
     }
 
     .status-badge.delivered {
-        background: #27ae60;
-        color: white;
+        background: rgba(0, 212, 170, 0.15);
+        color: #00d4aa;
+        border-color: rgba(0, 212, 170, 0.3);
     }
 
     .status-badge.cancelled {
-        background: #e74c3c;
-        color: white;
+        background: rgba(255, 71, 87, 0.15);
+        color: #ff4757;
+        border-color: rgba(255, 71, 87, 0.3);
     }
 
     /* Buttons */
     .btn {
-        padding: 10px 15px;
+        padding: 9px 13.5px;
         border: none;
-        border-radius: 5px;
+        border-radius: 9px;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 0.855rem;
         text-align: center;
         width: 100%;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
     }
 
     .btn-primary {
-        background: #3498db;
-        color: white;
+        background: rgba(74, 158, 255, 0.2);
+        color: #4a9eff;
+        border-color: rgba(74, 158, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+        background: rgba(74, 158, 255, 0.3);
+        transform: translateY(-1.8px);
+        box-shadow: 0 3.6px 13.5px rgba(74, 158, 255, 0.3);
     }
 
     .btn-success {
-        background: #27ae60;
-        color: white;
+        background: rgba(0, 212, 170, 0.2);
+        color: #00d4aa;
+        border-color: rgba(0, 212, 170, 0.3);
+    }
+
+    .btn-success:hover {
+        background: rgba(0, 212, 170, 0.3);
+        transform: translateY(-1.8px);
+        box-shadow: 0 3.6px 13.5px rgba(0, 212, 170, 0.3);
     }
 
     .btn-info {
-        background: #17a2b8;
-        color: white;
+        background: rgba(74, 158, 255, 0.2);
+        color: #4a9eff;
+        border-color: rgba(74, 158, 255, 0.3);
     }
 
-    .btn:hover {
-        opacity: 0.85;
+    .btn-info:hover {
+        background: rgba(74, 158, 255, 0.3);
+        transform: translateY(-1.8px);
+        box-shadow: 0 3.6px 13.5px rgba(74, 158, 255, 0.3);
     }
 
     /* Status Dropdown */
     select.status-select {
-        padding: 8px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
+        padding: 9px 12.6px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 9px;
         cursor: pointer;
+        color: #e0e0e0;
+        font-size: 0.855rem;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    select.status-select:focus {
+        outline: none;
+        border-color: #ff6b35;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    select.status-select option {
+        background: #1a1a1a;
+        color: #e0e0e0;
     }
 
     /* Modal */
@@ -468,7 +575,8 @@ $stats = $pdo->query($stats_query)->fetch();
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.6);
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
         z-index: 1000;
     }
 
@@ -479,85 +587,343 @@ $stats = $pdo->query($stats_query)->fetch();
     }
 
     .modal-content {
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        max-width: 600px;
+        background: rgba(26, 26, 26, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 31.5px;
+        border-radius: 18px;
+        max-width: 540px;
         width: 90%;
         max-height: 80vh;
         overflow-y: auto;
+        border: 1px solid rgba(255, 107, 53, 0.3);
+        box-shadow: 0 18px 54px rgba(0, 0, 0, 0.6);
     }
 
     .modal-content h3 {
-        margin-bottom: 20px;
-        color: #2c3e50;
+        margin-bottom: 18px;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 1.44rem;
+        font-weight: 700;
     }
 
     .modal-close {
         float: right;
-        font-size: 28px;
+        font-size: 25.2px;
         cursor: pointer;
-        color: #7f8c8d;
+        color: #a0a0a0;
+        transition: color 0.3s ease;
     }
 
     .modal-close:hover {
-        color: #e74c3c;
+        color: #ff4757;
     }
 
     .order-item {
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 5px;
-        margin: 10px 0;
+        padding: 13.5px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 9px;
+        margin: 9px 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .order-item h4 {
-        color: #2c3e50;
-        margin-bottom: 5px;
+        color: #ffffff;
+        margin-bottom: 4.5px;
+        font-size: 1.08rem;
     }
 
     .order-item p {
-        color: #7f8c8d;
-        font-size: 14px;
-        margin: 3px 0;
+        color: #a0a0a0;
+        font-size: 0.855rem;
+        margin: 2.7px 0;
     }
 
     /* Alerts */
     .alert {
-        padding: 15px;
-        margin-bottom: 20px;
-        border-radius: 5px;
+        padding: 13.5px 19.8px;
+        margin-bottom: 21.6px;
+        border-radius: 10.8px;
+        font-weight: 500;
+        border: 1px solid;
     }
 
     .alert-success {
-        background: #d4edda;
-        color: #155724;
-        border: 1px solid #c3e6cb;
+        background: rgba(0, 212, 170, 0.15);
+        color: #00d4aa;
+        border-color: rgba(0, 212, 170, 0.3);
     }
 
     .no-orders {
         text-align: center;
-        padding: 60px 20px;
-        color: #95a5a6;
-        font-size: 18px;
-        background: white;
-        border-radius: 10px;
+        padding: 72px 18px;
+        color: #a0a0a0;
+        font-size: 1.08rem;
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 14.4px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .no-orders h2 {
+        color: #ffffff;
+        margin-bottom: 10.8px;
+        font-size: 1.62rem;
+    }
+
+    /* Order Details Modal Styles */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(9px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .od-modal-body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background-color: rgba(26, 26, 26, 0.95);
+        color: #e0e0e0;
+        padding: 22.5px;
+        animation: fadeIn 0.3s ease-out;
+        border-radius: 14.4px;
+    }
+
+    .od-top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22.5px;
+    }
+
+    .od-title-group h2 {
+        margin: 0;
+        font-size: 1.44rem;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+
+    .od-title-group span {
+        font-size: 0.81rem;
+        color: #a0a0a0;
+    }
+
+    .od-actions .btn-action {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 7.2px 13.5px;
+        border-radius: 7.2px;
+        color: #e0e0e0;
+        cursor: pointer;
+        font-size: 0.765rem;
+        font-weight: 600;
+        transition: all 0.2s;
+        margin-left: 7.2px;
+    }
+
+    .od-actions .btn-action:hover {
+        background: rgba(255, 107, 53, 0.2);
+        border-color: rgba(255, 107, 53, 0.3);
+    }
+
+    /* Timeline */
+    .od-timeline {
+        display: flex;
+        justify-content: space-between;
+        margin: 27px 0 36px 0;
+        position: relative;
+        padding: 0 18px;
+    }
+
+    .od-timeline::before {
+        content: '';
+        position: absolute;
+        top: 12.6px;
+        left: 36px;
+        right: 36px;
+        height: 2.7px;
+        background: rgba(255, 255, 255, 0.15);
+        z-index: 0;
+    }
+
+    .od-step {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        width: 25%;
+    }
+
+    .od-step-circle {
+        width: 28.8px;
+        height: 28.8px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        margin: 0 auto 7.2px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 12.6px;
+        transition: background 0.3s;
+    }
+
+    .od-step-label {
+        font-size: 0.675rem;
+        font-weight: 600;
+        color: #a0a0a0;
+        text-transform: uppercase;
+    }
+
+    .od-step.active .od-step-circle {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        box-shadow: 0 0 0 3.6px rgba(255, 107, 53, 0.2);
+    }
+
+    .od-step.active .od-step-label {
+        color: #ff6b35;
+    }
+
+    .od-step.completed .od-step-circle {
+        background: #00d4aa;
+    }
+
+    /* Content Cards */
+    .od-content-wrapper {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10.8px;
+        box-shadow: 0 1.8px 7.2px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .od-details-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .od-box {
+        padding: 22.5px;
+    }
+
+    .od-box:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .od-subtitle {
+        font-size: 0.675rem;
+        text-transform: uppercase;
+        color: #a0a0a0;
+        font-weight: 700;
+        margin-bottom: 13.5px;
+        letter-spacing: 0.45px;
+    }
+
+    .od-data-point {
+        margin-bottom: 7.2px;
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        font-size: 0.855rem;
+        color: #e0e0e0;
+    }
+
+    /* Product Table */
+    .od-products-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .od-products-table th {
+        text-align: left;
+        padding: 13.5px 22.5px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #a0a0a0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .od-products-table td {
+        padding: 18px 22.5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        vertical-align: middle;
+    }
+
+    .od-product-flex {
+        display: flex;
+        align-items: center;
+        gap: 13.5px;
+    }
+
+    .od-thumb {
+        width: 45px;
+        height: 45px;
+        border-radius: 7.2px;
+        object-fit: cover;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Summary */
+    .od-summary-row {
+        display: flex;
+        justify-content: flex-end;
+        padding: 9px 22.5px;
+    }
+
+    .od-summary-row span:first-child {
+        width: 135px;
+        text-align: right;
+        color: #a0a0a0;
+        margin-right: 18px;
+    }
+
+    .od-summary-row span:last-child {
+        width: 90px;
+        text-align: right;
+        font-weight: 600;
+        color: #ffffff;
+    }
+
+    .od-summary-total {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 18px 22.5px;
+        margin-top: 9px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .od-summary-total span:last-child {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 1.08rem;
+        font-weight: 800;
     }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <!-- Sidebar -->
         <div class="nav-links">
-        <a href="index.php">Dashboard</a>
-        <a href="users.php">Users</a>
-        <a href="markets.php" >Markets</a>
-        <a href="products.php" >Products</a>
-        <a href="orders.php" class="active">Orders</a>
-        <a href="analytics.php">Analytics & Reports</a>
-    </div>
-        <!-- Main Content -->
+            <a href="index.php">Dashboard</a>
+            <a href="users.php">Users</a>
+            <a href="markets.php">Markets</a>
+            <a href="products.php">Products</a>
+            <a href="orders.php" class="active">Orders</a>
+            <a href="analytics.php">Analytics & Reports</a>
+        </div>
+
         <div class="main-content">
             <div class="header">
                 <h1>Orders Management</h1>
@@ -580,8 +946,29 @@ $stats = $pdo->query($stats_query)->fetch();
                     <div class="number"><?php echo $stats['total_orders']; ?></div>
                 </div>
                 <div class="stat-card green">
+                    <?php
+function format_indian_short($num) {
+    $num = (float)$num; // Ensure it's a number
+
+    if ($num >= 10000000) {
+        // 1 Crore = 1,00,00,000
+        return '₹' . round($num / 10000000, 2) . 'Cr';
+    } elseif ($num >= 100000) {
+        // 1 Lakh = 1,00,000
+        return '₹' . round($num / 100000, 2) . 'L';
+    } elseif ($num >= 1000) {
+        // 1 Thousand = 1,000
+        return '₹' . round($num / 1000, 2) . 'K';
+    }
+    
+    // Default (Less than 1k)
+    return '₹' . number_format($num, 0);
+}
+?>
                     <h3>Total Revenue</h3>
-                    <div class="number">₹<?php echo number_format($stats['total_revenue'] ?? 0, 2); ?></div>
+                    <div class="number">
+                        <?php echo format_indian_short($stats['total_revenue'] ?? 0); ?>
+                    </div>
                 </div>
                 <div class="stat-card orange">
                     <h3>Placed</h3>
@@ -677,7 +1064,7 @@ $stats = $pdo->query($stats_query)->fetch();
                             </div>
                             <div class="stat-item">
                                 <div class="label">Payment</div>
-                                <div class="value" style="font-size: 14px;"><?php echo $order['payment_method']; ?>
+                                <div class="value" style="font-size: 12.6px;"><?php echo $order['payment_method']; ?>
                                 </div>
                             </div>
                         </div>
@@ -732,7 +1119,7 @@ $stats = $pdo->query($stats_query)->fetch();
         </div>
     </div>
 
-    <!-- <script>
+    <script>
     function viewOrderDetails(orderId) {
         const modal = document.getElementById('orderModal');
         const contentDiv = document.getElementById('orderDetailsContent');
@@ -748,405 +1135,6 @@ $stats = $pdo->query($stats_query)->fetch();
                     const order = data.order || data.data.order;
                     const items = data.items || data.data.items;
 
-                    // --- Logic for Timeline ---
-                    // Define the order of your statuses
-                    const steps = ['pending', 'processing', 'shipped', 'delivered'];
-                    const currentStatus = order.order_status.toLowerCase();
-                    // Find index (if cancelled, we might just show text, but assuming standard flow here)
-                    let activeIndex = steps.indexOf(currentStatus);
-                    if (activeIndex === -1 && currentStatus === 'completed') activeIndex =
-                    3; // map completed to delivered
-
-                    // Helper to generate timeline HTML
-                    const renderTimeline = () => {
-                        if (currentStatus === 'cancelled') {
-                            return `<div class="alert alert-danger" style="margin:20px 0; text-align:center;">🚫 This order has been Cancelled</div>`;
-                        }
-
-                        let timelineHtml = '<div class="od-timeline">';
-                        const labels = ['Order Placed', 'Processing', 'Out for Delivery', 'Delivered'];
-
-                        steps.forEach((step, index) => {
-                            let className = 'od-step';
-                            if (index < activeIndex) className += ' completed';
-                            if (index === activeIndex) className += ' active';
-
-                            timelineHtml += `
-                            <div class="${className}">
-                                <div class="od-step-circle">${index + 1}</div>
-                                <div class="od-step-label">${labels[index]}</div>
-                            </div>`;
-                        });
-                        timelineHtml += '</div>';
-                        return timelineHtml;
-                    };
-
-                    // Calculations
-                    const subtotal = items.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
-                    const grandTotal = parseFloat(order.total_amount);
-                    // Assuming tax/shipping are calculated or part of the total. 
-                    // If you don't have these specifically in DB, we can estimate or hide them.
-                    const shippingCost = grandTotal > subtotal ? (grandTotal - subtotal) : 0;
-
-                    let html = `
-                <div class="od-modal-body">
-                    <div class="od-top-bar">
-                        <div class="od-title-group">
-                            <h2>Order #${order.order_id}</h2>
-                            <span>Placed on ${new Date(order.order_date).toLocaleDateString()} at ${new Date(order.order_date).toLocaleTimeString()}</span>
-                        </div>
-                        <div class="od-actions">
-                            <button class="btn-action" onclick="window.print()">🖨️ Print</button>
-                            <button class="btn-action">⬇️ Invoice</button>
-                        </div>
-                    </div>
-
-                    ${renderTimeline()}
-
-                    <div class="od-content-wrapper">
-                        <div class="od-details-grid">
-                            <div class="od-box">
-                                <div class="od-subtitle">Customer Details</div>
-                                <div class="od-data-point"><strong>${order.customer_name}</strong></div>
-                                <div class="od-data-point">📧 ${order.customer_email}</div>
-                                <div class="od-data-point">📞 ${order.customer_phone || '--'}</div>
-                            </div>
-                            <div class="od-box">
-                                <div class="od-subtitle">Shipping To</div>
-                                <div class="od-data-point">📍 ${order.delivery_address.replace(/\n/g, '<br>')}</div>
-                                <div style="margin-top:15px;" class="od-subtitle">Payment Method</div>
-                                <div class="od-data-point">💳 ${order.payment_method}</div>
-                            </div>
-                        </div>
-
-                        <table class="od-products-table">
-                            <thead>
-                                <tr>
-                                    <th>Product</th>
-                                    <th>Category</th>
-                                    <th style="text-align:right;">Cost</th>
-                                </tr>
-                            </thead>
-                            <tbody>`;
-
-                    items.forEach(item => {
-                        let img = item.product_image ?
-                            (item.product_image.startsWith('http') ? item.product_image :
-                                `../uploads/products/${item.product_image}`) :
-                            '../assets/images/default-product.jpg';
-
-                        html += `
-                        <tr>
-                            <td>
-                                <div class="od-product-flex">
-                                    <img src="${img}" class="od-thumb" onerror="this.src='../assets/images/default-product.jpg'">
-                                    <div>
-                                        <div style="font-weight:600; color:#2c3e50;">${item.product_name}</div>
-                                        <div style="font-size:0.8rem; color:#999;">Seller: ${item.market_name}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td style="color:#666;">${item.category}</td>
-                            <td style="text-align:right;">
-                                <div style="color:#2c3e50; font-weight:600;">₹${parseFloat(item.subtotal).toFixed(2)}</div>
-                                <div style="font-size:0.75rem; color:#999;">${item.quantity} x ₹${parseFloat(item.price).toFixed(2)}</div>
-                            </td>
-                        </tr>`;
-                    });
-
-                    html += `
-                            </tbody>
-                        </table>
-
-                        <div style="padding: 20px 0;">
-                            <div class="od-summary-row">
-                                <span>Subtotal</span>
-                                <span>₹${subtotal.toFixed(2)}</span>
-                            </div>
-                            <div class="od-summary-row">
-                                <span>Shipping & Handling</span>
-                                <span>${shippingCost > 0 ? '₹'+shippingCost.toFixed(2) : 'Free'}</span>
-                            </div>
-                            <div class="od-summary-row od-summary-total">
-                                <span>Grand Total</span>
-                                <span>₹${grandTotal.toFixed(2)}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
-
-                    contentDiv.innerHTML = html;
-                } else {
-                    contentDiv.innerHTML = `<div class="alert alert-danger m-4">${data.message}</div>`;
-                }
-            })
-            .catch(err => console.error(err));
-    }
-
-
-    function closeOrderModal() {
-        document.getElementById('orderModal').classList.remove('show');
-    }
-
-    // Close modal when clicking outside
-    document.getElementById('orderModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeOrderModal();
-        }
-    });
-</script> -->
-<style>
-    /* Animation */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .od-modal-body {
-        font-family: 'Inter', -apple-system, sans-serif;
-        /* Modern font stack */
-        background-color: #f4f6f8;
-        color: #455a64;
-        padding: 25px;
-        animation: fadeIn 0.3s ease-out;
-    }
-
-    /* Header & Actions */
-    .od-top-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-    }
-
-    .od-title-group h2 {
-        margin: 0;
-        font-size: 1.6rem;
-        color: #1a1a1a;
-        font-weight: 700;
-    }
-
-    .od-title-group span {
-        font-size: 0.9rem;
-        color: #9aa5b1;
-    }
-
-    .od-actions .btn-action {
-        background: white;
-        border: 1px solid #dfe3e8;
-        padding: 8px 15px;
-        border-radius: 6px;
-        color: #455a64;
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-weight: 600;
-        transition: all 0.2s;
-        margin-left: 8px;
-    }
-
-    .od-actions .btn-action:hover {
-        background: #f9fafb;
-        border-color: #c4cdd5;
-    }
-
-    /* Status Timeline (Stepper) */
-    .od-timeline {
-        display: flex;
-        justify-content: space-between;
-        margin: 30px 0 40px 0;
-        position: relative;
-        padding: 0 20px;
-    }
-
-    .od-timeline::before {
-        content: '';
-        position: absolute;
-        top: 14px;
-        left: 40px;
-        right: 40px;
-        height: 3px;
-        background: #dfe3e8;
-        z-index: 0;
-    }
-
-    .od-step {
-        position: relative;
-        z-index: 1;
-        text-align: center;
-        width: 25%;
-    }
-
-    .od-step-circle {
-        width: 32px;
-        height: 32px;
-        background: #dfe3e8;
-        border-radius: 50%;
-        margin: 0 auto 8px auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-        transition: background 0.3s;
-    }
-
-    .od-step-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #9aa5b1;
-        text-transform: uppercase;
-    }
-
-    /* Active State for Timeline */
-    .od-step.active .od-step-circle {
-        background: #27ae60;
-        box-shadow: 0 0 0 4px rgba(39, 174, 96, 0.2);
-    }
-
-    .od-step.active .od-step-label {
-        color: #27ae60;
-    }
-
-    /* Completed State (Past steps) */
-    .od-step.completed .od-step-circle {
-        background: #27ae60;
-    }
-
-    /* Content Cards */
-    .od-content-wrapper {
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-    }
-
-    .od-details-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 1px solid #eee;
-    }
-
-    .od-box {
-        padding: 25px;
-    }
-
-    .od-box:first-child {
-        border-right: 1px solid #eee;
-    }
-
-    .od-subtitle {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: #9aa5b1;
-        font-weight: 700;
-        margin-bottom: 15px;
-        letter-spacing: 0.5px;
-    }
-
-    .od-data-point {
-        margin-bottom: 8px;
-        display: flex;
-        align-items: flex-start;
-        gap: 10px;
-        font-size: 0.95rem;
-    }
-
-    /* Product List Table Style */
-    .od-products-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .od-products-table th {
-        text-align: left;
-        padding: 15px 25px;
-        background: #f9fafb;
-        color: #637381;
-        font-size: 0.8rem;
-        font-weight: 600;
-        text-transform: uppercase;
-    }
-
-    .od-products-table td {
-        padding: 20px 25px;
-        border-bottom: 1px solid #f4f6f8;
-        vertical-align: middle;
-    }
-
-    .od-product-flex {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .od-thumb {
-        width: 50px;
-        height: 50px;
-        border-radius: 6px;
-        object-fit: cover;
-        border: 1px solid #eee;
-    }
-
-    /* Summary Footer */
-    .od-summary-row {
-        display: flex;
-        justify-content: flex-end;
-        padding: 10px 25px;
-    }
-
-    .od-summary-row span:first-child {
-        width: 150px;
-        text-align: right;
-        color: #637381;
-        margin-right: 20px;
-    }
-
-    .od-summary-row span:last-child {
-        width: 100px;
-        text-align: right;
-        font-weight: 600;
-        color: #212b36;
-    }
-
-    .od-summary-total {
-        background: #f9fafb;
-        padding: 20px 25px;
-        margin-top: 10px;
-        border-top: 1px solid #eee;
-    }
-
-    .od-summary-total span:last-child {
-        color: #27ae60;
-        font-size: 1.2rem;
-        font-weight: 800;
-    }
-</style>
-
-<script>
-    function viewOrderDetails(orderId) {
-        const modal = document.getElementById('orderModal');
-        const contentDiv = document.getElementById('orderDetailsContent');
-
-        modal.classList.add('show');
-        contentDiv.innerHTML =
-            '<div style="padding:50px; text-align:center;"><div class="spinner-border text-primary"></div></div>';
-
-        fetch(`../api/get_order_details.php?order_id=${orderId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    const order = data.order || data.data.order;
-                    const items = data.items || data.data.items;
-
-                    // --- Logic for Timeline ---
                     const steps = ['pending', 'processing', 'shipped', 'delivered'];
                     const currentStatus = order.order_status.toLowerCase();
                     let activeIndex = steps.indexOf(currentStatus);
@@ -1232,15 +1220,15 @@ $stats = $pdo->query($stats_query)->fetch();
                             <div class="od-product-flex">
                                 <img src="${img}" class="od-thumb" onerror="this.src='../assets/images/default-product.jpg'">
                                 <div>
-                                    <div style="font-weight:600; color:#2c3e50;">${item.product_name}</div>
-                                    <div style="font-size:0.8rem; color:#999;">Seller: ${item.market_name}</div>
+                                    <div style="font-weight:600; color:#ffffff;">${item.product_name}</div>
+                                    <div style="font-size:0.72rem; color:#a0a0a0;">Seller: ${item.market_name}</div>
                                 </div>
                             </div>
                         </td>
-                        <td style="color:#666;">${item.category}</td>
+                        <td style="color:#a0a0a0;">${item.category}</td>
                         <td style="text-align:right;">
-                            <div style="color:#2c3e50; font-weight:600;">₹${parseFloat(item.subtotal).toFixed(2)}</div>
-                            <div style="font-size:0.75rem; color:#999;">${item.quantity} x ₹${parseFloat(item.price).toFixed(2)}</div>
+                            <div style="color:#ffffff; font-weight:600;">₹${parseFloat(item.subtotal).toFixed(2)}</div>
+                            <div style="font-size:0.675rem; color:#a0a0a0;">${item.quantity} x ₹${parseFloat(item.price).toFixed(2)}</div>
                         </td>
                     </tr>`;
                     });
@@ -1249,7 +1237,7 @@ $stats = $pdo->query($stats_query)->fetch();
                         </tbody>
                     </table>
 
-                    <div style="padding: 20px 0;">
+                    <div style="padding: 18px 0;">
                         <div class="od-summary-row">
                             <span>Subtotal</span>
                             <span>₹${subtotal.toFixed(2)}</span>
@@ -1274,13 +1262,10 @@ $stats = $pdo->query($stats_query)->fetch();
             .catch(err => console.error(err));
     }
 
-
-    // NEW FUNCTION: Print only the modal content
     function printOrderDetails() {
         const printContent = document.getElementById('orderDetailsContent').innerHTML;
         const originalContent = document.body.innerHTML;
 
-        // Create a temporary wrapper with print styles
         document.body.innerHTML = `
         <html>
             <head>
@@ -1289,7 +1274,7 @@ $stats = $pdo->query($stats_query)->fetch();
                     @media print {
                         @page {
                             size: A4;
-                            margin: 15mm;
+                            margin: 13.5mm;
                         }
                         body {
                             margin: 0;
@@ -1313,56 +1298,49 @@ $stats = $pdo->query($stats_query)->fetch();
     `;
 
         window.print();
-
-        // Restore original content
         document.body.innerHTML = originalContent;
-
-        // Re-attach event listeners after restoring content
         window.location.reload();
     }
 
-    // Helper function to include existing styles
     function getOrderModalStyles() {
         return `
-        .od-modal-body { max-width: 900px; margin: 0 auto; }
-        .od-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
-        .od-title-group h2 { margin: 0; color: #2c3e50; font-size: 1.8rem; }
-        .od-title-group span { color: #7f8c8d; font-size: 0.9rem; }
-        .od-actions { display: flex; gap: 10px; }
-        .btn-action { padding: 8px 16px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer; font-size: 0.9rem; }
-        .od-timeline { display: flex; justify-content: space-between; margin: 30px 0; position: relative; }
-        .od-timeline::before { content: ''; position: absolute; top: 20px; left: 0; right: 0; height: 2px; background: #e0e0e0; z-index: 0; }
+        .od-modal-body { max-width: 810px; margin: 0 auto; }
+        .od-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 13.5px; border-bottom: 1.8px solid #e0e0e0; }
+        .od-title-group h2 { margin: 0; color: #2c3e50; font-size: 1.62rem; }
+        .od-title-group span { color: #7f8c8d; font-size: 0.81rem; }
+        .od-actions { display: flex; gap: 9px; }
+        .btn-action { padding: 7.2px 14.4px; border: 1px solid #ddd; background: white; border-radius: 4.5px; cursor: pointer; font-size: 0.81rem; }
+        .od-timeline { display: flex; justify-content: space-between; margin: 27px 0; position: relative; }
+        .od-timeline::before { content: ''; position: absolute; top: 18px; left: 0; right: 0; height: 1.8px; background: #e0e0e0; z-index: 0; }
         .od-step { flex: 1; text-align: center; position: relative; z-index: 1; }
-        .od-step-circle { width: 40px; height: 40px; border-radius: 50%; background: #e0e0e0; color: #999; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-weight: bold; transition: all 0.3s; }
+        .od-step-circle { width: 36px; height: 36px; border-radius: 50%; background: #e0e0e0; color: #999; display: flex; align-items: center; justify-content: center; margin: 0 auto 9px; font-weight: bold; transition: all 0.3s; }
         .od-step.completed .od-step-circle { background: #27ae60; color: white; }
-        .od-step.active .od-step-circle { background: #3498db; color: white; box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2); }
-        .od-step-label { font-size: 0.85rem; color: #7f8c8d; font-weight: 500; }
-        .od-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
-        .od-box { background: #f8f9fa; padding: 20px; border-radius: 8px; }
-        .od-subtitle { font-weight: 700; color: #2c3e50; margin-bottom: 12px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .od-data-point { margin: 8px 0; color: #555; line-height: 1.6; }
-        .od-products-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .od-step.active .od-step-circle { background: #3498db; color: white; box-shadow: 0 0 0 3.6px rgba(52, 152, 219, 0.2); }
+        .od-step-label { font-size: 0.765rem; color: #7f8c8d; font-weight: 500; }
+        .od-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 27px 0; }
+        .od-box { background: #f8f9fa; padding: 18px; border-radius: 7.2px; }
+        .od-subtitle { font-weight: 700; color: #2c3e50; margin-bottom: 10.8px; font-size: 0.855rem; text-transform: uppercase; letter-spacing: 0.45px; }
+        .od-data-point { margin: 7.2px 0; color: #555; line-height: 1.6; }
+        .od-products-table { width: 100%; border-collapse: collapse; margin: 18px 0; }
         .od-products-table thead { background: #34495e; color: white; }
-        .od-products-table th, .od-products-table td { padding: 15px; text-align: left; border-bottom: 1px solid #ecf0f1; }
-        .od-product-flex { display: flex; align-items: center; gap: 15px; }
-        .od-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
-        .od-summary-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #ecf0f1; font-size: 0.95rem; }
-        .od-summary-total { font-weight: 700; font-size: 1.2rem; color: #2c3e50; border-top: 2px solid #34495e; margin-top: 10px; padding-top: 15px; }
+        .od-products-table th, .od-products-table td { padding: 13.5px; text-align: left; border-bottom: 0.9px solid #ecf0f1; }
+        .od-product-flex { display: flex; align-items: center; gap: 13.5px; }
+        .od-thumb { width: 54px; height: 54px; object-fit: cover; border-radius: 7.2px; border: 0.9px solid #ddd; }
+        .od-summary-row { display: flex; justify-content: space-between; padding: 10.8px 0; border-bottom: 0.9px solid #ecf0f1; font-size: 0.855rem; }
+        .od-summary-total { font-weight: 700; font-size: 1.08rem; color: #2c3e50; border-top: 1.8px solid #34495e; margin-top: 9px; padding-top: 13.5px; }
     `;
     }
-
 
     function closeOrderModal() {
         document.getElementById('orderModal').classList.remove('show');
     }
 
-    // Close modal when clicking outside
     document.getElementById('orderModal').addEventListener('click', function(e) {
         if (e.target === this) {
             closeOrderModal();
         }
     });
-</script>
+    </script>
 
 </body>
 
