@@ -35,18 +35,18 @@ try {
 
 <!DOCTYPE html>
 <style>
-    /* CSS Variables for easy theming */
+    /* CSS Variables for dark theme */
     :root {
-        --so-bg: rgba(255, 255, 255, 0.85);
+        --so-bg: rgba(26, 26, 26, 0.8);
         --so-backdrop: blur(16px);
-        --so-border: 1px solid rgba(255, 255, 255, 0.6);
-        --so-primary: #3b82f6; /* Modern Blue */
-        --so-primary-dark: #2563eb;
-        --so-text-main: #1e293b; /* Slate 800 */
-        --so-text-muted: #64748b; /* Slate 500 */
-        --so-danger: #ef4444;
-        --so-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-        --so-radius: 12px;
+        --so-border: 1px solid rgba(255, 107, 53, 0.2);
+        --so-primary: #ff6b35;
+        --so-primary-dark: #f7931e;
+        --so-text-main: #ffffff;
+        --so-text-muted: #a0a0a0;
+        --so-danger: #ff4757;
+        --so-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+        --so-radius: 11px;
         --so-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -55,7 +55,7 @@ try {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     /* Shop Owner Header */
@@ -63,85 +63,92 @@ try {
         background: var(--so-bg);
         backdrop-filter: var(--so-backdrop);
         -webkit-backdrop-filter: var(--so-backdrop);
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(255, 107, 53, 0.15);
+        padding: 0.72rem 0;
         position: sticky;
         top: 0;
         z-index: 1000;
         transition: var(--so-transition);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
-    /* Add a subtle shadow on scroll (optional conceptual state) */
     .shop-owner-header:hover {
-        box-shadow: var(--so-shadow);
+        box-shadow: 0 6px 30px rgba(255, 107, 53, 0.2);
     }
 
     .shop-owner-header-content {
         max-width: 100%;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 1.8rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.35rem;
     }
 
     /* Logo Styling */
     .shop-owner-logo {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
-        font-size: 1.4rem;
+        gap: 0.54rem;
+        font-size: 1.26rem;
         font-weight: 800;
         text-decoration: none;
         color: var(--so-text-main);
         letter-spacing: -0.5px;
+        transition: var(--so-transition);
+    }
+
+    .shop-owner-logo:hover {
+        transform: translateY(-1px);
     }
 
     .shop-owner-logo-icon {
-        color: var(--so-primary);
-        font-size: 1.6rem;
-        filter: drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3));
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 1.44rem;
+        filter: drop-shadow(0 2px 6px rgba(255, 107, 53, 0.4));
     }
 
     /* Navigation */
     .shop-owner-nav {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        background: rgba(241, 245, 249, 0.5); /* Subtle pill background */
-        padding: 0.3rem;
-        border-radius: 99px; /* Pill shape container */
-        border: 1px solid rgba(0,0,0,0.02);
+        gap: 0.45rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.27rem;
+        border-radius: 90px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .shop-owner-nav-link {
         position: relative;
         color: var(--so-text-muted);
         text-decoration: none;
-        padding: 0.6rem 1.4rem;
-        border-radius: 99px;
+        padding: 0.54rem 1.26rem;
+        border-radius: 90px;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.81rem;
         transition: var(--so-transition);
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.45rem;
     }
 
     .shop-owner-nav-link:hover {
         color: var(--so-primary);
-        background: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        background: rgba(255, 107, 53, 0.1);
+        box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
     }
 
     .shop-owner-nav-link.active {
-        background: var(--so-primary);
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
-        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
     }
 
-    /* Remove the old underline effect for the new pill design */
     .shop-owner-nav-link.active::after {
         display: none;
     }
@@ -150,18 +157,18 @@ try {
     .shop-owner-badge {
         background: var(--so-danger);
         color: white;
-        padding: 0.15rem 0.5rem;
-        border-radius: 6px;
-        font-size: 0.65rem;
+        padding: 0.14rem 0.45rem;
+        border-radius: 5.4px;
+        font-size: 0.59rem;
         font-weight: 700;
-        box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3);
+        box-shadow: 0 2px 5px rgba(255, 71, 87, 0.4);
     }
 
     /* User Section */
     .shop-owner-user-section {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.35rem;
     }
 
     /* Market Badge */
@@ -170,50 +177,57 @@ try {
         flex-direction: column;
         align-items: flex-end;
         color: var(--so-text-main);
-        border-right: 1px solid rgba(0,0,0,0.08);
-        padding-right: 1.5rem;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        padding-right: 1.35rem;
     }
 
     .shop-owner-market-name {
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.81rem;
         color: var(--so-text-main);
     }
 
     .shop-owner-market-stats {
-        font-size: 0.75rem;
+        font-size: 0.68rem;
         color: var(--so-text-muted);
         font-weight: 500;
-        background: rgba(16, 185, 129, 0.1); /* Green tint */
-        color: #059669;
-        padding: 2px 6px;
-        border-radius: 4px;
-        margin-top: 2px;
+        background: rgba(0, 212, 170, 0.15);
+        color: #00d4aa;
+        padding: 2px 5.4px;
+        border-radius: 3.6px;
+        margin-top: 1.8px;
+        border: 1px solid rgba(0, 212, 170, 0.3);
     }
 
     /* User Info */
     .shop-owner-user-info {
         display: flex;
         align-items: center;
-        gap: 0.8rem;
+        gap: 0.72rem;
         background: transparent;
         padding: 0;
         box-shadow: none;
     }
 
     .shop-owner-avatar {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px; /* Soft square instead of circle */
-        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        color: var(--so-primary-dark);
+        width: 37.8px;
+        height: 37.8px;
+        border-radius: 10.8px;
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(247, 147, 30, 0.2) 100%);
+        color: #ff6b35;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 700;
-        font-size: 1.1rem;
-        border: 2px solid white;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        font-size: 0.99rem;
+        border: 2px solid rgba(255, 107, 53, 0.3);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        transition: var(--so-transition);
+    }
+
+    .shop-owner-avatar:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
     }
 
     .shop-owner-user-details {
@@ -223,12 +237,12 @@ try {
 
     .shop-owner-user-name {
         font-weight: 700;
-        font-size: 0.9rem;
+        font-size: 0.81rem;
         color: var(--so-text-main);
     }
 
     .shop-owner-user-role {
-        font-size: 0.7rem;
+        font-size: 0.63rem;
         color: var(--so-text-muted);
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -238,48 +252,65 @@ try {
     .shop-owner-logout-link {
         color: var(--so-text-muted);
         text-decoration: none;
-        padding: 0.6rem;
-        border-radius: 8px;
+        padding: 0.54rem 0.9rem;
+        border-radius: 7.2px;
         transition: var(--so-transition);
-        border: 1px solid rgba(0,0,0,0.08);
-        background: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 0.81rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.36rem;
     }
 
     .shop-owner-logout-link:hover {
-        background: #fef2f2;
+        background: rgba(255, 71, 87, 0.15);
         color: var(--so-danger);
-        border-color: #fee2e2;
+        border-color: rgba(255, 71, 87, 0.3);
         transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
     }
 
     /* Mobile Menu Toggle */
     .shop-owner-menu-toggle {
         display: none;
-        background: transparent;
-        border: 1px solid rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         color: var(--so-text-main);
-        font-size: 1.2rem;
-        padding: 0.5rem;
-        border-radius: 8px;
+        font-size: 1.08rem;
+        padding: 0.45rem;
+        border-radius: 7.2px;
         cursor: pointer;
+        transition: var(--so-transition);
+    }
+
+    .shop-owner-menu-toggle:hover {
+        background: rgba(255, 107, 53, 0.15);
+        border-color: rgba(255, 107, 53, 0.3);
     }
 
     /* Alert for no market */
     .shop-owner-no-market-alert {
-        background: #fffbeb;
-        border: 1px solid #fcd34d;
-        color: #b45309;
-        padding: 0.6rem 1rem;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        font-weight: 500;
+        background: rgba(247, 147, 30, 0.15);
+        border: 1px solid rgba(247, 147, 30, 0.3);
+        color: #f7931e;
+        padding: 0.54rem 0.9rem;
+        border-radius: 7.2px;
+        font-size: 0.77rem;
+        font-weight: 600;
     }
 
     .shop-owner-no-market-alert a {
-        color: #92400e;
+        color: #ffffff;
         text-decoration: none;
-        border-bottom: 1px dashed #92400e;
-        margin-left: 5px;
+        border-bottom: 1px dashed #ffffff;
+        margin-left: 4.5px;
+        transition: var(--so-transition);
+    }
+
+    .shop-owner-no-market-alert a:hover {
+        border-bottom-style: solid;
     }
 
     /* Responsive Design */
@@ -290,20 +321,21 @@ try {
 
         .shop-owner-nav {
             position: fixed;
-            top: 75px;
-            left: 1rem;
-            right: 1rem;
-            background: white;
+            top: 67.5px;
+            left: 0.9rem;
+            right: 0.9rem;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(20px);
             flex-direction: column;
-            padding: 1rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 0.9rem;
+            border-radius: 14.4px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
             transform: translateY(-10px) scale(0.95);
             opacity: 0;
             pointer-events: none;
             transition: var(--so-transition);
             z-index: 999;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(255, 107, 53, 0.2);
         }
 
         .shop-owner-nav.active {
@@ -315,17 +347,44 @@ try {
         .shop-owner-nav-link {
             width: 100%;
             justify-content: center;
-            padding: 0.8rem;
+            padding: 0.72rem;
             color: var(--so-text-main);
         }
 
         .shop-owner-nav-link:hover {
-            background: #f8fafc;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .shop-owner-market-badge,
         .shop-owner-user-info {
             display: none;
+        }
+
+        .shop-owner-header-content {
+            padding: 0 1.35rem;
+        }
+
+        .shop-owner-logo {
+            font-size: 1.08rem;
+        }
+
+        .shop-owner-logo-icon {
+            font-size: 1.26rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .shop-owner-header-content {
+            padding: 0 0.9rem;
+        }
+
+        .shop-owner-user-section {
+            gap: 0.9rem;
+        }
+
+        .shop-owner-logout-link {
+            padding: 0.45rem 0.72rem;
+            font-size: 0.72rem;
         }
     }
 </style>
@@ -334,7 +393,7 @@ try {
         <a href="index.php" class="shop-owner-logo">
             <span class="shop-owner-logo-icon">🛒</span>
             <span>ByteShop</span>
-            <span style="font-size: 0.8rem; opacity: 0.9;">| Shop Owner</span>
+            <span style="font-size: 0.72rem; opacity: 0.9;">| Shop Owner</span>
         </a>
 
         <button class="shop-owner-menu-toggle" onclick="toggleShopOwnerMenu()">
@@ -399,7 +458,7 @@ try {
             </div>
 
             <a href="../logout.php" class="shop-owner-logout-link">
-                <span>🚪</span> Logout
+                <span>🚪</span> <span>Logout</span>
             </a>
         </div>
     </div>

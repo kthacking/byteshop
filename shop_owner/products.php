@@ -371,7 +371,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Management - ByteShop</title>
-    <style>
+   <style>
     * {
         margin: 0;
         padding: 0;
@@ -379,9 +379,10 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
         min-height: 100vh;
+        color: #e0e0e0;
     }
 
     .container {
@@ -389,93 +390,77 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         margin: 0 auto;
     }
 
-    /* .header {
-        background: white;
-        padding: 20px 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .header h1 {
-        color: #333;
-        font-size: 28px;
-    }
-
-    .header .user-info {
-        text-align: right;
-    }
-
-    .header .user-info p {
-        color: #666;
-        margin-bottom: 5px;
-    }
-
-    .header .user-info span {
-        color: #667eea;
-        font-weight: bold;
-    } */
-
     .btn {
-        padding: 10px 20px;
+        padding: 9px 18px;
         border: none;
-        border-radius: 5px;
+        border-radius: 9px;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 12.6px;
         text-decoration: none;
         display: inline-block;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
+        font-weight: 600;
     }
 
     .btn-primary {
-        background: #667eea;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
+        box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
     }
 
     .btn-primary:hover {
-        background: #5568d3;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
     }
 
     .btn-success {
-        background: #48bb78;
+        background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
         color: white;
+        box-shadow: 0 4px 14px rgba(0, 212, 170, 0.3);
     }
 
     .btn-success:hover {
-        background: #38a169;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 212, 170, 0.5);
     }
 
     .btn-danger {
-        background: #f56565;
-        color: white;
+        background: rgba(255, 71, 87, 0.2);
+        color: #ff4757;
+        border: 1px solid rgba(255, 71, 87, 0.3);
     }
 
     .btn-danger:hover {
-        background: #e53e3e;
+        background: rgba(255, 71, 87, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(255, 71, 87, 0.3);
     }
 
     .btn-warning {
-        background: #ed8936;
-        color: white;
+        background: rgba(247, 147, 30, 0.2);
+        color: #f7931e;
+        border: 1px solid rgba(247, 147, 30, 0.3);
     }
 
     .btn-warning:hover {
-        background: #dd6b20;
+        background: rgba(247, 147, 30, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 14px rgba(247, 147, 30, 0.3);
     }
 
     .btn-secondary {
-        background: #718096;
-        color: white;
+        background: rgba(113, 128, 150, 0.2);
+        color: #a0a0a0;
+        border: 1px solid rgba(113, 128, 150, 0.3);
     }
 
     .alert {
-        padding: 15px 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
+        padding: 13.5px 18px;
+        border-radius: 9px;
+        margin-bottom: 18px;
         animation: slideIn 0.3s ease-out;
+        border: 1px solid;
+        font-weight: 500;
     }
 
     @keyframes slideIn {
@@ -483,7 +468,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             opacity: 0;
             transform: translateY(-10px);
         }
-
         to {
             opacity: 1;
             transform: translateY(0);
@@ -491,40 +475,62 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
     .alert-success {
-        background: #c6f6d5;
-        color: #22543d;
-        border: 1px solid #9ae6b4;
+        background: rgba(0, 212, 170, 0.15);
+        color: #00d4aa;
+        border-color: rgba(0, 212, 170, 0.3);
     }
 
     .alert-error {
-        background: #fed7d7;
-        color: #742a2a;
-        border: 1px solid #fc8181;
+        background: rgba(255, 71, 87, 0.15);
+        color: #ff4757;
+        border-color: rgba(255, 71, 87, 0.3);
     }
 
     .content-box {
-        background: white;
-        padding: 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 0px;
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 27px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        margin-bottom: 10px;
+        border: 1px solid rgba(255, 107, 53, 0.15);
     }
 
     .content-box h2 {
-        color: #333;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 2px solid #667eea;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+        padding-bottom: 9px;
+        border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .content-box h1 {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 25.2px;
+        font-weight: 700;
+        margin-bottom: 9px;
+    }
+
+    .content-box p {
+        color: #a0a0a0;
+        margin-top: 4.5px;
     }
 
     .form-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        margin-bottom: 20px;
+        gap: 18px;
+        margin-bottom: 18px;
     }
 
     .form-group {
-        margin-bottom: 15px;
+        margin-bottom: 13.5px;
     }
 
     .form-group.full-width {
@@ -533,120 +539,156 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
     .form-group label {
         display: block;
-        margin-bottom: 5px;
-        color: #333;
-        font-weight: 500;
+        margin-bottom: 4.5px;
+        color: #b0b0b0;
+        font-weight: 600;
+        font-size: 12.6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
         width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 14px;
+        padding: 9px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 9px;
+        font-size: 12.6px;
+        color: #e0e0e0;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #666;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #ff6b35;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    }
+
+    .form-group select option {
+        background: #1a1a1a;
+        color: #e0e0e0;
     }
 
     .form-group textarea {
         resize: vertical;
-        min-height: 80px;
+        min-height: 72px;
     }
 
     .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 18px;
     }
 
     .product-card {
-        background: white;
-        border-radius: 10px;
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 14px;
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .product-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+        border-color: rgba(255, 107, 53, 0.3);
     }
 
     .product-image {
         width: 100%;
-        height: 200px;
+        height: 180px;
         object-fit: cover;
-        background: #f7fafc;
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .product-info {
-        padding: 15px;
+        padding: 13.5px;
     }
 
     .product-name {
-        font-size: 18px;
+        font-size: 16.2px;
         font-weight: 600;
-        color: #333;
-        margin-bottom: 10px;
+        color: #ffffff;
+        margin-bottom: 9px;
     }
 
     .product-details {
-        color: #666;
-        font-size: 14px;
-        margin-bottom: 5px;
+        color: #a0a0a0;
+        font-size: 12.6px;
+        margin-bottom: 4.5px;
     }
 
     .product-price {
-        font-size: 20px;
-        color: #667eea;
-        font-weight: bold;
-        margin: 10px 0;
+        font-size: 18px;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        margin: 9px 0;
     }
 
     .product-category {
         display: inline-block;
-        padding: 4px 10px;
-        background: #e6fffa;
-        color: #234e52;
-        border-radius: 15px;
-        font-size: 12px;
-        margin-bottom: 10px;
+        padding: 3.6px 9px;
+        background: rgba(74, 158, 255, 0.15);
+        color: #4a9eff;
+        border-radius: 13.5px;
+        font-size: 10.8px;
+        margin-bottom: 9px;
+        border: 1px solid rgba(74, 158, 255, 0.3);
     }
 
     .product-stock {
         display: inline-block;
-        padding: 4px 10px;
-        border-radius: 15px;
-        font-size: 12px;
-        margin-left: 5px;
+        padding: 3.6px 9px;
+        border-radius: 13.5px;
+        font-size: 10.8px;
+        margin-left: 4.5px;
+        border: 1px solid;
     }
 
     .product-stock.in-stock {
-        background: #c6f6d5;
-        color: #22543d;
+        background: rgba(0, 212, 170, 0.15);
+        color: #00d4aa;
+        border-color: rgba(0, 212, 170, 0.3);
     }
 
     .product-stock.low-stock {
-        background: #feebc8;
-        color: #7c2d12;
+        background: rgba(247, 147, 30, 0.15);
+        color: #f7931e;
+        border-color: rgba(247, 147, 30, 0.3);
     }
 
     .product-stock.out-of-stock {
-        background: #fed7d7;
-        color: #742a2a;
+        background: rgba(255, 71, 87, 0.15);
+        color: #ff4757;
+        border-color: rgba(255, 71, 87, 0.3);
     }
 
     .product-actions {
         display: flex;
-        gap: 10px;
-        margin-top: 15px;
+        gap: 9px;
+        margin-top: 13.5px;
     }
 
     .product-actions .btn {
         flex: 1;
         text-align: center;
-        font-size: 12px;
-        padding: 8px;
+        font-size: 10.8px;
+        padding: 7.2px;
     }
 
     .modal {
@@ -656,7 +698,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
         z-index: 1000;
         overflow-y: auto;
     }
@@ -665,76 +708,102 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 18px;
     }
 
     .modal-content {
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        max-width: 600px;
+        background: rgba(26, 26, 26, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 27px;
+        border-radius: 14px;
+        max-width: 540px;
         width: 100%;
         max-height: 90vh;
         overflow-y: auto;
+        border: 1px solid rgba(255, 107, 53, 0.3);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     }
 
     .modal-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 18px;
     }
 
     .modal-header h3 {
-        color: #333;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 21.6px;
+        font-weight: 700;
     }
 
     .close-modal {
-        font-size: 28px;
+        font-size: 25.2px;
         cursor: pointer;
-        color: #666;
+        color: #a0a0a0;
         background: none;
         border: none;
+        transition: all 0.3s ease;
+    }
+
+    .close-modal:hover {
+        color: #ff6b35;
+        transform: rotate(90deg);
     }
 
     .stats-bar {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-bottom: 30px;
+        gap: 18px;
+        margin-bottom: 27px;
     }
 
     .stat-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 22.5px;
+            border-radius: 13.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
     }
 
     .stat-card h3 {
-        font-size: 32px;
-        margin-bottom: 5px;
+        font-size: 28.8px;
+        margin-bottom: 4.5px;
+        font-weight: 700;
     }
 
     .stat-card p {
         opacity: 0.9;
+        font-size: 12.6px;
     }
 
     .no-products {
         text-align: center;
-        padding: 40px;
-        color: #666;
+        padding: 36px;
+        color: #777;
     }
 
     .security-badge {
         display: inline-block;
-        padding: 5px 12px;
-        background: #48bb78;
-        color: white;
-        border-radius: 5px;
-        font-size: 12px;
-        margin-top: 5px;
+        padding: 4.5px 10.8px;
+        background: rgba(0, 212, 170, 0.2);
+        color: #00d4aa;
+        border-radius: 9px;
+        font-size: 10.8px;
+        margin-top: 4.5px;
+        border: 1px solid rgba(0, 212, 170, 0.3);
     }
 
     @media (max-width: 768px) {
@@ -750,59 +819,68 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             flex-direction: column;
         }
 
-        .header {
-            flex-direction: column;
-            text-align: center;
+        .content-box {
+            padding: 18px;
         }
 
-        .header .user-info {
-            text-align: center;
-            margin-top: 15px;
+        .products-grid {
+            grid-template-columns: 1fr;
         }
     }
 
     .product-image-container {
         position: relative;
         width: 100%;
-        height: 220px;
+        height: 198px;
         overflow: hidden;
-        background: #f9f9f9;
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .product-image {
         width: 100%;
-
         object-fit: cover;
-        transition: transform 0.3s;
+        transition: transform 0.3s ease;
     }
 
     .product-card:hover .product-image {
         transform: scale(1.05);
     }
-    #adbt{
+
+    #adbt {
         position: relative;
-        float:right;
+        float: right;
     }
-    </style>
+
+    /* Radio button styling */
+    .form-group input[type="radio"] {
+        width: auto;
+        accent-color: #ff6b35;
+    }
+
+    .form-group label[style*="font-weight: normal"] {
+        color: #e0e0e0 !important;
+        text-transform: none !important;
+        letter-spacing: normal !important;
+    }
+
+    /* Small text */
+    .form-group small {
+        color: #777;
+        font-size: 10.8px;
+    }
+    .header {
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 22.5px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    margin-bottom: 27px;
+    border: 1px solid rgba(255, 107, 53, 0.15);
+}
+</style>
 </head>
 
 <body>
     <div class="container">
-        <!-- <div class="header">
-            <div>
-                <h1>🛍️ Product Management</h1>
-                <p style="color: #666; margin-top: 5px;">
-                    Market: <strong><?php echo htmlspecialchars($market['market_name']); ?></strong>
-                </p>
-                <span class="security-badge">🔒 Owner ID: <?php echo $owner_id; ?> | Market ID:
-                    <?php echo $market_id; ?></span>
-            </div>
-            <div class="user-info">
-                <p>Welcome, <span><?php echo htmlspecialchars(get_user_name()); ?></span></p>
-                <a href="index.php" class="btn btn-secondary">← Dashboard</a>
-                <a href="../logout.php" class="btn btn-danger">Logout</a>
-            </div>
-        </div> -->
         <?php include '../includes/shop_owner_header.php'; ?>
 
         <?php if ($success_msg): ?>
@@ -813,10 +891,9 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         <div class="alert alert-error">✗ <?php echo $error_msg; ?></div>
         <?php endif; ?>
 
-        
-
         <!-- Add Product Button -->
         <div class="content-box">
+            <div class="header">
             <h1>🛍️ Product Management</h1>
                 <p style="color: #666; margin-top: 5px;">
                     Market: <strong><?php echo htmlspecialchars($market['market_name']); ?></strong>
@@ -851,7 +928,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
             <?php if (empty($products)): ?>
             <div class="no-products">
-                <p style="font-size: 18px;">📦 No products yet. Add your first product!</p>
+                <p style="font-size: 16.2px;">📦 No products yet. Add your first product!</p>
             </div>
             <?php else: ?>
             <div class="products-grid">
@@ -859,7 +936,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <div class="product-card">
                     <?php if ($product['product_image']): ?>
                     <?php
-                                // Detect if image is URL or local file
                                 $is_url = preg_match('/^https?:\/\//i', $product['product_image']);
                                 $image_src = $is_url ? htmlspecialchars($product['product_image']) : '../uploads/products/' . htmlspecialchars($product['product_image']);
                                 ?>
@@ -867,7 +943,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         class="product-image" onerror="this.src='../assets/images/default-product.jpg'">
                     <?php else: ?>
                     <div class="product-image"
-                        style="display: flex; align-items: center; justify-content: center; background: #f7fafc; color: #cbd5e0;">
+                        style="display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.05); color: #777;">
                         <img src="../assets/images/default-product.jpg" alt="Product" class="product-image">
                     </div>
                     <?php endif; ?>
@@ -907,6 +983,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             </div>
             <?php endif; ?>
         </div>
+        </div>
     </div>
 
     <!-- Add Product Modal -->
@@ -923,7 +1000,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     <label>Product Name *</label>
                     <input type="text" name="product_name" required minlength="20" maxlength="80"
                         placeholder="Enter product name">
-
                 </div>
 
                 <div class="form-grid">
@@ -951,7 +1027,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <div class="form-group">
                     <label>Product Image</label>
 
-                    <!-- Image Source Selector -->
                     <div style="margin-bottom: 15px;">
                         <label
                             style="font-weight: normal; display: inline-flex; align-items: center; margin-right: 20px; cursor: pointer;">
@@ -967,15 +1042,13 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         </label>
                     </div>
 
-                    <!-- File Upload -->
                     <div id="add-file-section">
                         <input type="file" name="product_image" accept="image/*" style="padding: 8px;">
                     </div>
 
-                    <!-- URL Input -->
                     <div id="add-url-section" style="display: none;">
                         <input type="url" name="product_image_url" placeholder="https://example.com/product.jpg"
-                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            style="width: 100%; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 9px; background: rgba(255, 255, 255, 0.05); color: #e0e0e0;">
                         <small style="color: #666; display: block; margin-top: 5px;">
                             ℹ️ Enter direct image URL (.jpg, .png, .gif, .webp)
                         </small>
@@ -1034,7 +1107,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 <div class="form-group">
                     <label>Product Image (Leave empty to keep current)</label>
 
-                    <!-- Image Source Selector -->
                     <div style="margin-bottom: 15px;">
                         <label
                             style="font-weight: normal; display: inline-flex; align-items: center; margin-right: 20px; cursor: pointer;">
@@ -1050,15 +1122,13 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                         </label>
                     </div>
 
-                    <!-- File Upload -->
                     <div id="edit-file-section">
                         <input type="file" name="product_image" accept="image/*" style="padding: 8px;">
                     </div>
 
-                    <!-- URL Input -->
                     <div id="edit-url-section" style="display: none;">
                         <input type="url" name="product_image_url" placeholder="https://example.com/product.jpg"
-                            style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            style="width: 100%; padding: 10px; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 9px; background: rgba(255, 255, 255, 0.05); color: #e0e0e0;">
                         <small style="color: #666; display: block; margin-top: 5px;">
                             ℹ️ Enter direct image URL (.jpg, .png, .gif, .webp)
                         </small>
@@ -1125,7 +1195,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
     }
 
-    // Close modals when clicking outside
     window.onclick = function(event) {
         const addModal = document.getElementById('addModal');
         const editModal = document.getElementById('editModal');
@@ -1138,7 +1207,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
     }
 
-    // Auto-hide success/error messages after 5 seconds
     setTimeout(function() {
         const alerts = document.querySelectorAll('.alert');
         alerts.forEach(alert => {
@@ -1148,8 +1216,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         });
     }, 5000);
 
-
-    // Toggle image input for ADD modal
     function toggleAddImageInput() {
         const imageSource = document.querySelector('#addModal input[name="image_source"]:checked').value;
         const fileSection = document.getElementById('add-file-section');
@@ -1166,7 +1232,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
     }
 
-    // Toggle image input for EDIT modal
     function toggleEditImageInput() {
         const imageSource = document.querySelector('#editModal input[name="image_source"]:checked').value;
         const fileSection = document.getElementById('edit-file-section');
@@ -1184,5 +1249,4 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
     </script>
 </body>
-
 </html>

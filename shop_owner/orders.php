@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - ByteShop</title>
-    <style>
+  <style>
         * {
             margin: 0;
             padding: 0;
@@ -160,85 +160,148 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             min-height: 100vh;
             padding: 0px;
+            color: #e0e0e0;
         }
         
         .container {
             max-width: 100%;
             margin: 0 auto;
+            
         }
         
         .header {
-            background: white;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            margin-bottom: 30px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 22.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 27px;
+            border: 1px solid rgba(255, 107, 53, 0.15);
         }
         
         .header h1 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 28.8px;
+            margin-bottom: 9px;
+            font-weight: 700;
         }
         
         .header .market-info {
-            color: #666;
-            font-size: 16px;
+            color: #a0a0a0;
+            font-size: 14.4px;
         }
         
         .header .market-info strong {
-            color: #667eea;
+            color: #ff6b35;
         }
         
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+            gap: 18px;
+            margin-bottom: 27px;
         }
         
         .stat-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 22.5px;
+            border-radius: 13.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+            border-color: rgba(255, 107, 53, 0.3);
         }
         
         .stat-card h3 {
-            color: #666;
-            font-size: 14px;
+            color: #a0a0a0;
+            font-size: 12.6px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 9px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
-        
+         .content-box {
+        background: rgba(26, 26, 26, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 27px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        margin-bottom: 0px;
+        border: 1px solid rgba(255, 107, 53, 0.15);
+    }
+
+    .content-box h2 {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 18px;
+        padding-bottom: 9px;
+        border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .content-box h1 {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 25.2px;
+        font-weight: 700;
+        margin-bottom: 9px;
+    }
+
+    .content-box p {
+        color: #a0a0a0;
+        margin-top: 4.5px;
+    }
         .stat-card .value {
-            font-size: 36px;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 32.4px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .filters-section {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 22.5px;
+            border-radius: 13.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 27px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .filters-section h3 {
-            margin-bottom: 20px;
-            color: #333;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 18px;
+            font-weight: 700;
         }
         
         .filter-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 13.5px;
+            margin-bottom: 18px;
         }
         
         .filter-group {
@@ -247,71 +310,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
         
         .filter-group label {
-            margin-bottom: 5px;
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
+            margin-bottom: 4.5px;
+            color: #b0b0b0;
+            font-size: 12.6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .filter-group input,
         .filter-group select {
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 9px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 7.2px;
+            font-size: 12.6px;
+            transition: all 0.3s ease;
+            color: #e0e0e0;
         }
         
         .filter-group input:focus,
         .filter-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+        
+        .filter-group select option {
+            background: #1a1a1a;
+            color: #e0e0e0;
         }
         
         .filter-buttons {
             display: flex;
-            gap: 10px;
+            gap: 9px;
         }
         
         .btn {
-            padding: 12px 25px;
+            padding: 10.8px 22.5px;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 7.2px;
+            font-size: 12.6px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
+            box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
         }
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
         }
         
         .btn-secondary {
-            background: #e0e0e0;
-            color: #666;
+            background: rgba(224, 224, 224, 0.1);
+            color: #a0a0a0;
+            border: 1px solid rgba(224, 224, 224, 0.2);
         }
         
         .btn-secondary:hover {
-            background: #d0d0d0;
+            background: rgba(224, 224, 224, 0.15);
         }
         
         .orders-section {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 22.5px;
+            border-radius: 13.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .orders-section h3 {
-            margin-bottom: 20px;
-            color: #333;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 18px;
+            font-weight: 700;
         }
         
         .orders-table {
@@ -323,114 +406,145 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         
         .orders-table table {
             width: 100%;
-            min-width: 1000px;
+            min-width: 900px;
         }
         
         .orders-table th {
-            background: #f8f9fa;
-            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 13.5px;
             text-align: left;
             font-weight: 600;
-            color: #333;
-            border-bottom: 2px solid #e0e0e0;
+            color: #b0b0b0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            font-size: 12.6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .orders-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-            color: #666;
+            padding: 13.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 12.6px;
         }
         
         .orders-table tr:hover {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        
+        .orders-table td small {
+            color: #777;
+            font-size: 11.7px;
         }
         
         .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 4.5px 10.8px;
+            border-radius: 18px;
+            font-size: 10.8px;
             font-weight: 600;
             text-transform: uppercase;
+            border: 1px solid;
         }
         
         .status-placed {
-            background: #fff3cd;
-            color: #856404;
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+            border-color: rgba(255, 193, 7, 0.3);
         }
         
         .status-packed {
-            background: #cfe2ff;
-            color: #084298;
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.3);
         }
         
         .status-shipped {
-            background: #d1e7dd;
-            color: #0f5132;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
         }
         
         .status-delivered {
-            background: #d1e7dd;
-            color: #0a3622;
+            background: rgba(0, 212, 170, 0.15);
+            color: #00d4aa;
+            border-color: rgba(0, 212, 170, 0.3);
         }
         
         .status-cancelled {
-            background: #f8d7da;
-            color: #842029;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border-color: rgba(255, 71, 87, 0.3);
         }
         
         .action-btn {
-            padding: 6px 12px;
-            margin: 0 3px;
+            padding: 5.4px 10.8px;
+            margin: 0 2.7px;
             border: none;
-            border-radius: 5px;
-            font-size: 12px;
+            border-radius: 4.5px;
+            font-size: 10.8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
         
         .btn-view {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
         }
         
         .btn-view:hover {
-            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.5);
         }
         
         .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 13.5px 18px;
+            border-radius: 7.2px;
+            margin-bottom: 18px;
             font-weight: 500;
+            font-size: 12.6px;
+            border: 1px solid;
         }
         
         .alert-success {
-            background: #d1e7dd;
-            color: #0f5132;
-            border: 1px solid #badbcc;
+            background: rgba(0, 212, 170, 0.15);
+            color: #00d4aa;
+            border-color: rgba(0, 212, 170, 0.3);
         }
         
         .alert-error {
-            background: #f8d7da;
-            color: #842029;
-            border: 1px solid #f5c2c7;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border-color: rgba(255, 71, 87, 0.3);
         }
         
         .alert-warning {
-            background: #fff3cd;
-            color: #856404;
-            border: 1px solid #ffecb5;
+            background: rgba(255, 193, 7, 0.15);
+            color: #ffc107;
+            border-color: rgba(255, 193, 7, 0.3);
         }
         
         .no-orders {
             text-align: center;
-            padding: 40px;
-            color: #999;
+            padding: 36px;
+            color: #777;
         }
         
         .no-orders i {
-            font-size: 64px;
-            margin-bottom: 20px;
+            font-size: 57.6px;
+            margin-bottom: 18px;
+        }
+        
+        .no-orders div {
+            font-size: 57.6px;
+            margin-bottom: 18px;
+        }
+        
+        .no-orders h3 {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 9px;
         }
         
         .back-link {
@@ -438,15 +552,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             color: white;
             text-decoration: none;
             font-weight: 600;
-            margin-bottom: 20px;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 8px;
-            transition: all 0.3s;
+            margin-bottom: 18px;
+            padding: 9px 18px;
+            background: rgba(255, 107, 53, 0.2);
+            border-radius: 7.2px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 107, 53, 0.3);
         }
         
         .back-link:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 107, 53, 0.3);
+            transform: translateY(-2px);
         }
         
         /* Modal Styles */
@@ -457,7 +573,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -468,93 +585,147 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
         
         .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 800px;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 27px;
+            border-radius: 13.5px;
+            max-width: 720px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
         
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 18px;
+            padding-bottom: 13.5px;
+            border-bottom: 2px solid rgba(255, 107, 53, 0.3);
         }
         
         .modal-header h2 {
-            color: #333;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 21.6px;
+            font-weight: 700;
         }
         
         .close-modal {
-            font-size: 28px;
+            font-size: 25.2px;
             cursor: pointer;
-            color: #999;
+            color: #a0a0a0;
             background: none;
             border: none;
+            transition: all 0.3s ease;
         }
         
         .close-modal:hover {
-            color: #333;
+            color: #ff6b35;
+            transform: rotate(90deg);
         }
         
         .order-details-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 18px;
         }
         
         .detail-item {
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 13.5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 7.2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .detail-item label {
             display: block;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 5px;
+            font-size: 10.8px;
+            color: #a0a0a0;
+            margin-bottom: 4.5px;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
         
         .detail-item .value {
-            font-size: 16px;
-            color: #333;
+            font-size: 14.4px;
+            color: #ffffff;
             font-weight: 600;
         }
         
         .order-items-table {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 18px;
         }
         
         .order-items-table th {
-            background: #f8f9fa;
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 9px;
             text-align: left;
+            font-size: 11.7px;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
         
         .order-items-table td {
-            padding: 10px;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 9px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 12.6px;
+        }
+        
+        #orderDetailsContent h3 {
+            margin-top: 27px;
+            margin-bottom: 13.5px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 16.2px;
+            font-weight: 700;
+        }
+        
+        #orderDetailsContent form {
+            margin-top: 27px;
+        }
+        
+        #orderDetailsContent form > div {
+            display: flex;
+            gap: 9px;
+            align-items: center;
+        }
+        
+        #orderDetailsContent form select {
+            flex: 1;
+            padding: 9px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 7.2px;
+            color: #e0e0e0;
+            font-size: 12.6px;
+        }
+        
+        #orderDetailsContent form select option {
+            background: #1a1a1a;
+            color: #e0e0e0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <?php include '../includes/shop_owner_header.php'; ?>
-        
+        <div class="content-box">
         <div class="header">
-            
-            <h1>📦 My Orders</h1>
-            
-        </div>
+            <h1 style="margin-bottom:79px;">📦 My Orders</h1>
+        
         
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="alert alert-success">
@@ -589,7 +760,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     <div class="value">₹<?php echo $total_orders > 0 ? number_format($total_revenue / $total_orders, 2) : '0.00'; ?></div>
                 </div>
             </div>
-            
+            </div>
             <div class="filters-section">
                 <h3>🔍 Filter Orders</h3>
                 <form method="GET" action="">
@@ -681,6 +852,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <?php endif; ?>
             </div>
         <?php endif; ?>
+        </div>
     </div>
     
     <!-- Order Details Modal -->
@@ -701,11 +873,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             const modal = document.getElementById('orderModal');
             const content = document.getElementById('orderDetailsContent');
             
-            // Show modal
             modal.classList.add('active');
             content.innerHTML = '<p style="text-align: center; padding: 40px;">Loading...</p>';
             
-            // Fetch order details
             fetch(`get_order_details.php?order_id=${orderId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -773,7 +943,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     </div>
                     <div class="detail-item">
                         <label>Total Amount</label>
-                        <div class="value" style="color: #667eea; font-size: 20px;">₹${parseFloat(order.market_subtotal).toFixed(2)}</div>
+                        <div class="value" style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 18px;">₹${parseFloat(order.market_subtotal).toFixed(2)}</div>
                     </div>
                 </div>
                 
@@ -798,7 +968,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                         <input type="hidden" name="action" value="update_status">
                         <input type="hidden" name="order_id" value="${order.order_id}">
                         <div style="display: flex; gap: 10px; align-items: center;">
-                            <select name="new_status" style="flex: 1; padding: 10px; border: 2px solid #e0e0e0; border-radius: 8px;">
+                            <select name="new_status" style="flex: 1; padding: 10px; border: 2px solid rgba(255, 255, 255, 0.15); border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: #e0e0e0;">
                                 <option value="placed" ${order.order_status === 'placed' ? 'selected' : ''}>Placed</option>
                                 <option value="packed" ${order.order_status === 'packed' ? 'selected' : ''}>Packed</option>
                                 <option value="shipped" ${order.order_status === 'shipped' ? 'selected' : ''}>Shipped</option>

@@ -158,7 +158,7 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Market - ByteShop</title>
-    <style>
+   <style>
         * {
             margin: 0;
             padding: 0;
@@ -166,114 +166,107 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             min-height: 100vh;
+            color: #e0e0e0;
         }
 
        .container {
             max-width: 100%;
         }
 
-
-        /* .header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            color: #667eea;
-            font-size: 28px;
-        }
-
-        .nav-links a {
-            margin-left: 15px;
-            padding: 8px 16px;
-            background: #667eea;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .nav-links a:hover {
-            background: #764ba2;
-        } */
-
         .card {
-            background: white;
-            padding: 30px 130px;
-            margin-top:0px;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 27px 117px;
+            margin-top: 0px;
             border-radius: 0px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 107, 53, 0.15);
         }
 
         .card h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+            font-size: 21.6px;
+            font-weight: 700;
         }
 
         .alert {
-            padding: 12px 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            padding: 10.8px 13.5px;
+            border-radius: 9px;
+            margin-bottom: 18px;
+            font-size: 12.6px;
+            border: 1px solid;
+            font-weight: 500;
         }
 
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(0, 212, 170, 0.15);
+            color: #00d4aa;
+            border-color: rgba(0, 212, 170, 0.3);
         }
 
         .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border-color: rgba(255, 71, 87, 0.3);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
+            margin-bottom: 7.2px;
+            color: #b0b0b0;
+            font-weight: 600;
+            font-size: 12.6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
+            padding: 10.8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 9px;
+            font-size: 12.6px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
+            color: #e0e0e0;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #666;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .form-group select option {
+            background: #1a1a1a;
+            color: #e0e0e0;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 90px;
         }
 
         .file-upload-wrapper {
@@ -290,83 +283,150 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
 
         .file-upload-label {
             display: inline-block;
-            padding: 12px 20px;
-            background: #f8f9fa;
-            border: 2px dashed #ddd;
-            border-radius: 5px;
+            padding: 10.8px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 107, 53, 0.3);
+            border-radius: 9px;
             cursor: pointer;
             text-align: center;
             width: 100%;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            color: #a0a0a0;
+            font-size: 12.6px;
         }
 
         .file-upload-label:hover {
-            background: #e9ecef;
-            border-color: #667eea;
+            background: rgba(255, 107, 53, 0.1);
+            border-color: #ff6b35;
+            color: #ff6b35;
         }
 
         .file-name {
-            margin-top: 10px;
-            font-size: 13px;
-            color: #666;
+            margin-top: 9px;
+            font-size: 11.7px;
+            color: #00d4aa;
             font-style: italic;
         }
 
         .current-image {
-            margin-top: 10px;
-            max-width: 200px;
-            border-radius: 5px;
-            border: 2px solid #ddd;
+            margin-top: 9px;
+            max-width: 180px;
+            border-radius: 9px;
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 10.8px 27px;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 9px;
+            font-size: 14.4px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
+            transition: all 0.3s ease;
+            font-weight: 600;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            border: 1px solid rgba(255, 107, 53, 0.3);
         }
 
         .btn-primary:hover {
-            background: #764ba2;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 18px;
         }
 
         .info-text {
-            font-size: 13px;
-            color: #666;
-            margin-top: 5px;
+            font-size: 11.7px;
+            color: #777;
+            margin-top: 4.5px;
         }
 
-       
+        /* Radio button styling */
+        .form-group input[type="radio"] {
+            width: auto;
+            margin-right: 7.2px;
+            cursor: pointer;
+            accent-color: #ff6b35;
+        }
+
+        .form-group label[style*="font-weight: normal"] {
+            font-weight: normal !important;
+            text-transform: none;
+            letter-spacing: normal;
+            color: #e0e0e0;
+            font-size: 12.6px;
+        }
+
+        /* URL input section styling */
+        #url-input-section input {
+            width: 100%;
+            padding: 10.8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 9px;
+            font-size: 12.6px;
+            color: #e0e0e0;
+        }
+
+        #url-input-section input:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Current image section */
+        .form-group > div[style*="margin-top: 15px"] {
+            margin-top: 13.5px !important;
+        }
+
+        .form-group > div[style*="margin-top: 15px"] p {
+            font-size: 11.7px;
+            color: #a0a0a0;
+            margin-bottom: 4.5px;
+        }
+
+        .form-group > div[style*="margin-top: 15px"] p[style*="font-size: 11px"] {
+            font-size: 9.9px !important;
+            color: #777;
+            margin-top: 4.5px;
+        }
+
+        /* Image source selector */
+        .form-group > div[style*="margin-bottom: 15px"] {
+            margin-bottom: 13.5px !important;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 18px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .card h2 {
+                font-size: 18px;
+            }
+
+            .current-image {
+                max-width: 150px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <!-- <div class="header">
-            <h1>🏪 My Market</h1>
-            <div class="nav-links">
-                <a href="index.php">Dashboard</a>
-                <a href="products.php">Products</a>
-                <a href="orders.php">Orders</a>
-                <a href="../logout.php">Logout</a>
-            </div>
-        </div> -->
         <?php include '../includes/shop_owner_header.php'; ?>
 
         <!-- Market Form Card -->

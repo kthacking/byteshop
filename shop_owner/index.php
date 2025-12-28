@@ -138,157 +138,185 @@ if ($market) {
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-            color: #333;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
         }
-
-        /* Header
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .nav a:hover {
-            opacity: 0.8;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        } */
 
         /* Container */
         .container {
             max-width: 100%;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            margin: 1.8rem auto;
+            padding: 0 1.8rem;
         }
 
         /* Welcome Section */
         .welcome-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 1.8rem;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            margin-bottom: 1.8rem;
+            border: 1px solid rgba(255, 107, 53, 0.15);
         }
 
         .welcome-section h1 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.45rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .welcome-section p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
         }
 
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+            gap: 1.35rem;
+            margin-bottom: 1.8rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s;
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 1.35rem;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-left: 3.6px solid #ff6b35;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 3.6px solid #ff6b35;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+            border-color: rgba(255, 107, 53, 0.3);
+            border-left-color: #ff6b35;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
         }
 
         .stat-card h3 {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            color: #a0a0a0;
+            font-size: 0.81rem;
+            margin-bottom: 0.45rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
         }
 
         .stat-card .value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.45rem;
         }
 
         .stat-card .subtext {
-            color: #999;
-            font-size: 0.85rem;
+            color: #888;
+            font-size: 0.77rem;
         }
 
         .stat-card.revenue {
-            border-left-color: #10b981;
+            border-left-color: #00d4aa;
         }
 
         .stat-card.revenue .value {
-            color: #10b981;
+            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.revenue::before {
+            background: linear-gradient(90deg, transparent, #00d4aa, transparent);
         }
 
         .stat-card.warning {
-            border-left-color: #f59e0b;
+            border-left-color: #f7931e;
         }
 
         .stat-card.warning .value {
-            color: #f59e0b;
+            background: linear-gradient(135deg, #f7931e 0%, #ffa726 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.warning::before {
+            background: linear-gradient(90deg, transparent, #f7931e, transparent);
         }
 
         .stat-card.danger {
-            border-left-color: #ef4444;
+            border-left-color: #ff4757;
         }
 
         .stat-card.danger .value {
-            color: #ef4444;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card.danger::before {
+            background: linear-gradient(90deg, transparent, #ff4757, transparent);
         }
 
         /* Content Grid */
         .content-grid {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 2rem;
+            gap: 1.8rem;
         }
 
         .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 1.35rem;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .card h2 {
-            color: #667eea;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #f0f0f0;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.35rem;
+            padding-bottom: 0.45rem;
+            border-bottom: 2px solid rgba(255, 107, 53, 0.2);
+            font-size: 1.35rem;
+            font-weight: 700;
         }
 
         /* Table */
@@ -299,75 +327,99 @@ if ($market) {
 
         .table th {
             text-align: left;
-            padding: 0.75rem;
-            background: #f8f9fa;
-            color: #666;
+            padding: 0.68rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #a0a0a0;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.81rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 0.68rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+            color: #e0e0e0;
         }
 
         .table tr:hover {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         /* Status Badge */
         .status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+            padding: 0.23rem 0.68rem;
+            border-radius: 18px;
+            font-size: 0.77rem;
+            font-weight: 600;
+            border: 1px solid;
+            letter-spacing: 0.3px;
         }
 
         .status.placed {
-            background: #dbeafe;
-            color: #1e40af;
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
         .status.packed {
-            background: #fef3c7;
-            color: #92400e;
+            background: rgba(247, 147, 30, 0.15);
+            color: #f7931e;
+            border-color: rgba(247, 147, 30, 0.3);
         }
 
         .status.shipped {
-            background: #e0e7ff;
-            color: #4338ca;
+            background: rgba(102, 126, 234, 0.15);
+            color: #667eea;
+            border-color: rgba(102, 126, 234, 0.3);
         }
 
         .status.delivered {
-            background: #d1fae5;
-            color: #065f46;
+            background: rgba(0, 212, 170, 0.15);
+            color: #00d4aa;
+            border-color: rgba(0, 212, 170, 0.3);
         }
 
         /* Alert Box */
         .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
+            padding: 0.9rem;
+            border-radius: 12px;
+            margin-bottom: 1.35rem;
+            border: 1px solid;
+            font-size: 0.9rem;
         }
 
         .alert.warning {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            color: #92400e;
+            background: rgba(247, 147, 30, 0.15);
+            border-color: rgba(247, 147, 30, 0.3);
+            color: #f7931e;
         }
 
         .alert.info {
-            background: #dbeafe;
-            border-left: 4px solid #3b82f6;
-            color: #1e40af;
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+
+        .alert strong {
+            color: #ffffff;
+        }
+
+        .alert a {
+            color: #ffffff;
+            font-weight: 600;
+            text-decoration: underline;
         }
 
         /* Product List */
         .product-item {
             display: flex;
             justify-content: space-between;
-            padding: 0.75rem;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 0.68rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
         }
 
         .product-item:last-child {
@@ -375,55 +427,71 @@ if ($market) {
         }
 
         .product-item:hover {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.03);
         }
 
         .product-name {
-            font-weight: 500;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .product-item small {
+            color: #a0a0a0;
+            font-size: 0.77rem;
         }
 
         .stock-low {
-            color: #ef4444;
-            font-weight: 600;
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 0.9rem;
         }
 
         /* Buttons */
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.68rem 1.35rem;
             border: none;
-            border-radius: 8px;
-            font-weight: 500;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
+            box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
+            border: 1px solid rgba(255, 107, 53, 0.3);
         }
 
         .btn-primary:hover {
-            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
         }
 
         .btn-group {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 0.9rem;
+            margin-top: 0.9rem;
         }
 
         .empty-state {
             text-align: center;
-            padding: 3rem;
-            color: #999;
+            padding: 2.7rem;
+            color: #777;
+            font-size: 0.95rem;
         }
 
         .empty-state img {
-            width: 100px;
-            opacity: 0.5;
-            margin-bottom: 1rem;
+            width: 90px;
+            opacity: 0.3;
+            margin-bottom: 0.9rem;
         }
 
         @media (max-width: 768px) {
@@ -434,26 +502,27 @@ if ($market) {
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
+            .container {
+                padding: 0 1.35rem;
+                margin: 1.35rem auto;
+            }
+
+            .welcome-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .stat-card .value {
+                font-size: 1.5rem;
+            }
+
+            .card h2 {
+                font-size: 1.15rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <!-- <div class="header">
-        <div class="header-content">
-            <div class="logo">ByteShop | Shop Owner</div>
-            <nav class="nav">
-                <a href="index.php">Dashboard</a>
-                <a href="my_market.php">My Market</a>
-                <a href="products.php">Products</a>
-                <a href="orders.php">Orders</a>
-                <div class="user-info">
-                    <span><?php echo htmlspecialchars($owner_name); ?></span>
-                    <a href="../logout.php">Logout</a>
-                </div>
-            </nav>
-        </div>
-    </div> -->
     <?php include '../includes/shop_owner_header.php'; ?>
 
     <div class="container">
@@ -467,7 +536,7 @@ if ($market) {
             <!-- No Market Alert -->
             <div class="alert info">
                 <strong>Get Started!</strong> You haven't created your market yet. 
-                <a href="my_market.php" style="color: #1e40af; font-weight: 600;">Create your market now</a> to start selling products.
+                <a href="my_market.php">Create your market now</a> to start selling products.
             </div>
         <?php else: ?>
             
