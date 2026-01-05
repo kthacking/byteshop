@@ -24,269 +24,326 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Registration - ByteShop</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+ <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 18px;
+    }
 
+    .register-container {
+        background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+        padding: 36px;
+        border-radius: 13.5px;
+        box-shadow: 0 13.5px 31.5px rgba(0,0,0,0.6);
+        border: 1px solid rgba(255, 107, 53, 0.2);
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 27px;
+    }
+
+    .logo h1 {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 32.4px;
+        margin-bottom: 4.5px;
+        font-weight: 800;
+        text-shadow: 0 0 27px rgba(255, 107, 53, 0.3);
+    }
+
+    .logo p {
+        color: #999;
+        font-size: 12.6px;
+        font-weight: 500;
+        letter-spacing: 0.45px;
+    }
+
+    .warning-box {
+        background: rgba(255, 107, 53, 0.1);
+        border: 1.8px solid rgba(255, 107, 53, 0.4);
+        padding: 13.5px;
+        border-radius: 7.2px;
+        margin-bottom: 22.5px;
+        color: #ff9966;
+        font-size: 11.7px;
+        line-height: 1.44;
+        backdrop-filter: blur(9px);
+    }
+
+    .warning-box strong {
+        display: block;
+        margin-bottom: 4.5px;
+        font-size: 12.6px;
+        color: #ff6b35;
+    }
+
+    .warning-box a {
+        color: #ff6b35;
+        text-decoration: underline;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 7.2px;
+        color: #e0e0e0;
+        font-weight: 600;
+        font-size: 12.6px;
+        letter-spacing: 0.27px;
+    }
+
+    label .required {
+        color: #ff6b35;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    select {
+        width: 100%;
+        padding: 10.8px 13.5px;
+        border: 1.8px solid rgba(255, 107, 53, 0.2);
+        border-radius: 7.2px;
+        font-size: 12.6px;
+        transition: all 0.3s;
+        background: rgba(26, 26, 26, 0.6);
+        color: #e0e0e0;
+        backdrop-filter: blur(9px);
+    }
+
+    input::placeholder {
+        color: #666;
+    }
+
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #ff6b35;
+        box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.2);
+        background: rgba(26, 26, 26, 0.8);
+    }
+
+    select {
+        cursor: pointer;
+    }
+
+    .role-selector {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 13.5px;
+        margin-bottom: 18px;
+    }
+
+    .role-option {
+        position: relative;
+    }
+
+    .role-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .role-card {
+        padding: 18px;
+        border: 2.7px solid rgba(255, 107, 53, 0.3);
+        border-radius: 9px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: rgba(26, 26, 26, 0.4);
+        backdrop-filter: blur(9px);
+    }
+
+    .role-card:hover {
+        border-color: #ff6b35;
+        transform: translateY(-1.8px);
+        box-shadow: 0 4.5px 18px rgba(255, 107, 53, 0.3);
+        background: rgba(26, 26, 26, 0.6);
+    }
+
+    .role-option input[type="radio"]:checked + .role-card {
+        border-color: #ff6b35;
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(247, 147, 30, 0.2) 100%);
+        box-shadow: 0 0 18px rgba(255, 107, 53, 0.4);
+    }
+
+    .role-icon {
+        font-size: 36px;
+        margin-bottom: 9px;
+        filter: drop-shadow(0 0 9px rgba(255, 107, 53, 0.3));
+    }
+
+    .role-title {
+        font-weight: 600;
+        color: #e0e0e0;
+        margin-bottom: 4.5px;
+        font-size: 13.5px;
+    }
+
+    .role-desc {
+        font-size: 10.8px;
+        color: #999;
+    }
+
+    .password-strength {
+        font-size: 10.8px;
+        margin-top: 4.5px;
+        font-weight: 500;
+    }
+
+    .btn-register {
+        width: 100%;
+        padding: 12.6px;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        color: white;
+        border: none;
+        border-radius: 7.2px;
+        font-size: 14.4px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.45px;
+        box-shadow: 0 3.6px 18px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-register:hover {
+        transform: translateY(-1.8px);
+        box-shadow: 0 5.4px 27px rgba(255, 107, 53, 0.6);
+    }
+
+    .btn-register:active {
+        transform: translateY(0);
+    }
+
+    .alert {
+        padding: 13.5px;
+        border-radius: 7.2px;
+        margin-bottom: 18px;
+        font-size: 12.6px;
+        font-weight: 500;
+        backdrop-filter: blur(9px);
+    }
+
+    .alert-error {
+        background: rgba(255, 60, 60, 0.15);
+        color: #ff6666;
+        border: 1.8px solid rgba(255, 60, 60, 0.4);
+    }
+
+    .alert-success {
+        background: rgba(76, 175, 80, 0.15);
+        color: #66dd88;
+        border: 1.8px solid rgba(76, 175, 80, 0.4);
+    }
+
+    .alert a {
+        color: inherit;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    .links {
+        text-align: center;
+        margin-top: 22.5px;
+        padding-top: 18px;
+        border-top: 1.8px solid rgba(255, 107, 53, 0.2);
+    }
+
+    .links a {
+        color: #ff6b35;
+        text-decoration: none;
+        font-size: 12.6px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+    .links a:hover {
+        opacity: 0.7;
+        text-shadow: 0 0 9px rgba(255, 107, 53, 0.5);
+    }
+
+    .links p {
+        color: #999;
+        font-size: 12.6px;
+        margin-bottom: 7.2px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 13.5px;
+    }
+
+    /* Scrollbar styling for dark theme */
+    ::-webkit-scrollbar {
+        width: 9px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        border-radius: 4.5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ff6b35;
+    }
+
+    @media (max-width: 580px) {
         .register-container {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            width: 100%;
-            max-width: 500px;
+            padding: 27px 18px;
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 30px;
+        .role-selector,
+        .form-row {
+            grid-template-columns: 1fr;
         }
 
         .logo h1 {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 36px;
-            margin-bottom: 5px;
+            font-size: 25.2px;
         }
 
-        .logo p {
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
+        body {
+            padding: 13.5px;
         }
-
-        .warning-box {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            color: #856404;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .warning-box strong {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        label .required {
-            color: #f5576c;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="password"],
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #f5576c;
-            box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
-        }
-
-        select {
-            cursor: pointer;
-            background: white;
-        }
-
-        .role-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .role-option {
-            position: relative;
-        }
-
-        .role-option input[type="radio"] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .role-card {
-            padding: 20px;
-            border: 3px solid #e0e0e0;
-            border-radius: 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .role-card:hover {
-            border-color: #f5576c;
-            transform: translateY(-2px);
-        }
-
-        .role-option input[type="radio"]:checked + .role-card {
-            border-color: #f5576c;
-            background: linear-gradient(135deg, #f093fb20 0%, #f5576c20 100%);
-        }
-
-        .role-icon {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        .role-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .role-desc {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .password-strength {
-            font-size: 12px;
-            margin-top: 5px;
-            font-weight: 500;
-        }
-
-        .btn-register {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-register:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
-        }
-
-        .btn-register:active {
-            transform: translateY(0);
-        }
-
-        .alert {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .alert-error {
-            background: #fee;
-            color: #c33;
-            border: 2px solid #fcc;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 2px solid #c3e6cb;
-        }
-
-        .links {
-            text-align: center;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
-        }
-
-        .links a {
-            color: #f5576c;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: opacity 0.3s;
-        }
-
-        .links a:hover {
-            opacity: 0.7;
-        }
-
-        .links p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        @media (max-width: 580px) {
-            .register-container {
-                padding: 30px 20px;
-            }
-
-            .role-selector,
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .logo h1 {
-                font-size: 28px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="register-container">
         <div class="logo">
-            <h1>👑 ByteShop</h1>
+            <h1>👑 MARKET  X</h1>
             <p>Super Role Registration</p>
         </div>
 
         <div class="warning-box">
             <strong>⚠️ ADMIN/OWNER REGISTRATION</strong>
-            This page is for creating Admin and Shop Owner accounts. For customer registration, please use the <a href="register.php" style="color: #856404; text-decoration: underline;">regular registration page</a>.
+            This page is for creating Admin and Shop Owner accounts. For customer registration, please use the <a href="register.php">regular registration page</a>.
         </div>
 
         <?php if ($error): ?>
@@ -297,7 +354,8 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                         echo '❌ Please fill in all required fields!';
                         break;
                     case 'email_exists':
-                        echo '❌ This email is already registered!';
+                        $existing_role = isset($_GET['role']) ? $_GET['role'] : 'unknown';
+                        echo "❌ This email is already registered as {$existing_role}!";
                         break;
                     case 'password_mismatch':
                         echo '❌ Passwords do not match!';
@@ -309,10 +367,28 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                         echo '❌ Password must be at least 6 characters!';
                         break;
                     case 'invalid_role':
-                        echo '❌ Please select a valid role!';
+                        echo '❌ Please select a valid role (Admin or Shop Owner)!';
+                        break;
+                    case 'short_name':
+                        echo '❌ Name must be at least 3 characters long!';
+                        break;
+                    case 'invalid_name':
+                        echo '❌ Name should contain only letters and spaces!';
+                        break;
+                    case 'invalid_phone':
+                        echo '❌ Please enter a valid 10-digit phone number!';
+                        break;
+                    case 'admin_exists':
+                        echo '❌ An admin account already exists in the system!';
+                        break;
+                    case 'insert_failed':
+                        echo '❌ Failed to create account. Please try again.';
                         break;
                     case 'server':
-                        echo '❌ Server error. Please try again later.';
+                        echo '❌ Server error occurred. Please contact support.';
+                        break;
+                    case 'invalid_action':
+                        echo '❌ Invalid request. Please try again.';
                         break;
                     default:
                         echo '❌ Registration failed. Please try again.';
@@ -323,7 +399,10 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
 
         <?php if ($success === 'registered'): ?>
             <div class="alert alert-success">
-                ✅ Account created successfully! You can now <a href="login.php" style="color: #155724; text-decoration: underline; font-weight: bold;">login here</a>.
+                <?php
+                $registered_role = isset($_GET['role']) ? ucfirst(str_replace('_', ' ', $_GET['role'])) : 'Account';
+                echo "✅ {$registered_role} account created successfully! You can now <a href='login.php'>login here</a>.";
+                ?>
             </div>
         <?php endif; ?>
 
@@ -403,16 +482,16 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             
             if (password.length < 6) {
                 strengthDiv.textContent = '❌ Too short (min 6 characters)';
-                strengthDiv.style.color = '#c33';
+                strengthDiv.style.color = '#ff6666';
             } else if (password.length < 8) {
                 strengthDiv.textContent = '⚠️ Weak password';
-                strengthDiv.style.color = '#f90';
+                strengthDiv.style.color = '#ffaa33';
             } else if (password.length < 10) {
                 strengthDiv.textContent = '✅ Good password';
-                strengthDiv.style.color = '#3c3';
+                strengthDiv.style.color = '#66dd88';
             } else {
                 strengthDiv.textContent = '🔥 Strong password';
-                strengthDiv.style.color = '#27ae60';
+                strengthDiv.style.color = '#44cc77';
             }
         });
 
@@ -423,12 +502,12 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
             
             if (confirmPassword.length > 0) {
                 if (password === confirmPassword) {
-                    this.style.borderColor = '#27ae60';
+                    this.style.borderColor = '#44cc77';
                 } else {
-                    this.style.borderColor = '#e74c3c';
+                    this.style.borderColor = '#ff6666';
                 }
             } else {
-                this.style.borderColor = '#e0e0e0';
+                this.style.borderColor = 'rgba(255, 107, 53, 0.2)';
             }
         });
 
@@ -490,68 +569,11 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
                 document.querySelectorAll('.role-card').forEach(card => {
                     card.style.transform = 'scale(1)';
                 });
-                this.nextElementSibling.style.transform = 'scale(1.05)';
+                this.nextElementSibling.style.transform = 'scale(1.045)';
             });
         });
     </script>
-    <?php if ($error): ?>
-    <div class="alert alert-error">
-        <?php
-        switch($error) {
-            case 'empty':
-                echo '❌ Please fill in all required fields!';
-                break;
-            case 'email_exists':
-                $existing_role = isset($_GET['role']) ? $_GET['role'] : 'unknown';
-                echo "❌ This email is already registered as {$existing_role}!";
-                break;
-            case 'password_mismatch':
-                echo '❌ Passwords do not match!';
-                break;
-            case 'invalid_email':
-                echo '❌ Please enter a valid email address!';
-                break;
-            case 'weak_password':
-                echo '❌ Password must be at least 6 characters!';
-                break;
-            case 'invalid_role':
-                echo '❌ Please select a valid role (Admin or Shop Owner)!';
-                break;
-            case 'short_name':
-                echo '❌ Name must be at least 3 characters long!';
-                break;
-            case 'invalid_name':
-                echo '❌ Name should contain only letters and spaces!';
-                break;
-            case 'invalid_phone':
-                echo '❌ Please enter a valid 10-digit phone number!';
-                break;
-            case 'admin_exists':
-                echo '❌ An admin account already exists in the system!';
-                break;
-            case 'insert_failed':
-                echo '❌ Failed to create account. Please try again.';
-                break;
-            case 'server':
-                echo '❌ Server error occurred. Please contact support.';
-                break;
-            case 'invalid_action':
-                echo '❌ Invalid request. Please try again.';
-                break;
-            default:
-                echo '❌ Registration failed. Please try again.';
-        }
-        ?>
-    </div>
-<?php endif; ?>
-
-<?php if ($success === 'registered'): ?>
-    <div class="alert alert-success">
-        <?php
-        $registered_role = isset($_GET['role']) ? ucfirst(str_replace('_', ' ', $_GET['role'])) : 'Account';
-        echo "✅ {$registered_role} account created successfully! You can now <a href='login.php' style='color: #155724; text-decoration: underline; font-weight: bold;'>login here</a>.";
-        ?>
-    </div>
-<?php endif; ?>
 </body>
 </html>
+
+
