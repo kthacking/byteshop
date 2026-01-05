@@ -369,7 +369,7 @@ $pending_orders = $stmt->fetch()['count'];
         <div class="sidebar-header">
             <h2>
                 <span>🛒</span>
-                <span>ByteShop</span>
+                <span></span>
             </h2>
             <div class="admin-badge">Admin Panel</div>
             

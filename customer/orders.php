@@ -70,7 +70,7 @@ function getStatusProgress($status) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - ByteShop</title>
-    <style>
+ <style>
         * {
             margin: 0;
             padding: 0;
@@ -78,110 +78,86 @@ function getStatusProgress($status) {
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-size: 14.4px; /* 90% of 16px */
         }
-
-        /* .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .navbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar h1 {
-            color: white;
-            font-size: 1.8rem;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            transition: opacity 0.3s;
-        }
-
-        .navbar a:hover {
-            opacity: 0.8;
-        } */
 
         .container {
             max-width: 100%;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            margin: 1.8rem auto; /* 90% of 2rem */
+            padding: 0 0.9rem; /* 90% of 1rem */
         }
 
         .page-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.8rem; /* 90% of 2rem */
         }
 
         .page-header h2 {
-            font-size: 2rem;
-            color: #333;
+            font-size: 1.8rem; /* 90% of 2rem */
+            color: #e0e0e0;
+            font-weight: 700;
         }
 
         .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            padding: 0.9rem; /* 90% of 1rem */
+            border-radius: 7.2px; /* 90% of 8px */
+            margin-bottom: 0.9rem; /* 90% of 1rem */
         }
 
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            border-left: 3.6px solid #4caf50; /* 90% of 4px */
         }
 
         .order-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            border-radius: 14.4px; /* 90% of 16px */
+            padding: 1.35rem; /* 90% of 1.5rem */
+            margin-bottom: 1.35rem; /* 90% of 1.5rem */
+            box-shadow: 0 3.6px 14.4px rgba(0,0,0,0.4); /* 90% scale */
             transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #2a2a2a;
         }
 
         .order-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(-1.8px); /* 90% of -2px */
+            box-shadow: 0 7.2px 27px rgba(255, 107, 53, 0.15); /* 90% scale */
         }
 
         .order-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
-            margin-bottom: 1rem;
+            padding-bottom: 0.9rem; /* 90% of 1rem */
+            border-bottom: 2px solid #2a2a2a;
+            margin-bottom: 0.9rem; /* 90% of 1rem */
         }
 
         .order-id {
-            font-size: 1.1rem;
+            font-size: 0.99rem; /* 90% of 1.1rem */
             font-weight: 700;
-            color: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .order-date {
-            color: #888;
-            font-size: 0.9rem;
+            color: #909090;
+            font-size: 0.81rem; /* 90% of 0.9rem */
         }
 
         .order-body {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.9rem; /* 90% of 1rem */
+            margin-bottom: 0.9rem; /* 90% of 1rem */
         }
 
         .order-info {
@@ -190,58 +166,64 @@ function getStatusProgress($status) {
         }
 
         .order-info-label {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 0.25rem;
+            font-size: 0.765rem; /* 90% of 0.85rem */
+            color: #909090;
+            margin-bottom: 0.225rem; /* 90% of 0.25rem */
+            text-transform: uppercase;
+            letter-spacing: 0.45px; /* 90% of 0.5px */
         }
 
         .order-info-value {
-            font-size: 1rem;
+            font-size: 0.9rem; /* 90% of 1rem */
             font-weight: 600;
-            color: #333;
+            color: #e0e0e0;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.45rem 0.9rem; /* 90% of 0.5rem 1rem */
+            border-radius: 18px; /* 90% of 20px */
+            font-size: 0.765rem; /* 90% of 0.85rem */
             font-weight: 600;
             text-transform: uppercase;
             color: white;
+            letter-spacing: 0.45px; /* 90% of 0.5px */
         }
 
         .order-progress {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 2px solid #f0f0f0;
+            margin-top: 0.9rem; /* 90% of 1rem */
+            padding-top: 0.9rem; /* 90% of 1rem */
+            border-top: 2px solid #2a2a2a;
         }
 
         .progress-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 0.5rem;
+            font-size: 0.81rem; /* 90% of 0.9rem */
+            color: #909090;
+            margin-bottom: 0.45rem; /* 90% of 0.5rem */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.45px; /* 90% of 0.5px */
         }
 
         .progress-bar-container {
             width: 100%;
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 10px;
+            height: 7.2px; /* 90% of 8px */
+            background: #2a2a2a;
+            border-radius: 9px; /* 90% of 10px */
             overflow: hidden;
         }
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
+            background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 9px; /* 90% of 10px */
             transition: width 0.5s ease;
         }
 
         .progress-steps {
             display: flex;
             justify-content: space-between;
-            margin-top: 1rem;
+            margin-top: 0.9rem; /* 90% of 1rem */
         }
 
         .progress-step {
@@ -251,51 +233,61 @@ function getStatusProgress($status) {
         }
 
         .progress-step-icon {
-            width: 40px;
-            height: 40px;
+            width: 36px; /* 90% of 40px */
+            height: 36px; /* 90% of 40px */
             border-radius: 50%;
-            background: #e0e0e0;
-            color: #999;
+            background: #2a2a2a;
+            color: #707070;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 0.5rem;
-            font-size: 1.2rem;
+            margin: 0 auto 0.45rem; /* 90% of 0.5rem */
+            font-size: 1.08rem; /* 90% of 1.2rem */
             transition: all 0.3s;
+            border: 2px solid #2a2a2a;
         }
 
         .progress-step.active .progress-step-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             transform: scale(1.1);
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 3.6px rgba(255, 107, 53, 0.2); /* 90% of 4px */
         }
 
         .progress-step.completed .progress-step-icon {
-            background: #27ae60;
+            background: #4caf50;
             color: white;
+            border-color: #4caf50;
         }
 
         .progress-step-text {
-            font-size: 0.75rem;
-            color: #888;
+            font-size: 0.675rem; /* 90% of 0.75rem */
+            color: #707070;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.45px; /* 90% of 0.5px */
         }
 
         .progress-step.active .progress-step-text {
-            color: #667eea;
+            color: #ff6b35;
+        }
+
+        .progress-step.completed .progress-step-text {
+            color: #4caf50;
         }
 
         .order-actions {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 0.9rem; /* 90% of 1rem */
+            margin-top: 0.9rem; /* 90% of 1rem */
         }
 
         .btn {
-            padding: 0.6rem 1.5rem;
+            padding: 0.54rem 1.35rem; /* 90% of 0.6rem 1.5rem */
             border: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 7.2px; /* 90% of 8px */
+            font-size: 0.81rem; /* 90% of 0.9rem */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -304,41 +296,49 @@ function getStatusProgress($status) {
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-1.8px); /* 90% of -2px */
+            box-shadow: 0 4.5px 13.5px rgba(255, 107, 53, 0.4); /* 90% scale */
         }
 
         .btn-outline {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            background: transparent;
+            color: #ff6b35;
+            border: 2px solid #ff6b35;
         }
 
         .btn-outline:hover {
-            background: #667eea;
+            background: #ff6b35;
             color: white;
         }
 
         .empty-orders {
             text-align: center;
-            padding: 4rem 2rem;
-            background: white;
-            border-radius: 12px;
+            padding: 3.6rem 1.8rem; /* 90% of 4rem 2rem */
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            border-radius: 14.4px; /* 90% of 16px */
+            border: 1px solid #2a2a2a;
         }
 
         .empty-orders-icon {
-            font-size: 5rem;
-            margin-bottom: 1rem;
+            font-size: 4.5rem; /* 90% of 5rem */
+            margin-bottom: 0.9rem; /* 90% of 1rem */
         }
 
         .empty-orders h3 {
-            color: #666;
-            margin-bottom: 1rem;
+            color: #909090;
+            margin-bottom: 0.9rem; /* 90% of 1rem */
+            font-size: 1.62rem; /* 90% of 1.8rem */
+        }
+
+        .empty-orders p {
+            color: #707070;
+            margin-bottom: 1.35rem; /* 90% of 1.5rem */
+            font-size: 0.9rem;
         }
 
         .modal {
@@ -349,7 +349,7 @@ function getStatusProgress($status) {
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.8);
             align-items: center;
             justify-content: center;
         }
@@ -359,40 +359,47 @@ function getStatusProgress($status) {
         }
 
         .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 600px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            padding: 1.8rem; /* 90% of 2rem */
+            border-radius: 14.4px; /* 90% of 16px */
+            max-width: 540px; /* 90% of 600px */
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 9px 36px rgba(0,0,0,0.6); /* 90% scale */
+            border: 1px solid #2a2a2a;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 1.35rem; /* 90% of 1.5rem */
+            padding-bottom: 0.9rem; /* 90% of 1rem */
+            border-bottom: 2px solid #2a2a2a;
+        }
+
+        .modal-header h3 {
+            color: #e0e0e0;
+            font-size: 1.62rem; /* 90% of 1.8rem */
         }
 
         .modal-close {
-            font-size: 1.5rem;
+            font-size: 1.35rem; /* 90% of 1.5rem */
             cursor: pointer;
-            color: #999;
+            color: #707070;
             transition: color 0.3s;
         }
 
         .modal-close:hover {
-            color: #333;
+            color: #f44336;
         }
 
         .order-item {
             display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid #f0f0f0;
+            gap: 0.9rem; /* 90% of 1rem */
+            padding: 0.9rem; /* 90% of 1rem */
+            border-bottom: 1px solid #2a2a2a;
             align-items: center;
         }
 
@@ -401,10 +408,11 @@ function getStatusProgress($status) {
         }
 
         .order-item-image {
-            width: 80px;
-            height: 80px;
+            width: 72px; /* 90% of 80px */
+            height: 72px; /* 90% of 80px */
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 7.2px; /* 90% of 8px */
+            border: 1px solid #2a2a2a;
         }
 
         .order-item-info {
@@ -413,17 +421,59 @@ function getStatusProgress($status) {
 
         .order-item-name {
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.225rem; /* 90% of 0.25rem */
+            color: #e0e0e0;
+            font-size: 0.9rem;
         }
 
         .order-item-market {
-            font-size: 0.85rem;
-            color: #888;
+            font-size: 0.765rem; /* 90% of 0.85rem */
+            color: #909090;
         }
 
         .order-item-price {
             font-weight: 700;
-            color: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.08rem; /* 90% of 1.2rem */
+        }
+
+        #modalBody > div:first-child {
+            margin-bottom: 0.9rem; /* 90% of 1rem */
+            color: #b0b0b0;
+        }
+
+        #modalBody h4 {
+            margin: 1.35rem 0 0.9rem; /* 90% of 1.5rem 0 1rem */
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #modalBody > div:last-child {
+            margin-top: 1.35rem; /* 90% of 1.5rem */
+            padding-top: 0.9rem; /* 90% of 1rem */
+            border-top: 2px solid #2a2a2a;
+        }
+
+        #modalBody > div:last-child > div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.08rem; /* 90% of 1.2rem */
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .order-item > div:last-child {
+            margin-top: 0.45rem; /* 90% of 0.5rem */
+            color: #909090;
+            font-size: 0.81rem; /* 90% of 0.9rem */
         }
 
         @media (max-width: 768px) {
@@ -437,7 +487,7 @@ function getStatusProgress($status) {
 
             .progress-step {
                 flex: 1 0 50%;
-                margin-bottom: 1rem;
+                margin-bottom: 0.9rem; /* 90% of 1rem */
             }
 
             .order-actions {
@@ -447,17 +497,6 @@ function getStatusProgress($status) {
     </style>
 </head>
 <body>
-    <!-- <nav class="navbar">
-        <div class="navbar-content">
-            <h1>🛒 ByteShop</h1>
-        <div>
-            <a href="index.php">Home</a>
-            <a href="cart.php">Cart</a>
-            <a href="orders.php">My Orders</a>
-            <a href="../logout.php">Logout</a>
-        </div>
-       </div>
-    </nav> -->
         <?php include '../includes/customer_header.php'; ?>
 <div class="container">
     <div class="page-header">
@@ -472,7 +511,7 @@ function getStatusProgress($status) {
         <div class="empty-orders">
             <div class="empty-orders-icon">📦</div>
             <h3>No orders yet!</h3>
-            <p style="color: #888; margin-bottom: 1.5rem;">Start shopping and your orders will appear here.</p>
+            <p>Start shopping and your orders will appear here.</p>
             <a href="index.php" class="btn btn-primary">Start Shopping</a>
         </div>
     <?php else: ?>
@@ -567,7 +606,7 @@ function getStatusProgress($status) {
         
         // Show modal
         modal.classList.add('active');
-        modalBody.innerHTML = '<p style="text-align: center; padding: 2rem;">Loading...</p>';
+        modalBody.innerHTML = '<p style="text-align: center; padding: 1.8rem; color: #909090;">Loading...</p>';
         
         // Fetch order details
         fetch(`../api/get_order_details.php?order_id=${orderId}`)
@@ -578,8 +617,8 @@ function getStatusProgress($status) {
                     const order = data.order || data.data.order;
                     const items = data.items || data.data.items;
                     
-                    let html = '<div style="margin-bottom: 1rem;"><strong>Delivery Address:</strong><br>' + order.delivery_address + '</div>';
-                    html += '<h4 style="margin: 1.5rem 0 1rem; color: #667eea;">Order Items</h4>';
+                    let html = '<div style="margin-bottom: 0.9rem;"><strong>Delivery Address:</strong><br>' + order.delivery_address + '</div>';
+                    html += '<h4 style="margin: 1.35rem 0 0.9rem;">Order Items</h4>';
                     
                     items.forEach(item => {
                         // Detect if image is URL or local file
@@ -601,7 +640,7 @@ function getStatusProgress($status) {
                                 <div class="order-item-info">
                                     <div class="order-item-name">${item.product_name}</div>
                                     <div class="order-item-market">From: ${item.market_name}</div>
-                                    <div style="margin-top: 0.5rem; color: #888;">Qty: ${item.quantity} × ₹${parseFloat(item.price).toFixed(2)}</div>
+                                    <div style="margin-top: 0.45rem; color: #909090;">Qty: ${item.quantity} × ₹${parseFloat(item.price).toFixed(2)}</div>
                                 </div>
                                 <div class="order-item-price">₹${parseFloat(item.subtotal).toFixed(2)}</div>
                             </div>
@@ -609,8 +648,8 @@ function getStatusProgress($status) {
                     });
                     
                     html += `
-                        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid #f0f0f0;">
-                            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; color: #667eea;">
+                        <div style="margin-top: 1.35rem; padding-top: 0.9rem; border-top: 2px solid #2a2a2a;">
+                            <div style="display: flex; justify-content: space-between; font-size: 1.08rem; font-weight: 700;">
                                 <span>Total Amount</span>
                                 <span>₹${parseFloat(order.total_amount).toFixed(2)}</span>
                             </div>
@@ -619,12 +658,12 @@ function getStatusProgress($status) {
                     
                     modalBody.innerHTML = html;
                 } else {
-                    modalBody.innerHTML = '<p style="text-align: center; color: #e74c3c;">Failed to load order details: ' + data.message + '</p>';
+                    modalBody.innerHTML = '<p style="text-align: center; color: #f44336;">Failed to load order details: ' + data.message + '</p>';
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                modalBody.innerHTML = '<p style="text-align: center; color: #e74c3c;">Error loading order details. Please try again.</p>';
+                modalBody.innerHTML = '<p style="text-align: center; color: #f44336;">Error loading order details. Please try again.</p>';
             });
     }
     function closeModal() {

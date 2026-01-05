@@ -74,207 +74,190 @@ $categories = $categories_stmt->fetchAll(PDO::FETCH_COLUMN);
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    color: #e0e0e0;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 .container {
     max-width: 100%;
     margin: 0 auto;
-    padding: 20px 20px;
+    padding: 18px 18px;
 }
-
-/* ===== Navigation Bar ===== */
-/* .navbar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.nav-brand i {
-    font-size: 1.8rem;
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    padding: 8px 15px;
-    border-radius: 5px;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    background-color: rgba(255,255,255,0.2);
-} */
 
 /* ===== Hero Section ===== */
 .hero {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
     color: white;
-    padding: 60px 0;
+    padding: 54px 0;
     text-align: center;
+    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
 }
 
 .hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 2.25rem;
+    margin-bottom: 9px;
+    font-weight: 700;
 }
 
 .hero p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+    font-size: 1.08rem;
+    opacity: 0.95;
 }
 
 /* ===== Filter Section ===== */
 .filter-section {
-    background: white;
-    padding: 30px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 27px 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-top: 1px solid rgba(255, 107, 53, 0.15);
+    border-bottom: 1px solid rgba(255, 107, 53, 0.15);
 }
 
 .filter-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
 }
 
 .search-box {
     display: flex;
-    max-width: 600px;
+    max-width: 540px;
     margin: 0 auto;
     width: 100%;
 }
 
 .search-box input {
     flex: 1;
-    padding: 12px 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 50px 0 0 50px;
-    font-size: 1rem;
+    padding: 10.8px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 45px 0 0 45px;
+    font-size: 0.9rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    color: #e0e0e0;
+}
+
+.search-box input::placeholder {
+    color: #777;
 }
 
 .search-box input:focus {
-    border-color: #667eea;
+    border-color: #ff6b35;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
 }
 
 .search-box button {
-    padding: 12px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 10.8px 27px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
     color: white;
     border: none;
-    border-radius: 0 50px 50px 0;
+    border-radius: 0 45px 45px 0;
     cursor: pointer;
-    font-size: 1rem;
-    transition: all 0.3s;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
 
 .search-box button:hover {
     transform: scale(1.05);
+    box-shadow: 0 6px 18px rgba(255, 107, 53, 0.5);
 }
 
 .filters {
     display: flex;
-    gap: 15px;
+    gap: 13.5px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 .filters select {
-    padding: 10px 20px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 0.95rem;
+    padding: 9px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 7.2px;
+    font-size: 0.86rem;
     outline: none;
     cursor: pointer;
-    background-color: white;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    color: #e0e0e0;
+}
+
+.filters select option {
+    background: #1a1a1a;
+    color: #e0e0e0;
 }
 
 .filters select:hover,
 .filters select:focus {
-    border-color: #667eea;
+    border-color: #ff6b35;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
 }
 
 .clear-filters {
-    padding: 10px 20px;
-    background-color: #f44336;
-    color: white;
+    padding: 9px 18px;
+    background: rgba(255, 71, 87, 0.2);
+    color: #ff4757;
     text-decoration: none;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: all 0.3s;
+    border-radius: 7.2px;
+    font-size: 0.86rem;
+    transition: all 0.3s ease;
     display: inline-block;
+    font-weight: 600;
+    border: 1px solid rgba(255, 71, 87, 0.3);
 }
 
 .clear-filters:hover {
-    background-color: #d32f2f;
+    background: rgba(255, 71, 87, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
 }
 
 /* ===== Markets Section ===== */
 .markets-section {
-    padding: 50px 0;
+    padding: 45px 0;
 }
 
 .markets-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+    gap: 27px;
 }
 
 .market-card {
-    background: white;
-    border-radius: 15px;
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 13.5px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .market-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+    border-color: rgba(255, 107, 53, 0.3);
 }
 
 .market-image {
     position: relative;
-    height: 200px;
+    height: 180px;
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .market-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease;
 }
 
 .market-card:hover .market-image img {
@@ -283,151 +266,162 @@ body {
 
 .market-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    top: 13.5px;
+    right: 13.5px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
     color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.85rem;
+    padding: 4.5px 13.5px;
+    border-radius: 18px;
+    font-size: 0.77rem;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.5);
 }
 
 .market-content {
-    padding: 20px;
+    padding: 18px;
 }
 
 .market-content h3 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 1.26rem;
+    color: #ffffff;
+    margin-bottom: 9px;
+    font-weight: 700;
 }
 
 .market-location {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #666;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
+    gap: 7.2px;
+    color: #a0a0a0;
+    margin-bottom: 9px;
+    font-size: 0.86rem;
 }
 
 .market-location i {
-    color: #667eea;
+    color: #ff6b35;
 }
 
 .market-rating {
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 15px;
+    gap: 4.5px;
+    margin-bottom: 13.5px;
 }
 
 .market-rating i {
-    color: #ffc107;
-    font-size: 1rem;
+    color: #f7931e;
+    font-size: 0.9rem;
 }
 
 .rating-value {
-    margin-left: 8px;
+    margin-left: 7.2px;
     font-weight: 600;
-    color: #333;
+    color: #ffffff;
+    font-size: 0.9rem;
 }
 
 .market-description {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    color: #a0a0a0;
+    font-size: 0.81rem;
+    margin-bottom: 13.5px;
     line-height: 1.5;
 }
 
 .btn-explore {
     display: inline-block;
     width: 100%;
-    padding: 12px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 10.8px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
     color: white;
     text-align: center;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 7.2px;
     font-weight: 600;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    font-size: 0.9rem;
 }
 
 .btn-explore:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 18px rgba(255, 107, 53, 0.5);
 }
 
 .btn-explore i {
-    margin-left: 8px;
+    margin-left: 7.2px;
 }
 
 /* ===== No Results ===== */
 .no-results {
     text-align: center;
-    padding: 80px 20px;
+    padding: 72px 18px;
+    background: rgba(26, 26, 26, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 13.5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .no-results i {
-    font-size: 4rem;
-    color: #ccc;
-    margin-bottom: 20px;
+    font-size: 3.6rem;
+    color: #444;
+    margin-bottom: 18px;
 }
 
 .no-results h3 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 1.62rem;
+    color: #ffffff;
+    margin-bottom: 9px;
+    font-weight: 700;
 }
 
 .no-results p {
-    color: #666;
-    margin-bottom: 30px;
+    color: #a0a0a0;
+    margin-bottom: 27px;
+    font-size: 0.95rem;
 }
 
 .btn-primary {
     display: inline-block;
-    padding: 12px 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 10.8px 27px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
     color: white;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 7.2px;
     font-weight: 600;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    font-size: 0.9rem;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 18px rgba(255, 107, 53, 0.5);
 }
 
 /* ===== Footer ===== */
 .footer {
-    background-color: #2c3e50;
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
     color: white;
-    padding: 30px 0;
+    padding: 27px 0;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 45px;
+    border-top: 1px solid rgba(255, 107, 53, 0.2);
+}
+
+.footer p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
 }
 
 /* ===== Responsive Design ===== */
-/* @media (max-width: 768px) {
-    .navbar .container {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .nav-links {
-        gap: 15px;
-    }
-
+@media (max-width: 768px) {
     .hero h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .hero p {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .markets-grid {
@@ -442,40 +436,32 @@ body {
     .clear-filters {
         width: 100%;
     }
+
+    .container {
+        padding: 13.5px 13.5px;
+    }
 }
 
 @media (max-width: 480px) {
     .hero h2 {
-        font-size: 1.5rem;
+        font-size: 1.35rem;
     }
 
     .market-content h3 {
-        font-size: 1.2rem;
+        font-size: 1.08rem;
     }
-} */
+
+    .hero {
+        padding: 36px 0;
+    }
+}
 </style>
 </head>
 <body>
-    <!-- Navigation
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">
-                <i class="fas fa-store"></i>
-                <h1>ByteShop</h1>
-            </div>
-            <div class="nav-links">
-                <a href="index.php" class="active">Markets</a>
-                <a href="cart.php"><i class="fas fa-shopping-cart"></i> Cart</a>
-                <a href="orders.php"><i class="fas fa-box"></i> Orders</a>
-                <a href="../logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-        </div>
-    </nav> -->
     <?php include '../includes/customer_header.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero">
-        
         <div class="container">
             <h2>Discover Amazing Markets</h2>
             <p>Shop from multiple vendors, all in one place</p>
@@ -541,7 +527,6 @@ body {
                             <div class="market-image">
                                 <?php if (!empty($market['market_image'])): ?>
                                     <?php
-        // Detect if image is URL or local file
         $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
         $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market['market_image'];
         ?>
@@ -612,7 +597,6 @@ body {
     </footer>
 
 <script src="../assets/js/customer.js"></script>
-
 
 </body>
 </html>

@@ -109,30 +109,31 @@ $price_range = $stmt->fetch();
     }
 
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f5f5f5;
-        color: #333;
+        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #0a0a0a;
+        color: #e0e0e0;
+        font-size: 14.4px; /* 90% of 16px */
     }
 
     /* Header */
     .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
-        padding: 1rem 0;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 0.9rem 0; /* 90% of 1rem */
+        box-shadow: 0 1.8px 9px rgba(0, 0, 0, 0.3); /* 90% scale */
     }
 
     .header-content {
-        max-width: 1400px;
+        max-width: 1260px; /* 90% of 1400px */
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 1.8rem; /* 90% of 2rem */
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
     .logo {
-        font-size: 1.8rem;
+        font-size: 1.62rem; /* 90% of 1.8rem */
         font-weight: bold;
         text-decoration: none;
         color: white;
@@ -140,7 +141,7 @@ $price_range = $stmt->fetch();
 
     .nav-links {
         display: flex;
-        gap: 2rem;
+        gap: 1.8rem; /* 90% of 2rem */
         align-items: center;
     }
 
@@ -148,6 +149,7 @@ $price_range = $stmt->fetch();
         color: white;
         text-decoration: none;
         transition: opacity 0.3s;
+        font-size: 0.9rem;
     }
 
     .nav-links a:hover {
@@ -160,77 +162,35 @@ $price_range = $stmt->fetch();
 
     .cart-count {
         position: absolute;
-        top: -8px;
-        right: -8px;
-        background: #ff4757;
+        top: -7.2px; /* 90% of -8px */
+        right: -7.2px; /* 90% of -8px */
+        background: #f44336;
         color: white;
         border-radius: 50%;
-        width: 20px;
-        height: 20px;
+        width: 18px; /* 90% of 20px */
+        height: 18px; /* 90% of 20px */
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.7rem;
+        font-size: 0.63rem; /* 90% of 0.7rem */
         font-weight: bold;
-    }
-
-    /* Market Header */
-    .market-header {
-        background: white;
-        padding: 2rem;
-        margin: 2rem auto;
-        max-width: 1400px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-    }
-
-    .market-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 10px;
-        object-fit: cover;
-    }
-
-    .market-info h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        color: #667eea;
-    }
-
-    .market-meta {
-        display: flex;
-        gap: 2rem;
-        margin-top: 1rem;
-        color: #666;
-    }
-
-    .market-meta span {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .rating-stars {
-        color: #ffa502;
     }
 
     /* Filters Section */
     .filters-section {
-        background: white;
-        padding: 1.5rem;
-        margin: 2rem auto;
-        max-width: 1400px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+        padding: 1.35rem; /* 90% of 1.5rem */
+        margin: 1.8rem auto; /* 90% of 2rem */
+        max-width: 1260px; /* 90% of 1400px */
+        border-radius: 14.4px; /* 90% of 16px */
+        box-shadow: 0 3.6px 14.4px rgba(0, 0, 0, 0.4); /* 90% scale */
+        border: 1px solid #2a2a2a;
     }
 
     .filters-form {
         display: grid;
         grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-        gap: 1rem;
+        gap: 0.9rem; /* 90% of 1rem */
         align-items: end;
     }
 
@@ -240,268 +200,297 @@ $price_range = $stmt->fetch();
     }
 
     .form-group label {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.45rem; /* 90% of 0.5rem */
         font-weight: 600;
-        color: #555;
-        font-size: 0.9rem;
+        color: #909090;
+        font-size: 0.81rem; /* 90% of 0.9rem */
+        text-transform: uppercase;
+        letter-spacing: 0.45px; /* 90% of 0.5px */
     }
 
     .form-group input,
     .form-group select {
-        padding: 0.7rem;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 0.95rem;
-    }
-
-    .btn {
-        padding: 0.7rem 1.5rem;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 0.95rem;
+        padding: 0.63rem; /* 90% of 0.7rem */
+        border: 1px solid #2a2a2a;
+        border-radius: 7.2px; /* 90% of 8px */
+        font-size: 0.855rem; /* 90% of 0.95rem */
+        background: #0f0f0f;
+        color: #e0e0e0;
         transition: all 0.3s;
     }
 
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #ff6b35;
+        box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.1); /* 90% of 3px */
+    }
+
+    .btn {
+        padding: 0.63rem 1.35rem; /* 90% of 0.7rem 1.5rem */
+        border: none;
+        border-radius: 7.2px; /* 90% of 8px */
+        cursor: pointer;
+        font-size: 0.855rem; /* 90% of 0.95rem */
+        transition: all 0.3s;
+        font-weight: 600;
+    }
+
     .btn-primary {
-        background: #667eea;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
     }
 
     .btn-primary:hover {
-        background: #5568d3;
+        transform: translateY(-1.8px); /* 90% of -2px */
+        box-shadow: 0 5.4px 18px rgba(255, 107, 53, 0.4); /* 90% scale */
     }
 
     .btn-secondary {
-        background: #95a5a6;
+        background: #2a2a2a;
         color: white;
     }
 
     .btn-secondary:hover {
-        background: #7f8c8d;
+        background: #3a3a3a;
     }
 
     /* Results Info */
     .results-info {
-        max-width: 1400px;
-        margin: 1rem auto;
-        padding: 0 2rem;
+        max-width: 1260px; /* 90% of 1400px */
+        margin: 0.9rem auto; /* 90% of 1rem */
+        padding: 0 1.8rem; /* 90% of 2rem */
         display: flex;
         justify-content: space-between;
         align-items: center;
-        color: #666;
+        color: #909090;
+        font-size: 0.9rem;
     }
 
     /* Products Grid */
     .products-container {
         max-width: 100%;
-        margin: 2rem auto;
-        padding: 0 2rem;
-
+        margin: 1.8rem auto; /* 90% of 2rem */
+        padding: 0 1.8rem; /* 90% of 2rem */
     }
 
     .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(252px, 1fr)); /* 90% of 280px */
+        gap: 1.8rem; /* 90% of 2rem */
     }
 
     .product-card {
-        background: white;
-        border-radius: 10px;
+        background: black;
+        border-radius: 14.4px; /* 90% of 16px */
         overflow: hidden;
-        max-height: 550px;
+        max-height: 495px; /* 90% of 550px */
         position: relative;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 3.6px 14.4px rgba(226, 152, 16, 0); /* 90% scale */
         transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid #2a2a2a;
     }
 
     .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        transform: translateY(-4.5px); /* 90% of -5px */
+        box-shadow: 0 7.2px 27px rgba(255, 145, 0, 0.96); /* 90% scale */
     }
 
     .product-image {
         width: 100%;
-        height: 250px;
+        height: 225px; /* 90% of 250px */
         object-fit: cover;
     }
 
     .product-content {
-        padding: 1.5rem;
+        padding: 1.35rem; /* 90% of 1.5rem */
     }
 
     .product-category {
         display: inline-block;
-        background: #667eea;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
-        top: -60px;
-        left: 200px;
+        top: -54px; /* 90% of -60px */
+        left: 180px; /* 90% of 200px */
         position: relative;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px 0px 20px 0px;
-        font-size: 0.8rem;
-        margin-bottom: 0.5rem;
+        padding: 0.27rem 0.72rem; /* 90% of 0.3rem 0.8rem */
+        border-radius: 18px 0px 18px 0px; /* 90% of 20px */
+        font-size: 0.72rem; /* 90% of 0.8rem */
+        margin-bottom: 0.45rem; /* 90% of 0.5rem */
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.45px; /* 90% of 0.5px */
     }
 
     .product-name {
-        font-size: 1.2rem;
+        font-size: 1.08rem; /* 90% of 1.2rem */
         font-weight: 600;
-        margin: 0.5rem 0;
-        color: #333;
-        
+        margin: 0.45rem 0; /* 90% of 0.5rem */
+        color: #ffffffff;
         position: relative;
-        top: -60px;
+        top: -54px; /* 90% of -60px */
         max-width: 100%;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         display: -webkit-box;
         word-break: break-word;
         overflow: hidden;
-
     }
 
     .product-price {
-        font-size: 1.5rem;
+        font-size: 1.35rem; 
         font-weight: bold;
-        color: #667eea;
-        margin: 0.5rem 0;
+        background: linear-gradient(135deg, #98f34eff 0%, rgba(255, 115, 1, 1) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0.45rem 0; 
         position: relative;
-        top: -60px;
+        top: -67px; 
     }
 
-    .product-rating {
+     .product-rating {
+            color: #ffa502;
+            margin: 0.5rem 0;
+            position: relative;
+             top:25px;
+             right:-8px;
+             font-weight: 600;
+
+        }
+
+        .product-stock {
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+             position: relative;
+             top:20px;
+             font-weight: 600;
+        }
+
+        .stock-in {
+            color: #27ae60;
+        }
+
+        .stock-out {
+            color: #e74d3cdc;
+            opacity: 0;
+        }
+    /* .product-rating {
         color: #eeb141ff;
-        margin: 0.5rem 0;
+        margin: 0.45rem 0; 
         position: relative;
         transform: rotate(-90deg);
         transform-origin: left top;
-        left: -25px;
-        top: -38px;
+        left: -22.5px; 
+        top: -94.2px; 
         z-index: 12;
-
+        font-size: 0.9rem;
     }
-
-
 
     .product-stock {
-        font-size: 0.9rem;
-        margin: 0.5rem 0;
+        font-size: 0.81rem;
+        margin: 0.45rem 0; 
         position: relative;
         transform: rotate(-90deg);
         transform-origin: left top;
-        left: -22px;
-        top: 5px;
+        left: -19.8px; 
+        top: -55px; 
         z-index: 12;
         font-weight: 600;
-    }
+    } */
 
     .stock-in {
-        color: #27ae60;
-
+        color: #4caf50;
     }
 
     .stock-out {
-        color: #e74c3c;
+        color: #f44336;
     }
 
     .product-details {
-        background: #f8f9fa;
-        padding: 0.8rem;
-        border-radius: 5px;
-        margin: 1rem 0;
-        max-height: 90px;
+        background: #0f0f0f;
+        padding: 0.72rem; /* 90% of 0.8rem */
+        border-radius: 7.2px; /* 90% of 8px */
+        margin: 0.9rem 0; /* 90% of 1rem */
+        max-height: 81px; /* 90% of 90px */
         overflow: hidden;
         text-align: justify;
-        font-size: 0.85rem;
-        color: #666;
+        font-size: 0.765rem; /* 90% of 0.85rem */
+        color: #909090;
         line-height: 1.4;
         position: relative;
-        top: -150px;
+        top: -140px; /* 90% of -150px */
         max-width: 100%;
         -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
         display: -webkit-box;
         word-break: break-word;
-
+        border: 1px solid #2a2a2a;
     }
-
+/* 
     .cbb {
-        height: 140px;
+        height: 126px; 
         width: 100%;
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
         background-image: url("https://i.pinimg.com/736x/07/ed/1e/07ed1e95ff590083faa79917266969bb.jpg");
-        padding: 20px 0 10px 0;
+        padding: 18px 0 9px 0; 
         position: relative;
-        top: -293px;
+        top: -263.7px; 
         transition: transform .2s;
     }
 
     .cbb:hover {
         transform: scale(1.5);
-        height: 150px;
-        top: -305px;
-        left: 10px;
-    }
-
-    .product-actions {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
+        height: 135px; 
+        top: -274.5px;
+        left: 9px; 
+    } */
 
     .product-actions {
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 18px; /* 90% of 20px */
         position: relative;
-        top: -120px;
+        top: -113px; /* 90% of -120px */
         z-index: 10;
-        left: 20px;
-
+        left: 28px; /* 90% of 20px */
     }
 
-    /* Based on Uiverse.io by Creatlydev - Resized */
-    /* SUPER STYLES */
+    /* Super Styles - Cart Button */
     .btn-cart {
         cursor: pointer;
         border: none;
-        /* Changed to a Super Gradient */
         background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
         color: #fff;
-        width: 80px;
-        height: 80px;
-        top: -30px;
+        width: 72px; /* 90% of 80px */
+        height: 72px; /* 90% of 80px */
+        top: -27px; 
+        
         border-radius: 50%;
         overflow: hidden;
         position: relative;
         display: grid;
         place-content: center;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        /* Bouncy transition */
         font-weight: 700;
-        /* Made text bolder */
         padding: 0;
-        font-size: 11px;
-        /* Added a glow effect */
-        box-shadow: 0 10px 20px rgba(255, 0, 188, 0.3);
+        font-size: 9.9px; /* 90% of 11px */
+        box-shadow: 0 9px 18px rgba(255, 0, 188, 0.3); /* 90% scale */
     }
 
-    /* Logic to handle Disabled/Out of Stock */
     .btn-cart:disabled {
-        background: #bdc3c7;
-        /* Flat grey */
+        background: #2a2a2a;
         cursor: not-allowed;
         width: auto;
         height: auto;
-        padding: 10px 20px;
-        border-radius: 8px;
-        top: 0;
-        font-size: 14px;
+        color:#ff6b35;
+        padding: 9px 18px; /* 90% of 10px 20px */
+        border-radius: 7.2px; /* 90% of 8px */
+        top: -3px;
+        font-size: 12.6px; /* 90% of 14px */
         box-shadow: none;
-        /* No glow for disabled */
     }
 
     .button__text {
@@ -513,29 +502,27 @@ $price_range = $stmt->fetch();
     .button__text>span {
         position: absolute;
         transform: rotate(calc(28deg * var(--index)));
-        inset: 4px;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        /* Slight shadow on text for readability */
+        inset: 3.6px; /* 90% of 4px */
+        text-shadow: 0 1.8px 4.5px rgba(255, 196, 0, 0.2); /* 90% scale */
     }
 
     .button__circle {
         position: relative;
-        width: 32px;
-        height: 32px;
+        width: 28.8px; /* 90% of 32px */
+        height: 28.8px; /* 90% of 32px */
         overflow: hidden;
         background: #fff;
-        /* Text color inside the circle matches the gradient vibe */
         color: #6e00ff;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 2;
-        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        box-shadow: inset 0 0 4.5px rgba(0, 0, 0, 0.1); /* 90% scale */
     }
 
     .button__icon {
-        width: 12px;
+        width: 10.8px; /* 90% of 12px */
     }
 
     .button__icon--copy {
@@ -543,24 +530,14 @@ $price_range = $stmt->fetch();
         transform: translate(-150%, 150%);
     }
 
-    /* Hover Effects */
     .btn-cart:hover:not(:disabled) {
-        /* Change background to deep dark on hover */
         background: #111;
-        transform: scale(1.1) translateY(-5px);
-        /* Grows and floats up */
-        box-shadow: 0 15px 30px rgba(110, 0, 255, 0.4);
-        /* Stronger glow on hover */
+        transform: scale(1.1) translateY(-4.5px); /* 90% of -5px */
+        box-shadow: 0 13.5px 27px rgba(110, 0, 255, 0.4); /* 90% scale */
     }
 
     .btn-cart:hover:not(:disabled) .button__circle {
         background: #111;
-        /* Circle turns dark */
-        color: #fff;
-        /* Icon turns white */
-    }
-
-    .btn-cart:hover:not(:disabled) .button__icon {
         color: #fff;
     }
 
@@ -580,31 +557,28 @@ $price_range = $stmt->fetch();
         }
     }
 
-    /* Based on Uiverse.io by vinodjangid07 */
-    /* SUPER STYLE - VIEW BUTTON */
+    /* View Button */
     .btn-view {
-        width: 50px;
-        height: 50px;
+        width: 45px; /* 90% of 50px */
+        height: 45px; /* 90% of 50px */
         border-radius: 50%;
-        /* Super Gradient (matches cart button) */
         background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
         border: none;
         font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* Glowing shadow instead of outline */
-        box-shadow: 0 5px 15px rgba(255, 0, 188, 0.4);
+        box-shadow: 0 4.5px 13.5px rgba(255, 0, 188, 0.4); /* 90% scale */
         cursor: pointer;
-        /* Bouncy animation */
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         overflow: hidden;
         position: relative;
+        top:-4px;
         text-decoration: none;
     }
 
     .svgIcon {
-        width: 12px;
+        width: 10.8px; /* 90% of 12px */
         transition-duration: 0.3s;
     }
 
@@ -613,15 +587,12 @@ $price_range = $stmt->fetch();
     }
 
     .btn-view:hover {
-        width: 140px;
-        border-radius: 50px;
-        /* Deep Black on hover for premium contrast */
+        width: 126px; /* 90% of 140px */
+        border-radius: 45px; /* 90% of 50px */
         background: #000;
         align-items: center;
-        /* Stronger glow on hover */
-        box-shadow: 0 10px 25px rgba(110, 0, 255, 0.5);
+        box-shadow: 0 9px 22.5px rgba(110, 0, 255, 0.5); /* 90% scale */
         transform: scale(1.05);
-        /* Slight pop */
     }
 
     .btn-view:hover .svgIcon {
@@ -631,16 +602,15 @@ $price_range = $stmt->fetch();
 
     .btn-view::before {
         position: absolute;
-        bottom: -20px;
+        bottom: -18px; /* 90% of -20px */
         content: "View Details";
         color: white;
         font-size: 0px;
         white-space: nowrap;
-        /* Ensures text doesn't wrap awkwardly during animation */
     }
 
     .btn-view:hover::before {
-        font-size: 13px;
+        font-size: 11.7px; /* 90% of 13px */
         opacity: 1;
         bottom: unset;
         transition-duration: 0.3s;
@@ -649,13 +619,22 @@ $price_range = $stmt->fetch();
     /* Empty State */
     .empty-state {
         text-align: center;
-        padding: 4rem 2rem;
-        color: #666;
+        padding: 3.6rem 1.8rem; /* 90% of 4rem 2rem */
+        color: #707070;
+        background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+        border-radius: 14.4px; /* 90% of 16px */
+        border: 1px solid #2a2a2a;
     }
 
     .empty-state h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
+        font-size: 1.8rem; /* 90% of 2rem */
+        margin-bottom: 0.9rem; /* 90% of 1rem */
+        color: #909090;
+    }
+
+    .empty-state p {
+        color: #707070;
+        font-size: 0.9rem;
     }
 
     /* Responsive */
@@ -665,65 +644,15 @@ $price_range = $stmt->fetch();
         }
 
         .products-grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-
-        .market-header {
-            flex-direction: column;
-            text-align: center;
+            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); /* 90% of 250px */
+            gap: 0.9rem; /* 90% of 1rem */
         }
     }
-    </style>
+</style>
 </head>
 
 <body>
-    <!-- Header -->
-    <!-- <header class="header">
-        <div class="header-content">
-            <a href="index.php" class="logo">🛒 ByteShop</a>
-            <nav class="nav-links">
-                <a href="index.php">Markets</a>
-                <a href="orders.php">My Orders</a>
-                <a href="cart.php" class="cart-icon">
-                    🛒 Cart
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
-                <span>Hi, <?php echo htmlspecialchars(get_user_name()); ?></span>
-                <a href="../logout.php">Logout</a>
-            </nav>
-        </div>
-    </header> -->
-    <?php include '../includes/customer_header.php'; ?>xcbn/ bn
-
-    <!-- Market Header -
-    <div class="market-header">
-        <?php if ($market['market_image']): ?>
-        <?php
-         // Detect if image is URL or local file
-         $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
-         $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market['market_image'];
-         ?>
-
-        <img src="<?php echo htmlspecialchars($image_src); ?>" class="market-image"
-            alt="<?php echo htmlspecialchars($market['market_name']); ?>"
-            onerror="this.src='../assets/images/placeholder.jpg'">
-        <?php else: ?>
-        <img src="../assets/images/default-market.jpg" alt="Market" class="market-image">
-        <?php endif; ?>
-
-        <div class="market-info">
-            <h1><?php echo htmlspecialchars($market['market_name']); ?></h1>
-            <p><?php echo htmlspecialchars($market['description']); ?></p>
-            <div class="market-meta">
-                <span>📍 <?php echo htmlspecialchars($market['location']); ?></span>
-                <span>🏷️ <?php echo htmlspecialchars($market['market_category']); ?></span>
-                <span class="rating-stars">
-                    ⭐ <?php echo number_format($market['rating'], 1); ?>
-                </span>
-            </div>
-        </div>
-    </div>
+    <?php include '../includes/customer_header.php'; ?>
 
     <!-- Filters Section -->
     <div class="filters-section">
@@ -805,7 +734,6 @@ $price_range = $stmt->fetch();
             <div class="product-card">
                 <?php if ($product['product_image']): ?>
                 <?php
-                            // Detect if image is URL or local file
                             $is_url = preg_match('/^https?:\/\//i', $product['product_image']);
                             $product_image_src = $is_url ? htmlspecialchars($product['product_image']) : '../uploads/products/' . htmlspecialchars($product['product_image']);
                             ?>
@@ -835,13 +763,12 @@ $price_range = $stmt->fetch();
                                 for ($i = 1; $i <= 5; $i++) {
                                     echo $i <= $rating ? '⭐' : '☆';
                                 }
-                                #echo ' (' . number_format($rating, 1) . ')';
                                 ?>
                     </div>
 
                     <div class="product-stock">
                         <?php if ($product['stock'] > 0): ?>
-                        <span class="stock-in">✓ In Stock <?php #echo $product['stock']; ?> </span>
+                        <span class="stock-in">✓ In Stock</span>
                         <?php else: ?>
                         <span class="stock-out">✗ Out of Stock</span>
                         <?php endif; ?>
@@ -894,13 +821,11 @@ $price_range = $stmt->fetch();
 
                         </button>
                         <a href="product.php?id=<?php echo $product['product_id']; ?>" class="btn-view">
-
                             <svg class="svgIcon" viewBox="0 0 576 512">
                                 <path
                                     d="M288 32c-80.8 0-145.5 46.8-192.8 80.6C48.3 156 16 205.8 16 256c0 50.2 32.3 100 79.2 143.4C142.5 433.2 207.2 480 288 480s145.5-46.8 192.8-80.6c46.9-33.5 79.2-83.3 79.2-133.4 0-50.2-32.3-100-79.2-143.4C433.5 78.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1-288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z">
                                 </path>
                             </svg>
-
                         </a>
                     </div>
 
@@ -916,7 +841,7 @@ $price_range = $stmt->fetch();
             <h2>No Products Found</h2>
             <p>Try adjusting your filters or search criteria.</p>
             <a href="market.php?id=<?php echo $market_id; ?>" class="btn btn-primary"
-                style="display: inline-block; margin-top: 1rem;">
+                style="display: inline-block; margin-top: 0.9rem;">
                 Clear Filters
             </a>
         </div>
