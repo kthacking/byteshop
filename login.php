@@ -29,7 +29,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
 
 body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a0a0aff 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -207,7 +207,7 @@ input[type="password"]:focus {
 <body>
     <div class="login-container">
         <div class="logo">
-            <h1>🛒 Market X</h1>
+            <h1>🛒 ByteShop</h1>
             <p>Multi-Vendor E-Commerce Platform</p>
         </div>
 
