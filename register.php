@@ -19,7 +19,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - ByteShop</title>
-    <style>
+  <style>
         * {
             margin: 0;
             padding: 0;
@@ -27,49 +27,59 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 18px;
         }
 
         .register-container {
-            background: white;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 36px;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
             width: 100%;
-            max-width: 450px;
+            max-width: 405px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
         }
 
         .logo {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 27px;
         }
 
         .logo h1 {
-            color: #667eea;
-            font-size: 32px;
-            margin-bottom: 5px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 28.8px;
+            margin-bottom: 4.5px;
+            font-weight: 800;
+            filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.3));
         }
 
         .logo p {
-            color: #666;
-            font-size: 14px;
+            color: #a0a0a0;
+            font-size: 12.6px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 7.2px;
+            color: #b0b0b0;
+            font-weight: 600;
+            font-size: 12.6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input[type="text"],
@@ -77,87 +87,118 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         input[type="tel"],
         input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 10.8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 7.2px;
+            font-size: 12.6px;
+            transition: all 0.3s ease;
+            color: #e0e0e0;
+        }
+
+        input::placeholder {
+            color: #666;
         }
 
         input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
         }
 
         .password-strength {
-            font-size: 12px;
-            margin-top: 5px;
-            color: #666;
+            font-size: 10.8px;
+            margin-top: 4.5px;
+            color: #a0a0a0;
+            font-weight: 500;
         }
 
         .btn-register {
             width: 100%;
-            padding: 12px;
-            background: #667eea;
+            padding: 10.8px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 7.2px;
+            font-size: 14.4px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
         }
 
         .btn-register:hover {
-            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
         }
 
         .alert {
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            padding: 10.8px;
+            border-radius: 7.2px;
+            margin-bottom: 18px;
+            font-size: 12.6px;
+            border: 1px solid;
+            font-weight: 500;
         }
 
         .alert-error {
-            background: #fee;
-            color: #c33;
-            border: 1px solid #fcc;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border-color: rgba(255, 71, 87, 0.3);
         }
 
         .links {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 18px;
+        }
+
+        .links p {
+            color: #a0a0a0;
+            font-size: 12.6px;
         }
 
         .links a {
-            color: #667eea;
+            color: #ff6b35;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 12.6px;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         .links a:hover {
+            color: #f7931e;
             text-decoration: underline;
         }
 
         .info-box {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 13px;
-            color: #1976d2;
+            background: rgba(59, 130, 246, 0.15);
+            padding: 13.5px;
+            border-radius: 7.2px;
+            margin-bottom: 18px;
+            font-size: 11.7px;
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-weight: 500;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 13.5px;
         }
 
         @media (max-width: 480px) {
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .register-container {
+                padding: 27px;
+            }
+
+            .logo h1 {
+                font-size: 25.2px;
             }
         }
     </style>
@@ -251,13 +292,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             
             if (password.length < 6) {
                 strengthDiv.textContent = '❌ Too short (min 6 characters)';
-                strengthDiv.style.color = '#c33';
+                strengthDiv.style.color = '#ff4757';
             } else if (password.length < 8) {
                 strengthDiv.textContent = '⚠️ Weak password';
-                strengthDiv.style.color = '#f90';
+                strengthDiv.style.color = '#f7931e';
             } else {
                 strengthDiv.textContent = '✅ Good password';
-                strengthDiv.style.color = '#3c3';
+                strengthDiv.style.color = '#00d4aa';
             }
         });
 
