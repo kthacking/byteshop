@@ -337,7 +337,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
 <body>
     <div class="register-container">
         <div class="logo">
-            <h1>👑 MARKET  X</h1>
+            <h1>👑 Market  X</h1>
             <p>Super Role Registration</p>
         </div>
 

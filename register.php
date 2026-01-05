@@ -18,7 +18,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - ByteShop</title>
+    <title>Register - Market  X</title>
   <style>
         * {
             margin: 0;
@@ -206,7 +206,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 <body>
     <div class="register-container">
         <div class="logo">
-            <h1>🛒 ByteShop</h1>
+            <h1>🛒 Market  X</h1>
             <p>Create Your Customer Account</p>
         </div>
 

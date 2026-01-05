@@ -207,7 +207,7 @@ input[type="password"]:focus {
 <body>
     <div class="login-container">
         <div class="logo">
-            <h1>🛒 ByteShop</h1>
+            <h1>🛒 Market  X</h1>
             <p>Multi-Vendor E-Commerce Platform</p>
         </div>
 
