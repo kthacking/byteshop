@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - ByteShop</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
+   <style>
         * {
             margin: 0;
             padding: 0;
@@ -176,109 +176,102 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-size: 14.4px; /* 90% of 16px */
         }
-
-        /* .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .navbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar h1 {
-            color: white;
-            font-size: 1.8rem;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            transition: opacity 0.3s;
-        }
-
-        .navbar a:hover {
-            opacity: 0.8;
-        } */
 
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1080px; /* 90% of 1200px */
+            margin: 1.8rem auto; /* 90% of 2rem */
+            padding: 0 0.9rem; /* 90% of 1rem */
+        }
+
+        .container > h2 {
+            font-size: 1.8rem; /* 90% of 2rem */
+            color: #e0e0e0;
+            font-weight: 700;
         }
 
         .checkout-grid {
             display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: 1fr 360px; /* 90% of 400px */
+            gap: 1.8rem; /* 90% of 2rem */
+            margin-top: 1.8rem; /* 90% of 2rem */
         }
 
         .checkout-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
+            padding: 1.8rem; /* 90% of 2rem */
+            border-radius: 14.4px; /* 90% of 16px */
+            box-shadow: 0 3.6px 14.4px rgba(0,0,0,0.4); /* 90% scale */
+            border: 1px solid #2a2a2a;
         }
 
         .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #667eea;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 0.5rem;
+            font-size: 1.35rem; /* 90% of 1.5rem */
+            margin-bottom: 1.35rem; /* 90% of 1.5rem */
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 2px solid #2a2a2a;
+            padding-bottom: 0.45rem; /* 90% of 0.5rem */
+            font-weight: 700;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.35rem; /* 90% of 1.5rem */
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.45rem; /* 90% of 0.5rem */
             font-weight: 600;
-            color: #555;
+            color: #909090;
+            font-size: 0.81rem; /* 90% of 0.9rem */
+            text-transform: uppercase;
+            letter-spacing: 0.45px; /* 90% of 0.5px */
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 0.675rem; /* 90% of 0.75rem */
+            border: 2px solid #2a2a2a;
+            border-radius: 7.2px; /* 90% of 8px */
+            font-size: 0.9rem; /* 90% of 1rem */
             transition: border-color 0.3s;
+            background: #0f0f0f;
+            color: #e0e0e0;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #ff6b35;
+            box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.1); /* 90% of 3px */
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #5a5a5a;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 0.9rem; /* 90% of 1rem */
         }
 
         .cart-item {
             display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid #f0f0f0;
+            gap: 0.9rem; /* 90% of 1rem */
+            padding: 0.9rem; /* 90% of 1rem */
+            border-bottom: 1px solid #2a2a2a;
             align-items: center;
         }
 
@@ -287,10 +280,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         }
 
         .cart-item img {
-            width: 60px;
-            height: 60px;
+            width: 54px; /* 90% of 60px */
+            height: 54px; /* 90% of 60px */
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 7.2px; /* 90% of 8px */
+            border: 1px solid #2a2a2a;
         }
 
         .cart-item-info {
@@ -299,47 +293,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
 
         .cart-item-name {
             font-weight: 600;
-            color: #333;
+            color: #e0e0e0;
+            font-size: 0.9rem;
         }
 
         .cart-item-market {
-            font-size: 0.85rem;
-            color: #888;
+            font-size: 0.765rem; /* 90% of 0.85rem */
+            color: #909090;
+            margin-top: 0.225rem; /* 90% of 0.25rem */
         }
 
         .cart-item-price {
             font-weight: 700;
-            color: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.08rem; /* 90% of 1.2rem */
         }
 
         .order-summary {
-            background: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+            background: #0f0f0f;
+            padding: 1.35rem; /* 90% of 1.5rem */
+            border-radius: 7.2px; /* 90% of 8px */
+            margin-top: 0.9rem; /* 90% of 1rem */
+            border: 1px solid #2a2a2a;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 1rem;
+            margin-bottom: 0.9rem; /* 90% of 1rem */
+            font-size: 0.9rem; /* 90% of 1rem */
+            color: #b0b0b0;
         }
 
         .summary-row.total {
-            font-size: 1.3rem;
+            font-size: 1.17rem; /* 90% of 1.3rem */
             font-weight: 700;
-            color: #667eea;
-            border-top: 2px solid #e0e0e0;
-            padding-top: 1rem;
-            margin-top: 1rem;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-top: 2px solid #2a2a2a;
+            padding-top: 0.9rem; /* 90% of 1rem */
+            margin-top: 0.9rem; /* 90% of 1rem */
         }
 
         .btn {
-            padding: 1rem 2rem;
+            padding: 0.9rem 1.8rem; /* 90% of 1rem 2rem */
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 7.2px; /* 90% of 8px */
+            font-size: 0.9rem; /* 90% of 1rem */
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
@@ -349,53 +354,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             width: 100%;
-            margin-top: 1rem;
+            margin-top: 0.9rem; /* 90% of 1rem */
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-1.8px); /* 90% of -2px */
+            box-shadow: 0 4.5px 13.5px rgba(255, 107, 53, 0.4); /* 90% scale */
         }
 
         .btn-secondary {
-            background: #f0f0f0;
-            color: #666;
+            background: #2a2a2a;
+            color: #b0b0b0;
         }
 
         .btn-secondary:hover {
-            background: #e0e0e0;
+            background: #3a3a3a;
+            color: #e0e0e0;
         }
 
         .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            padding: 0.9rem; /* 90% of 1rem */
+            border-radius: 7.2px; /* 90% of 8px */
+            margin-bottom: 0.9rem; /* 90% of 1rem */
         }
 
         .alert-error {
-            background: #fee;
-            color: #c33;
-            border-left: 4px solid #c33;
+            background: rgba(244, 67, 54, 0.15);
+            color: #f44336;
+            border-left: 3.6px solid #f44336; /* 90% of 4px */
         }
 
         .alert-success {
-            background: #efe;
-            color: #3c3;
-            border-left: 4px solid #3c3;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            border-left: 3.6px solid #4caf50; /* 90% of 4px */
         }
 
         .empty-cart {
             text-align: center;
-            padding: 3rem;
-            color: #999;
+            padding: 2.7rem; /* 90% of 3rem */
+            color: #707070;
         }
 
         .empty-cart-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            font-size: 3.6rem; /* 90% of 4rem */
+            margin-bottom: 0.9rem; /* 90% of 1rem */
+        }
+
+        .empty-cart h3 {
+            color: #909090;
+            margin-bottom: 0.9rem; /* 90% of 1rem */
+            font-size: 1.62rem; /* 90% of 1.8rem */
+        }
+
+        .empty-cart p {
+            margin: 0.9rem 0; /* 90% of 1rem */
+            color: #707070;
+            font-size: 0.9rem;
+        }
+
+        .cart-item > div:last-child {
+            margin-top: 0.225rem; /* 90% of 0.25rem */
+            color: #909090;
+            font-size: 0.81rem; /* 90% of 0.9rem */
         }
 
         @media (max-width: 968px) {
@@ -410,20 +434,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     </style>
 </head>
 <body>
-    <!-- <nav class="navbar">
-        <div class="navbar-content">
-            <h1>🛒 ByteShop</h1>
-            <div>
-                <a href="index.php">Home</a>
-                <a href="cart.php">Cart</a>
-                <a href="orders.php">My Orders</a>
-                <a href="../logout.php">Logout</a>
-            </div>
-        </div>
-    </nav> -->
         <?php include '../includes/customer_header.php'; ?>
     <div class="container">
-        <h2 style="font-size: 2rem; color: #333;">Checkout</h2>
+        <h2>Checkout</h2>
 
         <?php if ($error_message): ?>
             <div class="alert alert-error"><?php echo $error_message; ?></div>
@@ -434,7 +447,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <div class="empty-cart">
                     <div class="empty-cart-icon">🛒</div>
                     <h3>Your cart is empty!</h3>
-                    <p style="margin: 1rem 0;">Add some products to proceed with checkout.</p>
+                    <p>Add some products to proceed with checkout.</p>
                     <a href="index.php" class="btn btn-primary" style="width: auto;">Browse Markets</a>
                 </div>
             </div>
@@ -507,7 +520,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                     <div class="cart-item-info">
                                         <div class="cart-item-name"><?php echo htmlspecialchars($item['product_name']); ?></div>
                                         <div class="cart-item-market">From: <?php echo htmlspecialchars($item['market_name']); ?></div>
-                                        <div style="margin-top: 0.25rem;">Qty: <?php echo $item['quantity']; ?></div>
+                                        <div style="margin-top: 0.225rem;">Qty: <?php echo $item['quantity']; ?></div>
                                     </div>
                                     <div class="cart-item-price">₹<?php echo number_format($item['subtotal'], 2); ?></div>
                                 </div>
@@ -520,7 +533,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                 </div>
                                 <div class="summary-row">
                                     <span>Delivery Charges</span>
-                                    <span style="color: #27ae60; font-weight: 600;">FREE</span>
+                                    <span style="color: #4caf50; font-weight: 600;">FREE</span>
                                 </div>
                                 <div class="summary-row total">
                                     <span>Total Amount</span>
@@ -532,7 +545,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                 Place Order
                             </button>
 
-                            <a href="cart.php" class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+                            <a href="cart.php" class="btn btn-secondary" style="width: 100%; margin-top: 0.45rem;">
                                 ← Back to Cart
                             </a>
                         </div>
