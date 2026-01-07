@@ -127,8 +127,9 @@ $grand_total = $subtotal + $shipping;
         }
 
         .container {
-            max-width: 100%;
-           
+             max-width: 100%;
+            margin: 1.8rem auto; /* 90% of 2rem */
+            padding: 0 0.9rem; /* 90% of 1rem */
         }
 
         .alert {
@@ -156,6 +157,7 @@ $grand_total = $subtotal + $shipping;
             display: grid;
             grid-template-columns: 1fr 315px;
             gap: 18px;
+            
         }
 
         .cart-items {
@@ -346,7 +348,10 @@ $grand_total = $subtotal + $shipping;
             padding: 22.5px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             position: sticky;
-            top: 18px;
+            top: 98px;
+            max-height: max-content;
+           
+            overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -391,7 +396,10 @@ $grand_total = $subtotal + $shipping;
             color: white;
             border: none;
             border-radius: 10px;
+            text-decoration: none;
             font-size: 16.2px;
+            position: relative;
+            top:35px;
             font-weight: 600;
             cursor: pointer;
             margin-top: 18px;
@@ -459,8 +467,9 @@ $grand_total = $subtotal + $shipping;
     </style>
 </head>
 <body>
+    <?php include '../includes/customer_header.php'; ?>
     <div class="container">
-        <?php include '../includes/customer_header.php'; ?>
+        
         
         <!-- Messages -->
         <?php if ($message): ?>
@@ -580,7 +589,7 @@ $grand_total = $subtotal + $shipping;
                         Proceed to Checkout →
                     </a>
 
-                    <div style="margin-top: 18px; padding: 13.5px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; font-size: 11.7px; color: #a0a0a0; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <div style="margin-top: 68px; padding: 13.5px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; font-size: 11.7px; color: #a0a0a0; border: 1px solid rgba(255, 255, 255, 0.1);">
                         <div style="font-weight: 600; margin-bottom: 7.2px; color: #ffffff;">💳 Payment Options:</div>
                         <div>• Cash on Delivery</div>
                         <div>• 100% Secure Checkout</div>
