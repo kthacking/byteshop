@@ -169,261 +169,321 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <title>Checkout - ByteShop</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        background-attachment: fixed;
+        color: #e0e0e0;
+    }
 
-        /* .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    .container {
+        max-width: 1080px;
+        margin: 1.8rem auto;
+        padding: 0 0.9rem;
+    }
 
-        .navbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .container h2 {
+        font-size: 1.8rem;
+        color: #e0e0e0;
+        margin-bottom: 1.8rem;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800;
+    }
 
-        .navbar h1 {
-            color: white;
-            font-size: 1.8rem;
-        }
+    .checkout-grid {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 1.8rem;
+        margin-top: 1.8rem;
+    }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            transition: opacity 0.3s;
-        }
+    .checkout-section {
+        background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+        padding: 1.8rem;
+        border-radius: 10.8px;
+        box-shadow: 0 1.8px 9px rgba(0,0,0,0.5);
+        border: 1px solid rgba(255, 107, 53, 0.2);
+        backdrop-filter: blur(9px);
+    }
 
-        .navbar a:hover {
-            opacity: 0.8;
-        } */
+    .section-title {
+        font-size: 1.35rem;
+        margin-bottom: 1.35rem;
+        color: #ff6b35;
+        border-bottom: 1.8px solid rgba(255, 107, 53, 0.3);
+        padding-bottom: 0.45rem;
+        font-weight: 700;
+        letter-spacing: 0.27px;
+    }
+
+    .form-group {
+        margin-bottom: 1.35rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.45rem;
+        font-weight: 600;
+        color: #ccc;
+        font-size: 0.855rem;
+        letter-spacing: 0.27px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 0.675rem;
+        border: 1.8px solid rgba(255, 107, 53, 0.3);
+        border-radius: 7.2px;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        background: rgba(26, 26, 26, 0.6);
+        color: #e0e0e0;
+        backdrop-filter: blur(9px);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+        color: #666;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #ff6b35;
+        box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.2);
+        background: rgba(26, 26, 26, 0.8);
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.9rem;
+    }
+
+    .cart-item {
+        display: flex;
+        gap: 0.9rem;
+        padding: 0.9rem;
+        border-bottom: 1px solid rgba(255, 107, 53, 0.15);
+        align-items: center;
+        transition: all 0.3s;
+        border-radius: 7.2px;
+    }
+
+    .cart-item:hover {
+        background: rgba(255, 107, 53, 0.05);
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+
+    .cart-item img {
+        width: 54px;
+        height: 54px;
+        object-fit: cover;
+        border-radius: 7.2px;
+        border: 1.8px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .cart-item-info {
+        flex: 1;
+    }
+
+    .cart-item-name {
+        font-weight: 600;
+        color: #e0e0e0;
+        font-size: 0.9rem;
+        margin-bottom: 0.27rem;
+    }
+
+    .cart-item-market {
+        font-size: 0.765rem;
+        color: #999;
+    }
+
+    .cart-item-price {
+        font-weight: 700;
+        color: #ff6b35;
+        font-size: 1.08rem;
+    }
+
+    .order-summary {
+        background: rgba(26, 26, 26, 0.6);
+        padding: 1.35rem;
+        border-radius: 7.2px;
+        margin-top: 0.9rem;
+        border: 1px solid rgba(255, 107, 53, 0.2);
+        backdrop-filter: blur(9px);
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.9rem;
+        font-size: 0.9rem;
+        color: #ccc;
+    }
+
+    .summary-row.total {
+        font-size: 1.17rem;
+        font-weight: 700;
+        color: #ff6b35;
+        border-top: 1.8px solid rgba(255, 107, 53, 0.3);
+        padding-top: 0.9rem;
+        margin-top: 0.9rem;
+    }
+
+    .btn {
+        padding: 0.9rem 1.8rem;
+        border: none;
+        border-radius: 7.2px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        color: white;
+        width: 100%;
+        margin-top: 0.9rem;
+        box-shadow: 0 3.6px 18px rgba(255, 107, 53, 0.4);
+        font-weight: 700;
+        letter-spacing: 0.27px;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-1.8px);
+        box-shadow: 0 4.5px 22.5px rgba(255, 107, 53, 0.6);
+    }
+
+    .btn-secondary {
+        background: rgba(255, 107, 53, 0.1);
+        color: #ff6b35;
+        border: 1.8px solid rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-secondary:hover {
+        background: rgba(255, 107, 53, 0.2);
+        border-color: #ff6b35;
+    }
+
+    .alert {
+        padding: 0.9rem;
+        border-radius: 7.2px;
+        margin-bottom: 0.9rem;
+        font-size: 0.855rem;
+        backdrop-filter: blur(9px);
+    }
+
+    .alert-error {
+        background: rgba(255, 60, 60, 0.15);
+        color: #ff6666;
+        border-left: 3.6px solid #ff6666;
+        border: 1.8px solid rgba(255, 60, 60, 0.4);
+    }
+
+    .alert-success {
+        background: rgba(76, 175, 80, 0.15);
+        color: #66dd88;
+        border-left: 3.6px solid #66dd88;
+        border: 1.8px solid rgba(76, 175, 80, 0.4);
+    }
+
+    .empty-cart {
+        text-align: center;
+        padding: 2.7rem;
+        color: #999;
+    }
+
+    .empty-cart-icon {
+        font-size: 3.6rem;
+        margin-bottom: 0.9rem;
+        filter: drop-shadow(0 0 18px rgba(255, 107, 53, 0.3));
+    }
+
+    .empty-cart h3 {
+        color: #e0e0e0;
+        margin-bottom: 0.9rem;
+        font-size: 1.35rem;
+    }
+
+    .empty-cart p {
+        margin: 0.9rem 0;
+        color: #999;
+        font-size: 0.9rem;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 9px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        border-radius: 4.5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ff6b35;
+    }
+
+    /* Enhanced focus states */
+    select option {
+        background: #1a1a1a;
+        color: #e0e0e0;
+    }
+
+    @media (max-width: 968px) {
+        .checkout-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+        }
 
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .checkout-grid {
-            display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 2rem;
-            margin-top: 2rem;
+            padding: 0 0.9rem;
         }
 
         .checkout-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1.35rem;
         }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: #667eea;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 0.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #555;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            border-bottom: 1px solid #f0f0f0;
-            align-items: center;
-        }
-
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
-        .cart-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .cart-item-info {
-            flex: 1;
-        }
-
-        .cart-item-name {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .cart-item-market {
-            font-size: 0.85rem;
-            color: #888;
-        }
-
-        .cart-item-price {
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .order-summary {
-            background: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .summary-row.total {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #667eea;
-            border-top: 2px solid #e0e0e0;
-            padding-top: 1rem;
-            margin-top: 1rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #666;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .alert-error {
-            background: #fee;
-            color: #c33;
-            border-left: 4px solid #c33;
-        }
-
-        .alert-success {
-            background: #efe;
-            color: #3c3;
-            border-left: 4px solid #3c3;
-        }
-
-        .empty-cart {
-            text-align: center;
-            padding: 3rem;
-            color: #999;
-        }
-
-        .empty-cart-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 968px) {
-            .checkout-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <!-- <nav class="navbar">
-        <div class="navbar-content">
-            <h1>🛒 ByteShop</h1>
-            <div>
-                <a href="index.php">Home</a>
-                <a href="cart.php">Cart</a>
-                <a href="orders.php">My Orders</a>
-                <a href="../logout.php">Logout</a>
-            </div>
-        </div>
-    </nav> -->
-        <?php include '../includes/customer_header.php'; ?>
+    <?php include '../includes/customer_header.php'; ?>
+    
     <div class="container">
-        <h2 style="font-size: 2rem; color: #333;">Checkout</h2>
+        <h2>🛒 Checkout</h2>
 
         <?php if ($error_message): ?>
             <div class="alert alert-error"><?php echo $error_message; ?></div>
@@ -434,7 +494,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <div class="empty-cart">
                     <div class="empty-cart-icon">🛒</div>
                     <h3>Your cart is empty!</h3>
-                    <p style="margin: 1rem 0;">Add some products to proceed with checkout.</p>
+                    <p style="margin: 0.9rem 0;">Add some products to proceed with checkout.</p>
                     <a href="index.php" class="btn btn-primary" style="width: auto;">Browse Markets</a>
                 </div>
             </div>
@@ -443,7 +503,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <div class="checkout-grid">
                     <!-- Delivery Details -->
                     <div class="checkout-section">
-                        <h3 class="section-title">Delivery Details</h3>
+                        <h3 class="section-title">📍 Delivery Details</h3>
 
                         <div class="form-group">
                             <label>Full Name *</label>
@@ -478,7 +538,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                         </div>
 
                         <div class="form-group">
-                            <label>Payment Method *</label>
+                            <label>💳 Payment Method *</label>
                             <select name="payment_method" required>
                                 <option value="COD">Cash on Delivery (COD)</option>
                                 <option value="UPI">UPI</option>
@@ -490,7 +550,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                     <!-- Order Summary -->
                     <div>
                         <div class="checkout-section">
-                            <h3 class="section-title">Order Summary</h3>
+                            <h3 class="section-title">📋 Order Summary</h3>
 
                             <?php foreach ($cart_items as $item): ?>
                                 <div class="cart-item">
@@ -507,7 +567,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                     <div class="cart-item-info">
                                         <div class="cart-item-name"><?php echo htmlspecialchars($item['product_name']); ?></div>
                                         <div class="cart-item-market">From: <?php echo htmlspecialchars($item['market_name']); ?></div>
-                                        <div style="margin-top: 0.25rem;">Qty: <?php echo $item['quantity']; ?></div>
+                                        <div style="margin-top: 0.225rem; font-size: 0.81rem; color: #999;">Qty: <?php echo $item['quantity']; ?></div>
                                     </div>
                                     <div class="cart-item-price">₹<?php echo number_format($item['subtotal'], 2); ?></div>
                                 </div>
@@ -520,7 +580,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                                 </div>
                                 <div class="summary-row">
                                     <span>Delivery Charges</span>
-                                    <span style="color: #27ae60; font-weight: 600;">FREE</span>
+                                    <span style="color: #44cc77; font-weight: 600;">FREE</span>
                                 </div>
                                 <div class="summary-row total">
                                     <span>Total Amount</span>
@@ -529,10 +589,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                             </div>
 
                             <button type="submit" name="place_order" class="btn btn-primary">
-                                Place Order
+                                🎉 Place Order
                             </button>
 
-                            <a href="cart.php" class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem;">
+                            <a href="cart.php" class="btn btn-secondary" style="width: 100%; margin-top: 0.45rem;">
                                 ← Back to Cart
                             </a>
                         </div>
