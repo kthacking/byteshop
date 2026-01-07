@@ -112,7 +112,7 @@ $grand_total = $subtotal + $shipping;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - ByteShop</title>
-    <style>
+   <style>
         * {
             margin: 0;
             padding: 0;
@@ -120,96 +120,83 @@ $grand_total = $subtotal + $shipping;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
         }
 
         .container {
             max-width: 100%;
+            padding: 18px;
         }
-
-        /* .header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header h1 {
-            color: #667eea;
-            font-size: 28px;
-        } */
-
-        /* .nav-links a {
-            margin-left: 20px;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #764ba2;
-        } */
 
         .alert {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 13.5px;
+            border-radius: 7.2px;
+            margin-bottom: 18px;
             font-weight: 500;
+            font-size: 12.6px;
+            border: 1px solid;
         }
 
         .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+            border-color: rgba(40, 167, 69, 0.3);
         }
 
         .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(255, 71, 87, 0.15);
+            color: #ff4757;
+            border-color: rgba(255, 71, 87, 0.3);
         }
 
         .cart-layout {
             display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 20px;
+            grid-template-columns: 1fr 315px;
+            gap: 18px;
         }
 
         .cart-items {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            max-width: 100%;
+            padding: 18px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-items h2 {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
         }
 
         .cart-item {
             display: flex;
-            gap: 20px;
-            padding: 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            transition: transform 0.2s;
+            gap: 18px;
+            padding: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 13.5px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
         }
 
         .cart-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.2);
+            border-color: rgba(255, 107, 53, 0.3);
         }
 
         .item-image {
-            width: 120px;
-            height: 120px;
+            width: 108px;
+            height: 108px;
             object-fit: cover;
-            border-radius: 8px;
-            background: #f5f5f5;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .item-details {
@@ -217,142 +204,168 @@ $grand_total = $subtotal + $shipping;
         }
 
         .item-name {
-            font-size: 18px;
+            font-size: 16.2px;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+            color: #ffffff;
+            margin-bottom: 7.2px;
         }
 
         .item-market {
-            color: #667eea;
-            font-size: 14px;
-            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 12.6px;
+            margin-bottom: 7.2px;
+            font-weight: 600;
         }
 
         .item-category {
             display: inline-block;
-            background: #f0f0f0;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 10px;
+            background: rgba(74, 158, 255, 0.15);
+            padding: 3.6px 10.8px;
+            border-radius: 13.5px;
+            font-size: 10.8px;
+            color: #4a9eff;
+            margin-bottom: 9px;
+            border: 1px solid rgba(74, 158, 255, 0.3);
         }
 
         .item-price {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            color: #667eea;
-            margin-top: 10px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 9px;
         }
 
         .item-stock {
-            font-size: 12px;
+            font-size: 10.8px;
             color: #28a745;
-            margin-top: 5px;
+            margin-top: 4.5px;
+            font-weight: 500;
         }
 
         .item-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 9px;
         }
 
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 5px;
+            gap: 9px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 7.2px;
+            padding: 4.5px;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .quantity-control input {
-            width: 60px;
+            width: 54px;
             text-align: center;
             border: none;
-            font-size: 16px;
+            font-size: 14.4px;
             font-weight: 600;
+            background: transparent;
+            color: #ffffff;
         }
 
         .quantity-control button {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
+            width: 27px;
+            height: 27px;
+            border-radius: 5.4px;
             cursor: pointer;
-            font-size: 18px;
-            transition: background 0.3s;
+            font-size: 16.2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
         }
 
         .quantity-control button:hover {
-            background: #764ba2;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.5);
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 9px 18px;
             border: none;
-            border-radius: 5px;
+            border-radius: 7.2px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12.6px;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
         }
 
         .btn-remove {
-            background: #dc3545;
-            color: white;
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border: 1px solid rgba(255, 71, 87, 0.3);
         }
 
         .btn-remove:hover {
-            background: #c82333;
+            background: rgba(255, 71, 87, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
         }
 
         .btn-primary {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
         }
 
         .btn-primary:hover {
-            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.5);
         }
 
         .btn-outline {
-            background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ff6b35;
+            border: 2px solid rgba(255, 107, 53, 0.5);
         }
 
         .btn-outline:hover {
-            background: #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
+            border-color: transparent;
         }
 
         .cart-summary {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(26, 26, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 22.5px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             position: sticky;
-            top: 20px;
+            top: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .cart-summary h2 {
-            margin-bottom: 20px;
-            color: #333;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
+            margin-bottom: 18px;
+            color: #ffffff;
+            border-bottom: 2px solid rgba(255, 107, 53, 0.5);
+            padding-bottom: 9px;
+            font-size: 18px;
+            font-weight: 700;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 10.8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 12.6px;
+            color: #e0e0e0;
         }
 
         .summary-row:last-child {
@@ -360,58 +373,65 @@ $grand_total = $subtotal + $shipping;
         }
 
         .summary-row.total {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
-            color: #667eea;
-            margin-top: 10px;
-            padding-top: 15px;
-            border-top: 2px solid #667eea;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 9px;
+            padding-top: 13.5px;
+            border-top: 2px solid rgba(255, 107, 53, 0.5);
         }
 
         .checkout-btn {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 13.5px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 10px;
+            font-size: 16.2px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s;
+            margin-top: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
         }
 
         .checkout-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
         }
 
         .checkout-btn:disabled {
-            background: #ccc;
+            background: rgba(128, 128, 128, 0.3);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .empty-cart {
             text-align: center;
-            padding: 60px 20px;
+            padding: 54px 18px;
         }
 
         .empty-cart img {
-            width: 200px;
-            opacity: 0.5;
-            margin-bottom: 20px;
+            width: 180px;
+            opacity: 0.3;
+            margin-bottom: 18px;
         }
 
         .empty-cart h2 {
-            color: #666;
-            margin-bottom: 10px;
+            color: #ffffff;
+            margin-bottom: 9px;
+            font-size: 18px;
         }
 
         .empty-cart p {
-            color: #999;
-            margin-bottom: 30px;
+            color: #a0a0a0;
+            margin-bottom: 27px;
+            font-size: 12.6px;
         }
 
         @media (max-width: 768px) {
@@ -425,27 +445,23 @@ $grand_total = $subtotal + $shipping;
 
             .item-image {
                 width: 100%;
-                height: 200px;
+                height: 180px;
             }
 
             .cart-summary {
                 position: static;
+            }
+
+            .container {
+                padding: 13.5px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header
-        <div class="header">
-            <h1>🛒 Shopping Cart</h1>
-            <div class="nav-links">
-                <a href="index.php">← Continue Shopping</a>
-                <a href="orders.php">My Orders</a>
-                <a href="../logout.php">Logout</a>
-            </div>
-        </div> -->
         <?php include '../includes/customer_header.php'; ?>
+        
         <!-- Messages -->
         <?php if ($message): ?>
             <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
@@ -461,7 +477,7 @@ $grand_total = $subtotal + $shipping;
                 <div class="empty-cart">
                     <h2>Your cart is empty!</h2>
                     <p>Add some products to get started</p>
-                    <a href="index.php" class="btn btn-primary" style="padding: 15px 40px; font-size: 16px;">
+                    <a href="index.php" class="btn btn-primary" style="padding: 13.5px 36px; font-size: 14.4px;">
                         Browse Markets
                     </a>
                 </div>
@@ -471,7 +487,7 @@ $grand_total = $subtotal + $shipping;
             <div class="cart-layout">
                 <!-- Cart Items -->
                 <div class="cart-items">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
                         <h2>Cart Items (<?php echo $total_items; ?>)</h2>
                         <form method="POST" style="display: inline;" onsubmit="return confirm('Clear entire cart?');">
                             <input type="hidden" name="action" value="clear">
@@ -482,7 +498,6 @@ $grand_total = $subtotal + $shipping;
                     <?php foreach ($cart_items as $item): ?>
                         <div class="cart-item">
                             <?php
-                            // Detect if image is URL or local file
                             $cart_item_image = $item['product_image'] ?: 'default.jpg';
                             $is_cart_url = preg_match('/^https?:\/\//i', $cart_item_image);
                             $cart_image_src = $is_cart_url ? htmlspecialchars($cart_item_image) : '../uploads/products/' . htmlspecialchars($cart_item_image);
@@ -502,7 +517,7 @@ $grand_total = $subtotal + $shipping;
                                 <div class="item-stock">
                                     <?php echo $item['stock'] > 0 ? "Stock: {$item['stock']} available" : "Out of stock"; ?>
                                 </div>
-                                <div style="margin-top: 10px; font-weight: 600; color: #333;">
+                                <div style="margin-top: 9px; font-weight: 600; color: #ffffff; font-size: 13.5px;">
                                     Subtotal: ₹<?php echo number_format($item['subtotal'], 2); ?>
                                 </div>
                             </div>
@@ -516,10 +531,10 @@ $grand_total = $subtotal + $shipping;
                                     <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" 
                                            min="1" max="<?php echo $item['stock']; ?>" readonly>
                                     <button type="button" onclick="incrementQuantity(this, <?php echo $item['stock']; ?>)">+</button>
-                                    <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Update</button>
+                                    <button type="submit" class="btn btn-primary" style="margin-left: 9px;">Update</button>
                                 </form>
 
-                                <form method="POST" style="margin-top: 10px;">
+                                <form method="POST" style="margin-top: 9px;">
                                     <input type="hidden" name="action" value="remove">
                                     <input type="hidden" name="cart_id" value="<?php echo $item['cart_id']; ?>">
                                     <button type="submit" class="btn btn-remove" 
@@ -547,11 +562,11 @@ $grand_total = $subtotal + $shipping;
                     </div>
                     
                     <?php if ($subtotal >= 1000): ?>
-                        <div style="color: #28a745; font-size: 12px; margin-top: 5px; text-align: center;">
+                        <div style="color: #28a745; font-size: 10.8px; margin-top: 4.5px; text-align: center; font-weight: 500;">
                             🎉 You got FREE shipping!
                         </div>
                     <?php else: ?>
-                        <div style="color: #ff9800; font-size: 12px; margin-top: 5px; text-align: center;">
+                        <div style="color: #ff9800; font-size: 10.8px; margin-top: 4.5px; text-align: center; font-weight: 500;">
                             Add ₹<?php echo number_format(1000 - $subtotal, 2); ?> more for FREE shipping
                         </div>
                     <?php endif; ?>
@@ -565,8 +580,8 @@ $grand_total = $subtotal + $shipping;
                         Proceed to Checkout →
                     </a>
 
-                    <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 13px; color: #666;">
-                        <div style="font-weight: 600; margin-bottom: 8px;">💳 Payment Options:</div>
+                    <div style="margin-top: 18px; padding: 13.5px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; font-size: 11.7px; color: #a0a0a0; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="font-weight: 600; margin-bottom: 7.2px; color: #ffffff;">💳 Payment Options:</div>
                         <div>• Cash on Delivery</div>
                         <div>• 100% Secure Checkout</div>
                         <div>• Easy Returns</div>
