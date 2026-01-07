@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch cart items with product and market details
+// Fetch cart items with product and   market details
 $stmt = $pdo->prepare("
     SELECT 
         c.cart_id,
