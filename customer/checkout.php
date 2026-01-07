@@ -168,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - ByteShop</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
+  <style>
     * {
         margin: 0;
         padding: 0;
