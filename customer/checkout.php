@@ -29,7 +29,7 @@ $cart_query = "
         (c.quantity * p.price) as subtotal
     FROM cart c
     INNER JOIN products p ON c.product_id = p.product_id
-    INNER JOIN markets m ON p.market_id = m.market_id
+    INNER JOIN markets m ON Dark color scheme: Deep blacks (#0a0a0a, #1a1a1a) with subtle gradients Orange accent color: Vibrant orange gradient (#ff6b35 to #f7931e) matching the image Modern cards: Glassmorphism-style cards with borders and hover effects Enhanced typography: Better font weights and sizing for hierarchy Professional badges: Updated status badges with transparency and borders Dark charts: Chart.js configured for dark theme with proper grid colors Smooth animations: Hover effects with shadows and transforms this also do to change ui theme and dont remove class names and functions only do to change ui and styles and dont remove php code and dont add new data or dummy datas give og code and When the page is set to 100%, everything looks too big, but when viewed at 90% zoom, it looks much better. So please reduce the size of all elements in my existing web code to 90%. Decrease font sizes, spacing, card sizes, heights, widths, and overall scale proportionally, without changing any existing class names, IDs, or functionality.p.market_id = m.market_id
     WHERE c.customer_id = :customer_id AND p.status = 'active'
     ORDER BY c.added_at DESC
 ";
