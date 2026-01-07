@@ -128,7 +128,7 @@ $grand_total = $subtotal + $shipping;
 
         .container {
             max-width: 100%;
-            padding: 18px;
+           
         }
 
         .alert {
