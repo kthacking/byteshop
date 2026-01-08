@@ -273,6 +273,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             padding: 0.9rem; /* 90% of 1rem */
             border-bottom: 1px solid #2a2a2a;
             align-items: center;
+             background: #3a3a3a;
         }
 
         .cart-item:last-child {
