@@ -105,34 +105,43 @@ $stats = $pdo->query($stats_query)->fetch();
         min-height: 100vh;
     }
 
-   .nav-links {
+    .nav-links {
         display: flex;
-        gap: 0.72rem; /* 90% of 0.8rem */
-        margin-bottom: 2.25rem; /* 90% of 2.5rem */
-        padding: 1.08rem; /* 90% of 1.2rem */
+        gap: 0.72rem;
+        /* 90% of 0.8rem */
+        margin-bottom: 2.25rem;
+        /* 90% of 2.5rem */
+        padding: 1.08rem;
+        /* 90% of 1.2rem */
         background: #161616;
-        border-radius: 14.4px; /* 90% of 16px */
+        border-radius: 14.4px;
+        /* 90% of 16px */
         flex-wrap: wrap;
         border: 1px solid #2a2a2a;
     }
 
     .nav-links a {
-        padding: 0.72rem 1.35rem; /* 90% of 0.8rem 1.5rem */
+        padding: 0.72rem 1.35rem;
+        /* 90% of 0.8rem 1.5rem */
         background: #1f1f1f;
         color: #b0b0b0;
         text-decoration: none;
-        border-radius: 9px; /* 90% of 10px */
+        border-radius: 9px;
+        /* 90% of 10px */
         font-weight: 600;
         transition: all 0.3s;
-        font-size: 0.81rem; /* 90% of 0.9rem */
+        font-size: 0.81rem;
+        /* 90% of 0.9rem */
         border: 1px solid #2a2a2a;
     }
 
     .nav-links a:hover {
         background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
         color: white;
-        transform: translateY(-1.8px); /* 90% of -2px */
-        box-shadow: 0 5.4px 14.4px rgba(255, 107, 53, 0.3); /* 90% scale */
+        transform: translateY(-1.8px);
+        /* 90% of -2px */
+        box-shadow: 0 5.4px 14.4px rgba(255, 107, 53, 0.3);
+        /* 90% scale */
         border-color: transparent;
     }
 
@@ -141,10 +150,13 @@ $stats = $pdo->query($stats_query)->fetch();
         color: white;
         border-color: transparent;
     }
-     .container {
-        flex: 1; 
-        padding: 27px; /* 90% of 30px */
-        max-width: 100%; /* 90% of 1600px */
+
+    .container {
+        flex: 1;
+        padding: 27px;
+        /* 90% of 30px */
+        max-width: 100%;
+        /* 90% of 1600px */
         margin: 0 auto;
     }
 
@@ -591,7 +603,7 @@ $stats = $pdo->query($stats_query)->fetch();
         backdrop-filter: blur(10px);
         padding: 31.5px;
         border-radius: 18px;
-        max-width: 540px;
+        max-width: 940px;
         width: 90%;
         max-height: 80vh;
         overflow-y: auto;
@@ -840,7 +852,7 @@ $stats = $pdo->query($stats_query)->fetch();
 
     /* Product Table */
     .od-products-table {
-        width: 100%;
+        width:100%;
         border-collapse: collapse;
     }
 
@@ -889,7 +901,7 @@ $stats = $pdo->query($stats_query)->fetch();
     }
 
     .od-summary-row span:last-child {
-        width: 90px;
+        width: max-content  ;
         text-align: right;
         font-weight: 600;
         color: #ffffff;
@@ -941,13 +953,13 @@ $stats = $pdo->query($stats_query)->fetch();
 
             <!-- Statistics -->
             <div class="stats-grid">
-                <div class="stat-card blue">
+                <div class="stat-card orange">
                     <h3>Total Orders</h3>
                     <div class="number"><?php echo $stats['total_orders']; ?></div>
                 </div>
-                <div class="stat-card green">
-                    <?php
-function format_indian_short($num) {
+                <div class="stat-card orange">
+                    <?php 
+                    function format_indian_short($num) {
     $num = (float)$num; // Ensure it's a number
 
     if ($num >= 10000000) {
@@ -965,6 +977,7 @@ function format_indian_short($num) {
     return '₹' . number_format($num, 0);
 }
 ?>
+
                     <h3>Total Revenue</h3>
                     <div class="number">
                         <?php echo format_indian_short($stats['total_revenue'] ?? 0); ?>
@@ -974,11 +987,11 @@ function format_indian_short($num) {
                     <h3>Placed</h3>
                     <div class="number"><?php echo $stats['placed_orders']; ?></div>
                 </div>
-                <div class="stat-card purple">
+                <div class="stat-card orange">
                     <h3>Shipped</h3>
                     <div class="number"><?php echo $stats['shipped_orders']; ?></div>
                 </div>
-                <div class="stat-card green">
+                <div class="stat-card orange">
                     <h3>Delivered</h3>
                     <div class="number"><?php echo $stats['delivered_orders']; ?></div>
                 </div>
@@ -1220,7 +1233,7 @@ function format_indian_short($num) {
                             <div class="od-product-flex">
                                 <img src="${img}" class="od-thumb" onerror="this.src='../assets/images/default-product.jpg'">
                                 <div>
-                                    <div style="font-weight:600; color:#ffffff;">${item.product_name}</div>
+                                    <div style="font-weight: 600;color: #ffffff;display: -webkit-box;-webkit-line-clamp: 2; -webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis; max-width: 150px; line-height: 1.3;">${item.product_name}</div>
                                     <div style="font-size:0.72rem; color:#a0a0a0;">Seller: ${item.market_name}</div>
                                 </div>
                             </div>
