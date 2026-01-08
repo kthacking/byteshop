@@ -247,11 +247,11 @@ if ($market) {
         }
 
         .stat-card.revenue {
-            border-left-color: #00d4aa;
+            border-left-color: #e47b04ff;
         }
 
         .stat-card.revenue .value {
-            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
