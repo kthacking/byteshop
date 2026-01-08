@@ -433,7 +433,7 @@ $top_customers = $top_customers_stmt->fetchAll();
         }
 
         .stat-card .currency {
-            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            background: linear-gradient(135deg, #d47f00ff 0%, #f57600ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -467,7 +467,7 @@ $top_customers = $top_customers_stmt->fetchAll();
         }
 
         .btn-download {
-            background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+            background: linear-gradient(135deg, #d47f00ff 0%, #ec6409ff 100%);
             color: white;
             padding: 11px 22px;
             text-decoration: none;
@@ -476,13 +476,12 @@ $top_customers = $top_customers_stmt->fetchAll();
             transition: all 0.3s ease;
             display: inline-block;
             font-size: 12.6px;
-            box-shadow: 0 4px 14px rgba(0, 212, 170, 0.3);
-            border: 1px solid rgba(0, 212, 170, 0.3);
+            
         }
 
         .btn-download:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 212, 170, 0.5);
+            box-shadow: 0 6px 20px rgba(255, 72, 0, 1);
         }
 
         /* Data Tables */
