@@ -11,7 +11,7 @@
 require_once '../config/db.php';
 require_once '../includes/session.php';
 
-// Require admin 
+// Require admin access
 require_admin();
 
 // Get filter parameters
