@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $quantity = (int)$_POST['quantity'];
         
         if ($quantity > 0) {
-            // Chek product stock before updating
+            // Check product stock before updating
             $stmt = $pdo->prepare("
                 SELECT p.stock 
                 FROM cart c 
