@@ -20,6 +20,72 @@ $customer_id = get_user_id();
 $message = '';
 $error = '';
 
+// Handle AJAX Update
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action']) && $_POST['ajax_action'] === 'update_qty') {
+    header('Content-Type: application/json');
+    $cart_id = (int)$_POST['cart_id'];
+    $quantity = (int)$_POST['quantity'];
+    $response = ['success' => false];
+
+    if ($quantity > 0) {
+        // Check stock
+        $stmt = $pdo->prepare("SELECT p.stock FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.cart_id = ? AND c.customer_id = ?");
+        $stmt->execute([$cart_id, $customer_id]);
+        $product = $stmt->fetch();
+
+        if ($product && $quantity <= $product['stock']) {
+            $stmt = $pdo->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ? AND customer_id = ?");
+            $stmt->execute([$quantity, $cart_id, $customer_id]);
+            $response['success'] = true;
+        } else {
+            $response['message'] = 'Requested quantity not available';
+            echo json_encode($response); exit;
+        }
+    }
+
+    // Recalculate Totals
+    $stmt = $pdo->prepare("
+        SELECT 
+            c.cart_id,
+            c.quantity,
+            p.price,
+            (p.price * c.quantity) as item_subtotal
+        FROM cart c
+        JOIN products p ON c.product_id = p.product_id
+        WHERE c.customer_id = ? AND p.status = 'active'
+    ");
+    $stmt->execute([$customer_id]);
+    $cart_items_data = $stmt->fetchAll();
+
+    $total_items = 0;
+    $subtotal = 0;
+    $current_item_subtotal = 0;
+
+    foreach ($cart_items_data as $item) {
+        $total_items += $item['quantity'];
+        $subtotal += $item['item_subtotal'];
+        if ($item['cart_id'] == $cart_id) {
+            $current_item_subtotal = $item['item_subtotal'];
+        }
+    }
+
+    $shipping = ($subtotal > 0 && $subtotal < 1000) ? 50 : 0;
+    $grand_total = $subtotal + $shipping;
+
+    $response['data'] = [
+        'item_subtotal' => number_format($current_item_subtotal, 2),
+        'total_items' => $total_items,
+        'subtotal' => number_format($subtotal, 2),
+        'shipping' => $shipping > 0 ? '₹' . number_format($shipping, 2) : 'FREE',
+        'grand_total' => number_format($grand_total, 2),
+        'shipping_val' => $shipping,
+        'remaining' => number_format(1000 - $subtotal, 2)
+    ];
+
+    echo json_encode($response);
+    exit;
+}
+
 // Handle POST actions (Update/Remove)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -526,22 +592,17 @@ $grand_total = $subtotal + $shipping;
                                 <div class="item-stock">
                                     <?php echo $item['stock'] > 0 ? "Stock: {$item['stock']} available" : "Out of stock"; ?>
                                 </div>
-                                <div style="margin-top: 9px; font-weight: 600; color: #ffffff; font-size: 13.5px;">
+                                <div style="margin-top: 9px; font-weight: 600; color: #ffffff; font-size: 13.5px;" id="item-subtotal-<?php echo $item['cart_id']; ?>">
                                     Subtotal: ₹<?php echo number_format($item['subtotal'], 2); ?>
                                 </div>
                             </div>
 
                             <div class="item-actions">
-                                <form method="POST" class="quantity-control">
-                                    <input type="hidden" name="action" value="update">
-                                    <input type="hidden" name="cart_id" value="<?php echo $item['cart_id']; ?>">
-                                    
-                                    <button type="button" onclick="decrementQuantity(this)">-</button>
-                                    <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" 
-                                           min="1" max="<?php echo $item['stock']; ?>" readonly>
-                                    <button type="button" onclick="incrementQuantity(this, <?php echo $item['stock']; ?>)">+</button>
-                                    <button type="submit" class="btn btn-primary" style="margin-left: 9px;">Update</button>
-                                </form>
+                                <div class="quantity-control">
+                                    <button type="button" onclick="updateItemQuantity(this, <?php echo $item['cart_id']; ?>, -1)">-</button>
+                                    <input type="number" id="qty-<?php echo $item['cart_id']; ?>" value="<?php echo $item['quantity']; ?>" readonly>
+                                    <button type="button" onclick="updateItemQuantity(this, <?php echo $item['cart_id']; ?>, 1, <?php echo $item['stock']; ?>)">+</button>
+                                </div>
 
                                 <form method="POST" style="margin-top: 9px;">
                                     <input type="hidden" name="action" value="remove">
@@ -561,15 +622,16 @@ $grand_total = $subtotal + $shipping;
                     <h2>Order Summary</h2>
                     
                     <div class="summary-row">
-                        <span>Items (<?php echo $total_items; ?>)</span>
-                        <span>₹<?php echo number_format($subtotal, 2); ?></span>
+                        <span id="summary-items">Items (<?php echo $total_items; ?>)</span>
+                        <span id="summary-subtotal">₹<?php echo number_format($subtotal, 2); ?></span>
                     </div>
                     
                     <div class="summary-row">
                         <span>Shipping</span>
-                        <span><?php echo $shipping > 0 ? '₹' . number_format($shipping, 2) : 'FREE'; ?></span>
+                        <span id="summary-shipping"><?php echo $shipping > 0 ? '₹' . number_format($shipping, 2) : 'FREE'; ?></span>
                     </div>
                     
+                    <div id="summary-shipping-msg">
                     <?php if ($subtotal >= 1000): ?>
                         <div style="color: #28a745; font-size: 10.8px; margin-top: 4.5px; text-align: center; font-weight: 500;">
                             🎉 You got FREE shipping!
@@ -579,10 +641,11 @@ $grand_total = $subtotal + $shipping;
                             Add ₹<?php echo number_format(1000 - $subtotal, 2); ?> more for FREE shipping
                         </div>
                     <?php endif; ?>
+                    </div>
                     
                     <div class="summary-row total">
                         <span>Total</span>
-                        <span>₹<?php echo number_format($grand_total, 2); ?></span>
+                        <span id="summary-total">₹<?php echo number_format($grand_total, 2); ?></span>
                     </div>
 
                     <a href="checkout.php" class="checkout-btn">
@@ -601,22 +664,61 @@ $grand_total = $subtotal + $shipping;
     </div>
 
     <script>
-        function incrementQuantity(btn, maxStock) {
-            const input = btn.parentElement.querySelector('input[name="quantity"]');
-            let value = parseInt(input.value);
-            if (value < maxStock) {
-                input.value = value + 1;
-            } else {
-                alert('Maximum stock reached!');
-            }
-        }
+        function updateItemQuantity(btn, cartId, change, maxStock = 100) {
+            const input = document.getElementById('qty-' + cartId);
+            let currentQty = parseInt(input.value);
+            let newQty = currentQty + change;
 
-        function decrementQuantity(btn) {
-            const input = btn.parentElement.querySelector('input[name="quantity"]');
-            let value = parseInt(input.value);
-            if (value > 1) {
-                input.value = value - 1;
+            if (newQty < 1) return; // Prevent going below 1
+            if (newQty > maxStock) {
+                alert('Maximum stock reached!');
+                return;
             }
+
+            // Optimistic update
+            input.value = newQty;
+            btn.disabled = true; // Prevent rapid clicking
+
+            const formData = new FormData();
+            formData.append('ajax_action', 'update_qty');
+            formData.append('cart_id', cartId);
+            formData.append('quantity', newQty);
+
+            fetch('cart.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                btn.disabled = false;
+                if (data.success) {
+                    // Update Item Subtotal
+                    document.getElementById('item-subtotal-' + cartId).textContent = 'Subtotal: ₹' + data.data.item_subtotal;
+                    
+                    // Update Summary
+                    document.getElementById('summary-items').textContent = 'Items (' + data.data.total_items + ')';
+                    document.getElementById('summary-subtotal').textContent = '₹' + data.data.subtotal;
+                    document.getElementById('summary-shipping').textContent = data.data.shipping;
+                    document.getElementById('summary-total').textContent = '₹' + data.data.grand_total;
+
+                    // Update Shipping Message
+                    const msgDiv = document.getElementById('summary-shipping-msg');
+                    if (data.data.shipping_val === 0) {
+                        msgDiv.innerHTML = '<div style="color: #28a745; font-size: 10.8px; margin-top: 4.5px; text-align: center; font-weight: 500;">🎉 You got FREE shipping!</div>';
+                    } else {
+                        msgDiv.innerHTML = '<div style="color: #ff9800; font-size: 10.8px; margin-top: 4.5px; text-align: center; font-weight: 500;">Add ₹' + data.data.remaining + ' more for FREE shipping</div>';
+                    }
+                } else {
+                    alert(data.message || 'Error updating cart');
+                    input.value = currentQty; // Revert
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                btn.disabled = false;
+                input.value = currentQty;
+                alert('Connection error');
+            });
         }
     </script>
 </body>

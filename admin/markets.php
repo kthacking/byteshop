@@ -563,7 +563,6 @@ $stats = $pdo->query($stats_query)->fetch();
         font-size: 0.9rem;
     }
 </style>
-<link rel="stylesheet" href="/byteshop/assets/css/style.css">
 
 </head>
 
