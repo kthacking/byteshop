@@ -10,6 +10,7 @@
 
 require_once '../config/db.php';
 require_once '../includes/session.php';
+require_once '../includes/helpers.php';
 
 // Require admin access
 require_admin();
@@ -169,465 +170,219 @@ $top_customers_stmt = $pdo->prepare($top_customers_query);
 $top_customers_stmt->execute($params);
 $top_customers = $top_customers_stmt->fetchAll();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics & Reports - ByteShop Admin</title>
-<style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <style>
+        /* CSS reset and fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #FF4B2B;
+            --primary-dark: #cc3a20;
+            --bg-light: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --border-color: #e5e7eb;
+            --card-radius: 16px;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-dark);
             min-height: 100vh;
         }
 
-        .container {
-            flex: 1; 
-            padding: 27px;
-            max-width: 1440px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            padding: 18px;
-            border-radius: 14px;
-            margin-bottom: 27px;
-            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .header h1 {
-            font-size: 25px;
-            margin-bottom: 9px;
-            font-weight: 700;
-        }
-
-        .header-info {
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .navbar h1 span { color: var(--primary); }
 
         .user-info {
-            font-size: 13px;
-            opacity: 0.95;
-        }
-
-        /* Navigation Links */
-        .nav-links {
             display: flex;
-            gap: 0.45rem;
-            margin-bottom: 1.8rem;
-            padding: 0.9rem;
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 14px;
-            flex-wrap: wrap;
-            border: 1px solid rgba(255, 107, 53, 0.1);
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
-        .nav-links a {
-            padding: 0.63rem 1.08rem;
-            background: rgba(255, 255, 255, 0.05);
-            color: #e0e0e0;
+        .logout-btn {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
             text-decoration: none;
-            border-radius: 9px;
             font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.81rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s;
+            font-size: 0.85rem;
         }
+        .logout-btn:hover { background: #FFF5F5; color: var(--primary); border-color: var(--primary); }
 
-        .nav-links a:hover {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(255, 107, 53, 0.4);
-            border-color: transparent;
+        /* Container & Nav */
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        
+        .nav-links {
+            display: inline-flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: #fff;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            flex-wrap: wrap;
         }
-
-        .nav-links a.active {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
+        .nav-links a {
+            padding: 0.5rem 1.2rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
         }
+        .nav-links a:hover { color: var(--text-dark); background: #f3f4f6; }
+        .nav-links a.active { background: #000; color: #fff; }
 
-        /* Filter Section */
-        .filter-section {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 23px;
-            border-radius: 14px;
-            margin-bottom: 27px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .header { margin-bottom: 2rem; }
+        .header h2 { font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: 0.5rem; }
+        .header p { color: var(--text-gray); }
 
-        .filter-section h2 {
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .filter-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 14px;
-            align-items: end;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 12.6px;
-            color: #b0b0b0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input,
-        .form-group select {
-            padding: 9px 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 9px;
-            font-size: 12.6px;
-            color: #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #ff6b35;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-        }
-
-        .form-group select option {
-            background: #1a1a1a;
-            color: #e0e0e0;
-        }
-
-        .filter-actions {
-            display: flex;
-            gap: 9px;
-        }
-
-        .btn {
-            padding: 9px 18px;
-            border: none;
-            border-radius: 9px;
-            cursor: pointer;
-            font-size: 12.6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-        }
-
-        .btn-secondary {
-            background: rgba(108, 117, 125, 0.2);
-            color: #a0a0a0;
-            border: 1px solid rgba(108, 117, 125, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(108, 117, 125, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(108, 117, 125, 0.3);
-        }
-
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-            gap: 18px;
-            margin-bottom: 27px;
-        }
-
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        
         .stat-card {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 23px;
-            border-radius: 14px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border-left: 3.6px solid;
-            border-color: #ff6b35;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 3.6px solid #ff6b35;
-            transition: all 0.3s ease;
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
             position: relative;
             overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            min-height: 140px;
         }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .stat-card h3 { font-size: 0.85rem; font-weight: 600; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; position: relative; z-index: 2; }
+        .stat-card .value { font-size: 2.2rem; font-weight: 800; position: relative; z-index: 2; letter-spacing: -1px; }
+        .stat-card .icon-overlay { position: absolute; right: -10px; bottom: -10px; font-size: 8rem; opacity: 0.1; transform: rotate(-15deg); }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+        .bg-gradient-orange { background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); }
+        .bg-gradient-blue { background: linear-gradient(135deg, #2563EB 0%, #60A5FA 100%); }
+        .bg-gradient-green { background: linear-gradient(135deg, #059669 0%, #34D399 100%); }
+        .bg-gradient-purple { background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%); }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
-            border-color: rgba(255, 107, 53, 0.3);
-            border-left-color: #ff6b35;
-        }
+        /* Cards & Section */
+        .card { background: #fff; border-radius: var(--card-radius); padding: 1.5rem; border: 1px solid var(--border-color); margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .card h2 { font-size: 1.25rem; font-weight: 700; color: #111; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        
+        /* Filters */
+        .filters form { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
+        .filters .form-group { flex: 1; min-width: 180px; }
+        .filters label { display: block; margin-bottom: 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+        .filters input, .filters select { width: 100%; padding: 0.6rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.9rem; background: #f9fafb; transition: all 0.2s; }
+        .filters input:focus, .filters select:focus { border-color: var(--primary); outline: none; background: #fff; box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.1); }
+        
+        .btn { padding: 0.6rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-primary { background: #000; color: #fff; }
+        .btn-primary:hover { background: var(--primary); transform: translateY(-1px); }
+        .btn-secondary { background: #f3f4f6; color: #111; border: 1px solid #d1d5db; }
+        .btn-secondary:hover { background: #e5e7eb; }
 
-        .stat-card:hover::before {
-            opacity: 1;
-        }
+        /* Download Buttons */
+        .download-buttons { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .btn-download { padding: 0.8rem 1.2rem; border-radius: 12px; font-weight: 600; color: #fff; text-decoration: none; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: all 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        
+        .dl-customers { background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%); }
+        .dl-market { background: linear-gradient(135deg, #059669 0%, #047857 100%); }
+        .dl-product { background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%); }
+        .dl-history { background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%); }
 
-        .stat-card h3 {
-            font-size: 12.6px;
-            color: #a0a0a0;
-            margin-bottom: 9px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 1rem; background: #F9FAFB; color: var(--text-gray); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #E5E7EB; }
+        td { padding: 1rem; border-bottom: 1px solid #E5E7EB; font-size: 0.9rem; color: #1F2937; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #F9FAFB; }
+        
+        .no-data { text-align: center; padding: 3rem; color: var(--text-gray); font-style: italic; }
 
-        .stat-card .value {
-            font-size: 29px;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .stat-card .currency {
-            background: linear-gradient(135deg, #d47f00ff 0%, #f57600ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Download Section */
-        .download-section {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 23px;
-            border-radius: 14px;
-            margin-bottom: 27px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .download-section h2 {
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .download-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .btn-download {
-            background: linear-gradient(135deg, #d47f00ff 0%, #ec6409ff 100%);
-            color: white;
-            padding: 11px 22px;
-            text-decoration: none;
-            border-radius: 9px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-size: 12.6px;
-            
-        }
-
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 72, 0, 1);
-        }
-
-        /* Data Tables */
-        .data-section {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 23px;
-            border-radius: 14px;
-            margin-bottom: 27px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .data-section h2 {
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 18px;
-            font-weight: 700;
-            border-bottom: 2px solid rgba(255, 107, 53, 0.3);
-            padding-bottom: 9px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table th {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 11px;
-            text-align: left;
-            font-weight: 600;
-            color: #b0b0b0;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 12.6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        table td {
-            padding: 11px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 12.6px;
-            color: #e0e0e0;
-        }
-
-        table tr:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .badge {
-            padding: 5px 9px;
-            border-radius: 18px;
-            font-size: 11px;
-            font-weight: 600;
-            border: 1px solid;
-            letter-spacing: 0.3px;
-        }
-
-        .badge-placed { 
-            background: rgba(255, 193, 7, 0.15);
-            color: #ffc107;
-            border-color: rgba(255, 193, 7, 0.3);
-        }
-        .badge-packed { 
-            background: rgba(23, 162, 184, 0.15);
-            color: #17a2b8;
-            border-color: rgba(23, 162, 184, 0.3);
-        }
-        .badge-shipped { 
-            background: rgba(0, 123, 255, 0.15);
-            color: #007bff;
-            border-color: rgba(0, 123, 255, 0.3);
-        }
-        .badge-delivered { 
-            background: rgba(0, 212, 170, 0.15);
-            color: #00d4aa;
-            border-color: rgba(0, 212, 170, 0.3);
-        }
-        .badge-cancelled { 
-            background: rgba(255, 71, 87, 0.15);
-            color: #ff4757;
-            border-color: rgba(255, 71, 87, 0.3);
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 36px;
-            color: #777;
-            font-size: 13.5px;
-        }
+        /* Badges */
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge.placed { background: #DBEAFE; color: #1E40AF; }
+        .badge.packed { background: #FFEDD5; color: #9A3412; }
+        .badge.shipped { background: #F3E8FF; color: #6B21A8; }
+        .badge.delivered { background: #ECFDF5; color: #065F46; }
+        .badge.cancelled { background: #FEF2F2; color: #991B1B; }
 
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .filter-form {
-                grid-template-columns: 1fr;
-            }
-            
-            table {
-                font-size: 11px;
-            }
-
-            .container {
-                padding: 18px;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .stat-card .value {
-                font-size: 24px;
-            }
+            .navbar { flex-direction: column; gap: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .filters form { flex-direction: column; }
+            .filters .form-group { width: 100%; }
         }
-</style>
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>📊 Analytics & Reports</h1>
-            <div class="header-info">
-                <div class="user-info">
-                    Welcome, <strong><?php echo get_user_name(); ?></strong> (Admin)
-                </div>
-                <div class="nav-links">
-                  <a href="index.php">Dashboard</a>
-                    <a href="users.php">Users</a>
-                    <a href="markets.php">Markets</a>
-                    <a href="products.php">Products</a>
-                    <a href="orders.php">Orders</a>
-                    <a href="analytics.php"  class="active">Analytics & Reports</a>
-                </div>
-            </div>
+    <nav class="navbar">
+        <h1>🛒 Market<span>X</span> Admin</h1>
+        <div class="user-info">
+            <span>👋 <?php echo htmlspecialchars(get_user_name()); ?></span>
+            <a href="../logout.php" class="logout-btn">Log Output</a>
         </div>
-        
+    </nav>
+
+    <div class="container">
+        <div class="nav-links">
+            <a href="index.php">Dashboard</a>
+            <a href="users.php">Users</a>
+            <a href="markets.php">Markets</a>
+            <a href="products.php">Products</a>
+            <a href="orders.php">Orders</a>
+            <a href="analytics.php" class="active">Reports</a>
+        </div>
+
+        <div class="header">
+            <h2>Analytics & Reports</h2>
+            <p>Comprehensive overview of system performance, sales, and activity.</p>
+        </div>
+
         <!-- Filter Section -->
-        <div class="filter-section">
+        <div class="card filters">
             <h2>🔍 Filter Data</h2>
-            <form method="GET" action="" class="filter-form">
+            <form method="GET" action="">
                 <div class="form-group">
                     <label>Start Date</label>
                     <input type="date" name="start_date" value="<?php echo $filter_start_date; ?>" required>
@@ -664,220 +419,223 @@ $top_customers = $top_customers_stmt->fetchAll();
                     </select>
                 </div>
                 
-                <div class="form-group">
-                    <div class="filter-actions">
-                        <button type="submit" class="btn btn-primary">Apply Filter</button>
-                        <a href="analytics.php" class="btn btn-secondary">Reset</a>
-                    </div>
+                <div class="form-group" style="flex: 0;">
+                    <button type="submit" class="btn btn-primary">Apply Filter</button>
+                    <a href="analytics.php" class="btn btn-secondary" style="margin-left: 0.5rem;">Reset</a>
                 </div>
             </form>
         </div>
 
-        <!-- Stats Cards -->
+        <!-- Statistics -->
         <div class="stats-grid">
-            <div class="stat-card">
+            <div class="stat-card bg-gradient-orange">
+                <div class="icon-overlay">📦</div>
                 <h3>Total Orders</h3>
                 <div class="value"><?php echo number_format($stats['total_orders'] ?? 0); ?></div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card bg-gradient-blue">
+                <div class="icon-overlay">👥</div>
                 <h3>Total Customers</h3>
                 <div class="value"><?php echo number_format($stats['total_customers'] ?? 0); ?></div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card bg-gradient-green">
+                <div class="icon-overlay">💰</div>
                 <h3>Total Revenue</h3>
-                <div class="value currency">₹<?php echo number_format($stats['total_revenue'] ?? 0, 2); ?></div>
+                <div class="value">₹<?php echo number_format($stats['total_revenue'] ?? 0, 2); ?></div>
             </div>
             
-            <div class="stat-card">
+            <div class="stat-card bg-gradient-purple">
+                <div class="icon-overlay">📈</div>
                 <h3>Avg Order Value</h3>
-                <div class="value currency">₹<?php echo number_format($stats['avg_order_value'] ?? 0, 2); ?></div>
+                <div class="value">₹<?php echo number_format($stats['avg_order_value'] ?? 0, 2); ?></div>
             </div>
         </div>
 
         <!-- Download Section -->
-        <div class="download-section">
+        <div class="card">
             <h2>📥 Download Excel Reports</h2>
             <div class="download-buttons">
-                <a href="download_report.php?type=customers&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download">
-                    📋 Download Customer List
+                <a href="download_report.php?type=customers&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download dl-customers">
+                    📋 Customer List
                 </a>
                 
-                <a href="download_report.php?type=market_sales&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download">
-                    🏪 Download Market-wise Sales
+                <a href="download_report.php?type=market_sales&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download dl-market">
+                    🏪 Market-wise Sales
                 </a>
                 
-                <a href="download_report.php?type=product_sales&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download">
-                    📦 Download Product-wise Sales
+                <a href="download_report.php?type=product_sales&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download dl-product">
+                    📦 Product-wise Sales
                 </a>
                 
-                <a href="download_report.php?type=order_history&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download">
-                    📜 Download Order History
+                <a href="download_report.php?type=order_history&start_date=<?php echo $filter_start_date; ?>&end_date=<?php echo $filter_end_date; ?>&market_id=<?php echo $filter_market; ?>&category=<?php echo $filter_category; ?>" class="btn-download dl-history">
+                    📜 Order History
                 </a>
             </div>
         </div>
 
-        <!-- Market-wise Sales -->
-        <div class="data-section">
-            <h2>🏪 Market-wise Sales Performance</h2>
+        <!-- Market Sales -->
+        <div class="card">
+            <h2>🏪 Market Performance</h2>
             <?php if(count($market_sales) > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Market Name</th>
-                            <th>Location</th>
-                            <th>Total Orders</th>
-                            <th>Items Sold</th>
-                            <th>Revenue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($market_sales as $market): ?>
+                <div style="overflow-x:auto;">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><?php echo htmlspecialchars($market['market_name']); ?></td>
-                                <td><?php echo htmlspecialchars($market['location']); ?></td>
-                                <td><?php echo number_format($market['total_orders'] ?? 0); ?></td>
-                                <td><?php echo number_format($market['total_items_sold'] ?? 0); ?></td>
-                                <td><strong>₹<?php echo number_format($market['total_revenue'] ?? 0, 2); ?></strong></td>
+                                <th>Market Name</th>
+                                <th>Location</th>
+                                <th>Total Orders</th>
+                                <th>Items Sold</th>
+                                <th>Revenue</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach($market_sales as $market): ?>
+                                <tr>
+                                    <td><strong><?php echo htmlspecialchars($market['market_name']); ?></strong></td>
+                                    <td><?php echo htmlspecialchars($market['location']); ?></td>
+                                    <td><?php echo number_format($market['total_orders'] ?? 0); ?></td>
+                                    <td><?php echo number_format($market['total_items_sold'] ?? 0); ?></td>
+                                    <td style="color:var(--primary); font-weight:700;">₹<?php echo number_format($market['total_revenue'] ?? 0, 2); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
                 <div class="no-data">No data available for selected filters</div>
             <?php endif; ?>
         </div>
 
-        <!-- Product-wise Sales -->
-        <div class="data-section">
-            <h2>📦 Top 20 Products by Sales</h2>
+        <!-- Product Sales -->
+        <div class="card">
+            <h2>📦 Top 20 Products</h2>
             <?php if(count($product_sales) > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Market</th>
-                            <th>Quantity Sold</th>
-                            <th>Orders</th>
-                            <th>Revenue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($product_sales as $product): ?>
+                <div style="overflow-x:auto;">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><?php echo htmlspecialchars($product['product_name']); ?></td>
-                                <td><?php echo htmlspecialchars($product['category']); ?></td>
-                                <td><?php echo htmlspecialchars($product['market_name']); ?></td>
-                                <td><?php echo number_format($product['total_quantity_sold'] ?? 0); ?></td>
-                                <td><?php echo number_format($product['order_count'] ?? 0); ?></td>
-                                <td><strong>₹<?php echo number_format($product['total_revenue'] ?? 0, 2); ?></strong></td>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Market</th>
+                                <th>Sold</th>
+                                <th>Revenue</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach($product_sales as $product): ?>
+                                <tr>
+                                    <td><strong><?php echo htmlspecialchars($product['product_name']); ?></strong></td>
+                                    <td><span class="badge" style="background:#E0F2FE; color:#0284C7;"><?php echo htmlspecialchars($product['category']); ?></span></td>
+                                    <td><?php echo htmlspecialchars($product['market_name']); ?></td>
+                                    <td><?php echo number_format($product['total_quantity_sold'] ?? 0); ?></td>
+                                    <td style="color:var(--primary); font-weight:700;">₹<?php echo number_format($product['total_revenue'] ?? 0, 2); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
                 <div class="no-data">No data available for selected filters</div>
             <?php endif; ?>
         </div>
-
-        <!-- Category-wise Sales -->
-        <div class="data-section">
-            <h2>📊 Category-wise Sales</h2>
+        
+        <!-- Category Sales -->
+         <div class="card">
+            <h2>📊 Category Sales</h2>
             <?php if(count($category_sales) > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Category</th>
-                            <th>Total Products</th>
-                            <th>Quantity Sold</th>
-                            <th>Revenue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($category_sales as $category): ?>
+                <div style="overflow-x:auto;">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><strong><?php echo htmlspecialchars($category['category']); ?></strong></td>
-                                <td><?php echo number_format($category['total_products'] ?? 0); ?></td>
-                                <td><?php echo number_format($category['total_quantity_sold'] ?? 0); ?></td>
-                                <td><strong>₹<?php echo number_format($category['total_revenue'] ?? 0, 2); ?></strong></td>
+                                <th>Category</th>
+                                <th>Total Products</th>
+                                <th>Quantity Sold</th>
+                                <th>Revenue</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <div class="no-data">No data available for selected filters</div>
-            <?php endif; ?>
-        </div>
-
-        <!-- Top Customers -->
-        <div class="data-section">
-            <h2>⭐ Top 10 Customers</h2>
-            <?php if(count($top_customers) > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Customer Name</th>
-                            <th>Email</th>
-                            <th>Total Orders</th>
-                            <th>Total Spent</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($top_customers as $customer): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($customer['name']); ?></td>
-                                <td><?php echo htmlspecialchars($customer['email']); ?></td>
-                                <td><?php echo number_format($customer['total_orders']); ?></td>
-                                <td><strong>₹<?php echo number_format($customer['total_spent'], 2); ?></strong></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach($category_sales as $category): ?>
+                                <tr>
+                                    <td><span class="badge" style="background:#E0F2FE; color:#0284C7;"><?php echo htmlspecialchars($category['category']); ?></span></td>
+                                    <td><?php echo number_format($category['total_products'] ?? 0); ?></td>
+                                    <td><?php echo number_format($category['total_quantity_sold'] ?? 0); ?></td>
+                                    <td style="color:var(--primary); font-weight:700;">₹<?php echo number_format($category['total_revenue'] ?? 0, 2); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php else: ?>
                 <div class="no-data">No data available for selected filters</div>
             <?php endif; ?>
         </div>
 
         <!-- Recent Orders -->
-        <div class="data-section">
+        <div class="card">
             <h2>🕒 Recent Orders</h2>
-            <?php if(count($recent_orders) > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Customer</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($recent_orders as $order): ?>
+             <?php if(count($recent_orders) > 0): ?>
+                <div style="overflow-x:auto;">
+                     <table>
+                        <thead>
                             <tr>
-                                <td>#<?php echo $order['order_id']; ?></td>
-                                <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
-                                <td>₹<?php echo number_format($order['total_amount'], 2); ?></td>
-                                <td>
-                                    <span class="badge badge-<?php echo $order['order_status']; ?>">
-                                        <?php echo ucfirst($order['order_status']); ?>
-                                    </span>
-                                </td>
-                                <td><?php echo date('d M Y, h:i A', strtotime($order['order_date'])); ?></td>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
-                <div class="no-data">No orders found for selected filters</div>
-            <?php endif; ?>
+                        </thead>
+                        <tbody>
+                            <?php foreach($recent_orders as $order): ?>
+                                <tr>
+                                    <td>#<?php echo $order['order_id']; ?></td>
+                                    <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
+                                    <td><?php echo date('M d, Y', strtotime($order['order_date'])); ?></td>
+                                    <td>₹<?php echo number_format($order['total_amount'], 2); ?></td>
+                                    <td><span class="badge <?php echo strtolower($order['order_status']); ?>"><?php echo strtoupper($order['order_status']); ?></span></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+             <?php else: ?>
+                  <div class="no-data">No recent orders found</div>
+             <?php endif; ?>
+        </div>
+
+         <!-- Top Customers -->
+        <div class="card">
+            <h2>🏆 Top Customers</h2>
+             <?php if(count($top_customers) > 0): ?>
+                <div style="overflow-x:auto;">
+                     <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Total Orders</th>
+                                <th>Total Spent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($top_customers as $customer): ?>
+                                <tr>
+                                    <td><strong><?php echo htmlspecialchars($customer['name']); ?></strong></td>
+                                    <td><?php echo htmlspecialchars($customer['email']); ?></td>
+                                    <td><?php echo number_format($customer['total_orders']); ?></td>
+                                    <td style="color:var(--primary); font-weight:700;">₹<?php echo number_format($customer['total_spent'], 2); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+             <?php else: ?>
+                  <div class="no-data">No customer data found</div>
+             <?php endif; ?>
         </div>
 
     </div>
-    <!-- At the end of body, before closing </body> tag -->
-<script src="/byteshop/assets/js/main.js"></script>
-
 </body>
 </html>
