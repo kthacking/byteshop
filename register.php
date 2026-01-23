@@ -18,8 +18,21 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Market  X</title>
-  <style>
+    <title>Register - Market X</title>
+    <style>
+        /* CSS reset and fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #FF4B2B; /* Vibrant Red/Orange */
+            --secondary: #FF416C;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --bg-light: #F9FAFB;
+            --grid-color: rgba(0, 0, 0, 0.05);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -27,255 +40,437 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 18px;
+            justify-content: center;
+            color: var(--text-dark);
+            overflow: hidden;
         }
 
-        .register-container {
-            background: rgba(26, 26, 26, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 36px;
-            border-radius: 14px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        .main-container {
+            display: flex;
             width: 100%;
-            max-width: 405px;
-            border: 1px solid rgba(255, 107, 53, 0.2);
+            height: 100vh;
+            background: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .logo {
-            text-align: center;
-            margin-bottom: 27px;
+        /* Left Side - Visual/Text */
+        .visual-side {
+            flex: 1;
+            background: #f8f9fa;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            overflow: hidden;
+        }
+        
+        /* Grid pattern */
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
         }
 
-        .logo h1 {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        /* Decorative Elements */
+        .decoration-circle {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 50%;
+            top: 50%;
+            right: -200px;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .decoration-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(0,0,0,0.08);
+            width: 100%;
+            top: 30%;
+            left: 0;
+        }
+
+        .content-box {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-left: 10%;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+        }
+
+        .visual-side h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: #111;
+            letter-spacing: -2px;
+        }
+
+        .visual-side p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            max-width: 500px;
+            font-weight: 400;
+        }
+
+        .highlight-text {
+            background: linear-gradient(120deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-size: 28.8px;
-            margin-bottom: 4.5px;
-            font-weight: 800;
-            filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.3));
         }
 
-        .logo p {
-            color: #a0a0a0;
-            font-size: 12.6px;
+        /* Right Side - Form */
+        .form-side {
+            flex: 0 0 550px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 60px;
+            border-left: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 5;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.02);
+            overflow-y: auto; /* Allow scrolling if form is tall */
+        }
+
+        .login-header {
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .login-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
+
+        .login-header p {
+            color: #888;
+            font-size: 15px;
         }
 
         .form-group {
-            margin-bottom: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
         }
 
         label {
             display: block;
-            margin-bottom: 7.2px;
-            color: #b0b0b0;
+            margin-bottom: 8px;
             font-weight: 600;
-            font-size: 12.6px;
+            color: #374151;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="password"] {
+        input {
             width: 100%;
-            padding: 10.8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            border-radius: 7.2px;
-            font-size: 12.6px;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #f9fafb;
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
             transition: all 0.3s ease;
-            color: #e0e0e0;
+            color: #1f2937;
         }
 
         input::placeholder {
-            color: #666;
+            color: #9ca3af;
         }
 
         input:focus {
             outline: none;
-            border-color: #ff6b35;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 75, 43, 0.1);
         }
 
         .password-strength {
-            font-size: 10.8px;
-            margin-top: 4.5px;
-            color: #a0a0a0;
+            font-size: 12px;
+            margin-top: 6px;
+            min-height: 18px;
             font-weight: 500;
         }
 
         .btn-register {
             width: 100%;
-            padding: 10.8px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            padding: 18px;
+            background: #000;
             color: white;
             border: none;
-            border-radius: 7.2px;
-            font-size: 14.4px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            margin-top: 10px;
         }
 
         .btn-register:hover {
+            background: #1f2937;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .alert {
-            padding: 10.8px;
-            border-radius: 7.2px;
-            margin-bottom: 18px;
-            font-size: 12.6px;
-            border: 1px solid;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-weight: 500;
         }
 
         .alert-error {
-            background: rgba(255, 71, 87, 0.15);
-            color: #ff4757;
-            border-color: rgba(255, 71, 87, 0.3);
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #991B1B;
+        }
+        
+        .info-box {
+            background: #EFF6FF;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #1E40AF;
+            border: 1px solid #BFDBFE;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
         .links {
             text-align: center;
-            margin-top: 18px;
-        }
-
-        .links p {
-            color: #a0a0a0;
-            font-size: 12.6px;
+            font-size: 15px;
+            color: #6b7280;
+            margin-top: 30px;
         }
 
         .links a {
-            color: #ff6b35;
-            text-decoration: none;
-            font-size: 12.6px;
+            color: #111;
             font-weight: 600;
-            transition: color 0.3s ease;
+            text-decoration: none;
+            transition: color 0.2s;
         }
 
         .links a:hover {
-            color: #f7931e;
+            color: var(--primary);
             text-decoration: underline;
         }
 
-        .info-box {
-            background: rgba(59, 130, 246, 0.15);
-            padding: 13.5px;
-            border-radius: 7.2px;
-            margin-bottom: 18px;
-            font-size: 11.7px;
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            font-weight: 500;
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .visual-side h1 { font-size: 48px; }
+            .form-side { flex: 0 0 500px; padding: 40px; }
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 13.5px;
-        }
-
-        @media (max-width: 480px) {
-            .form-row {
-                grid-template-columns: 1fr;
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
             }
-
-            .register-container {
-                padding: 27px;
+            
+            body { 
+                overflow-y: auto; 
+                height: auto;
+                padding-bottom: 20px;
             }
-
-            .logo h1 {
-                font-size: 25.2px;
+            
+            .visual-side {
+                padding: 60px 30px;
+                min-height: 350px;
+                flex: none;
             }
+            
+            .content-box { margin-left: 0; text-align: center; margin: 0 auto; }
+            .visual-side h1 { font-size: 40px; }
+            .badge-pill { margin-bottom: 24px; }
+            
+            .form-side {
+                flex: 1;
+                width: 100%;
+                padding: 40px 20px;
+                border-left: none;
+                border-top: 1px solid #eee;
+                box-shadow: none;
+            }
+            
+            .form-row { flex-direction: column; gap: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="register-container">
-        <div class="logo">
-            <h1>🛒 Market  X</h1>
-            <p>Create Your Customer Account</p>
-        </div>
-
-        <div class="info-box">
-            ℹ️ Register as a customer to start shopping from multiple vendors!
-        </div>
-
-        <?php if ($error): ?>
-            <div class="alert alert-error">
-                <?php
-                switch($error) {
-                    case 'empty':
-                        echo 'Please fill in all required fields!';
-                        break;
-                    case 'email_exists':
-                        echo 'This email is already registered!';
-                        break;
-                    case 'password_mismatch':
-                        echo 'Passwords do not match!';
-                        break;
-                    case 'invalid_email':
-                        echo 'Please enter a valid email address!';
-                        break;
-                    case 'weak_password':
-                        echo 'Password must be at least 6 characters!';
-                        break;
-                    default:
-                        echo 'Registration failed. Please try again.';
-                }
-                ?>
-            </div>
-        <?php endif; ?>
-
-        <form id="registerForm" method="POST" action="api/auth.php">
-            <input type="hidden" name="action" value="register">
+    <div class="main-container">
+        <!-- Visual Side -->
+        <div class="visual-side">
+            <div class="decoration-circle"></div>
+            <div class="decoration-line"></div>
             
-            <div class="form-group">
-                <label for="name">Full Name *</label>
-                <input type="text" id="name" name="name" required>
+            <div class="content-box">
+                <div class="badge-pill">Community</div>
+                <h1>Start Your<br><span class="highlight-text">Journey Right.</span></h1>
+                <p>Join a community of thousands of trusted buyers and sellers. Secure, fast, and built for modern commerce.</p>
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="form-side">
+            <div class="login-header">
+                <div class="logo">
+                     🛒 Market<span>X</span>
+                </div>
+                <h2>Create Account</h2>
+                <p>Register as a customer to start shopping.</p>
+            </div>
+            
+            <div class="info-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span>Register below to access exclusive deals!</span>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" name="email" required>
-            </div>
+            <?php if ($error): ?>
+                <div class="alert alert-error">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>
+                    <?php
+                    switch($error) {
+                        case 'empty':
+                            echo 'Please fill in all required fields!';
+                            break;
+                        case 'email_exists':
+                            echo 'This email is already registered!';
+                            break;
+                        case 'password_mismatch':
+                            echo 'Passwords do not match!';
+                            break;
+                        case 'invalid_email':
+                            echo 'Please enter a valid email address!';
+                            break;
+                        case 'weak_password':
+                            echo 'Password must be at least 6 characters!';
+                            break;
+                        default:
+                            echo 'Registration failed. Please try again.';
+                    }
+                    ?>
+                    </span>
+                </div>
+            <?php endif; ?>
 
-            <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="Optional">
-            </div>
-
-            <div class="form-row">
+            <form id="registerForm" method="POST" action="api/auth.php">
+                <input type="hidden" name="action" value="register">
+                
                 <div class="form-group">
-                    <label for="password">Password *</label>
-                    <input type="password" id="password" name="password" required minlength="6">
-                    <div class="password-strength" id="passwordStrength"></div>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="confirm_password">Confirm Password *</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required minlength="6">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="name@company.com" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="••••••••" required minlength="6">
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required minlength="6">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-register">Create Account</button>
+            </form>
+            
+            <div class="links">
+                <p>Already have an account? <a href="login.php">Login Here</a></p>
             </div>
-
-            <button type="submit" class="btn-register">Create Account</button>
-        </form>
-
-        <div class="links">
-            <p>Already have an account? <a href="login.php">Login Here</a></p>
         </div>
     </div>
 
@@ -291,7 +486,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
             }
             
             if (password.length < 6) {
-                strengthDiv.textContent = '❌ Too short (min 6 characters)';
+                strengthDiv.textContent = '❌ Too short';
                 strengthDiv.style.color = '#ff4757';
             } else if (password.length < 8) {
                 strengthDiv.textContent = '⚠️ Weak password';

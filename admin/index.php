@@ -303,7 +303,20 @@ foreach ($avg_order_chart as $row) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - ByteShop</title>
-<style>
+    <style>
+        /* CSS reset and fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #FF4B2B;
+            --primary-dark: #cc3a20;
+            --bg-light: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --border-color: #e5e7eb;
+            --card-radius: 12px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -311,415 +324,401 @@ foreach ($avg_order_chart as $row) {
         }
 
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #161615ff;
-            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            /* Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-dark);
+            min-height: 100vh;
         }
 
+        /* Navbar */
         .navbar {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            color: white;
-            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            border-bottom: 1px solid #2a2a2a;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .navbar h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .navbar .user-info {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 8px;
+        }
+        
+        .navbar h1 span {
+            color: var(--primary);
         }
 
-        .navbar .user-info span {
-            color: #b0b0b0;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
-        .navbar .logout-btn {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
+        .logout-btn {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
             text-decoration: none;
-            transition: all 0.3s;
             font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.85rem;
         }
 
-        .navbar .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        .logout-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #FFF5F5;
         }
 
+        /* Layout */
         .container {
-            flex: 1;
-            padding: 30px;
-            max-width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 2rem;
         }
 
-        /* Navigation Links */
+        /* Navigation Pills */
         .nav-links {
             display: flex;
-            gap: 0.8rem;
-            margin-bottom: 2.5rem;
-            padding: 1.2rem;
-            background: #161616;
-            border-radius: 16px;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: #fff;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             flex-wrap: wrap;
-            border: 1px solid #2a2a2a;
         }
 
         .nav-links a {
-            padding: 0.8rem 1.5rem;
-            background: #1f1f1f;
-            color: #b0b0b0;
+            padding: 0.5rem 1.2rem;
+            color: var(--text-gray);
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s;
+            border-radius: 40px;
+            font-weight: 500;
             font-size: 0.9rem;
-            border: 1px solid #2a2a2a;
+            transition: all 0.2s;
         }
 
         .nav-links a:hover {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(255, 107, 53, 0.3);
-            border-color: transparent;
+            color: var(--text-dark);
+            background: #f3f4f6;
         }
 
         .nav-links a.active {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            border-color: transparent;
+            background: #000;
+            color: #fff;
         }
 
+        /* Section Headings */
+        h2.section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Overview Stats (Users, Markets, etc) */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-            transition: all 0.3s;
-            border: 1px solid #2a2a2a;
-            position: relative;
-            overflow: hidden;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
         }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #ff6b35 0%, #f7931e 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
+        
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.2);
-            border-color: #ff6b35;
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            border-color: #cbd5e1;
         }
 
         .stat-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            background: #f3f4f6;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
         }
 
         .stat-card h3 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 0.2rem;
+            letter-spacing: -1px;
         }
 
         .stat-card p {
-            color: #909090;
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stat-card small {
-            color: #707070;
-            font-size: 0.85rem;
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            background: #f9fafb;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
         }
-       /* Revenue Cards - Add to existing styles */
-.revenue-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-}
 
-.revenue-card {
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-    min-height: 140px;
-}
+        /* REVENUE CARDS (Gradient Style) */
+        .revenue-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
 
-.revenue-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
-}
+        .revenue-card {
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 120px; /* Small size as requested */
+            box-shadow: 0 10px 25px rgba(255, 75, 43, 0.2);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-.revenue-card h4 {
-    font-size: 0.9rem;
-    opacity: 0.9;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    transition: opacity 0.3s;
-}
+        /* Vibrant Orange Gradient */
+        .bg-gradient-orange {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+        }
 
-.revenue-card h2 {
-    font-size: 2rem;
-    font-weight: 700;
-    transition: opacity 0.3s;
-}
+        /* Purple/Pink Gradient */
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, #A855F7 0%, #FF6B35 100%);
+        }
 
-.revenue-card .chart-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1.5rem 3px 0px 0px ;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    background: linear-gradient(135deg, #a230d6ff 0%, #f7931e 100%);
-}
+        .revenue-card h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            z-index: 2;
+        }
 
-.revenue-card:hover .chart-container {
-    opacity: 1;
-    pointer-events: auto;
-}
+        .revenue-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            z-index: 2;
+        }
 
-.revenue-card:hover h4,
-.revenue-card:hover h2 {
-    opacity: 0;
-}
+        .revenue-card .chart-container {
+            position: absolute;
+            top: 0; 
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 10px;
+        }
 
-.revenue-card canvas {
-    max-height: 100px;
-}
+        /* Hover Reveal Effect */
+        .revenue-card:hover .chart-container,
+        .revenue-card.auto-hover .chart-container {
+            opacity: 1;
+        }
 
+        .revenue-card:hover h2, .revenue-card:hover h4,
+        .revenue-card.auto-hover h2, .revenue-card.auto-hover h4 {
+            opacity: 0.1; /* Dim text instead of hide completely for better feel */
+        }
         
+        .revenue-card canvas {
+            max-height: 80px; /* Small charts */
+            width: 100%;
+        }
+
+        /* Charts Section */
         .charts-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
             margin-bottom: 2.5rem;
         }
 
         .chart-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-            border: 1px solid #2a2a2a;
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            height: 320px; /* Constrain height "small" */
         }
 
         .chart-card h3 {
-            margin-bottom: 1.5rem;
-            color: #e0e0e0;
-            border-bottom: 2px solid #ff6b35;
-            padding-bottom: 0.8rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111;
+        }
+        
+        .chart-card canvas {
+            max-height: 250px;
         }
 
+        /* Tables */
         .table-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-            margin-bottom: 2.5rem;
-            border: 1px solid #2a2a2a;
+            background: #fff;
+            border-radius: var(--card-radius);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            overflow-x: auto;
         }
 
         .table-section h3 {
-            margin-bottom: 1.5rem;
-            color: #e0e0e0;
-            border-bottom: 2px solid #ff6b35;
-            padding-bottom: 0.8rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: #111;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 1rem;
-            text-align: left;
-            border-bottom: 1px solid #2a2a2a;
+            font-size: 0.9rem;
         }
 
         th {
-            background: #0f0f0f;
+            text-align: left;
+            padding: 1rem;
+            background: #f9fafb;
+            color: var(--text-gray);
             font-weight: 600;
-            color: #ff6b35;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         td {
-            color: #b0b0b0;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-dark);
+            font-weight: 500;
         }
 
-        tr:hover {
-            background: #1f1f1f;
+        tr:last-child td {
+            border-bottom: none;
         }
 
+        tr:hover td {
+            background: #f9fafb;
+        }
+
+        /* Badges */
         .badge {
-            padding: 0.4rem 1rem;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
-
-        .badge-placed { 
-            background: rgba(33, 150, 243, 0.15); 
-            color: #2196f3;
-            border: 1px solid rgba(33, 150, 243, 0.3);
-        }
-        .badge-packed { 
-            background: rgba(255, 152, 0, 0.15); 
-            color: #ff9800;
-            border: 1px solid rgba(255, 152, 0, 0.3);
-        }
-        .badge-shipped { 
-            background: rgba(156, 39, 176, 0.15); 
-            color: #9c27b0;
-            border: 1px solid rgba(156, 39, 176, 0.3);
-        }
-        .badge-delivered { 
-            background: rgba(76, 175, 80, 0.15); 
-            color: #4caf50;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
-        .badge-cancelled { 
-            background: rgba(244, 67, 54, 0.15); 
-            color: #f44336;
-            border: 1px solid rgba(244, 67, 54, 0.3);
-        }
-
-        canvas {
-            max-height: 300px;
-        }
-        /* Auto hover behaves like real hover */
-.revenue-card.auto-hover .chart-container {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.revenue-card.auto-hover h4,
-.revenue-card.auto-hover h2 {
-    opacity: 0;
-}
+        
+        .badge-placed { background: #E0F2FE; color: #0284C7; }
+        .badge-packed { background: #FFF7ED; color: #EA580C; }
+        .badge-shipped { background: #F3E8FF; color: #9333EA; }
+        .badge-delivered { background: #ECFDF5; color: #059669; }
+        .badge-cancelled { background: #FEF2F2; color: #DC2626; }
 
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .charts-section {
-                grid-template-columns: 1fr;
-            }
-
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .container {
-                padding: 20px;
-            }
+            .navbar { flex-direction: column; gap: 1rem; }
+            .stats-grid, .charts-section { grid-template-columns: 1fr; }
         }
-</style>
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
 </head>
 <body>
-    <div class="navbar">
-        <h1>🛒 ByteShop Admin Dashboard</h1>
+    <nav class="navbar">
+        <h1>🛒 Market<span>X</span> Admin</h1>
         <div class="user-info">
-            <span>Welcome, <?php echo htmlspecialchars(get_user_name()); ?></span>
-            <a href="../logout.php" class="logout-btn">Logout</a>
+            <span>👋 <?php echo htmlspecialchars(get_user_name()); ?></span>
+            <a href="../logout.php" class="logout-btn">Log Output</a>
         </div>
-    </div>
+    </nav>
 
     <div class="container">
-         <div class="nav-links">
-        <a href="index.php" class="active">Dashboard</a>
-        <a href="users.php">Users</a>
-        <a href="markets.php">Markets</a>
-        <a href="products.php">Products</a>
-        <a href="orders.php">Orders</a>
-        <a href="analytics.php">Analytics & Reports</a>
-    </div>
+        <!-- Nav Pills -->
+        <div class="nav-links">
+            <a href="index.php" class="active">Dashboard</a>
+            <a href="users.php">Users</a>
+            <a href="markets.php">Markets</a>
+            <a href="products.php">Products</a>
+            <a href="orders.php">Orders</a>
+            <a href="analytics.php">Reports</a>
+        </div>
 
-        <!-- Stats Grid -->
+        <!-- System Overview -->
+        <h2 class="section-title">📊 System Overview</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="icon">👥</div>
                 <h3><?php echo number_format($total_users); ?></h3>
                 <p>Total Users</p>
-                <small>Customers: <?php echo $total_customers; ?> | Owners: <?php echo $total_shop_owners; ?></small>
+                <small>Cust: <?php echo $total_customers; ?> • Own: <?php echo $total_shop_owners; ?></small>
             </div>
-
             <div class="stat-card">
                 <div class="icon">🏪</div>
                 <h3><?php echo number_format($total_markets); ?></h3>
                 <p>Active Markets</p>
             </div>
-
             <div class="stat-card">
                 <div class="icon">📦</div>
                 <h3><?php echo number_format($total_products); ?></h3>
-                <p>Total Products</p>
+                <p>Products Listed</p>
             </div>
-
             <div class="stat-card">
                 <div class="icon">🛍️</div>
                 <h3><?php echo number_format($total_orders); ?></h3>
@@ -727,200 +726,67 @@ foreach ($avg_order_chart as $row) {
             </div>
         </div>
 
-        <!-- Revenue Stats -->
-<div class="revenue-stats">
-    <div class="revenue-card">
-        <h4>Total Revenue</h4>
-        <h2>₹<?php echo number_format($total_revenue, 2); ?></h2>
-        <div class="chart-container">
-            <canvas id="totalRevenueChart"></canvas>
+        <!-- Revenue Stats with Hover/Loop Charts -->
+        <h2 class="section-title">💰 Financial Performance</h2>
+        <div class="revenue-stats">
+            <div class="revenue-card bg-gradient-orange">
+                <h4>Total Revenue</h4>
+                <h2>₹<?php echo number_format($total_revenue, 2); ?></h2>
+                <div class="chart-container">
+                    <canvas id="totalRevenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="revenue-card bg-gradient-orange">
+                <h4>Today's Revenue</h4>
+                <h2>₹<?php echo number_format($today_revenue, 2); ?></h2>
+                <div class="chart-container">
+                    <canvas id="todayRevenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="revenue-card bg-gradient-purple">
+                <h4>This Month</h4>
+                <h2>₹<?php echo number_format($month_revenue, 2); ?></h2>
+                <div class="chart-container">
+                    <canvas id="monthRevenueChart"></canvas>
+                </div>
+            </div>
+
+            <div class="revenue-card bg-gradient-purple">
+                <h4>Avg Order Value</h4>
+                <h2>₹<?php echo number_format($avg_order_value, 2); ?></h2>
+                <div class="chart-container">
+                    <canvas id="avgOrderChart"></canvas>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="revenue-card">
-        <h4>Today's Revenue</h4>
-        <h2>₹<?php echo number_format($today_revenue, 2); ?></h2>
-        <div class="chart-container">
-            <canvas id="todayRevenueChart"></canvas>
-        </div>
-    </div>
-
-    <div class="revenue-card">
-        <h4>This Month</h4>
-        <h2>₹<?php echo number_format($month_revenue, 2); ?></h2>
-        <div class="chart-container">
-            <canvas id="monthRevenueChart"></canvas>
-        </div>
-    </div>
-
-    <div class="revenue-card">
-        <h4>Average Order Value</h4>
-        <h2>₹<?php echo number_format($avg_order_value, 2); ?></h2>
-        <div class="chart-container">
-            <canvas id="avgOrderChart"></canvas>
-        </div>
-    </div>
-</div>
-
-<!-- Add this JavaScript before the closing </script> tag -->
-<script>
-// Revenue Card Charts - Initialize after page load
-document.addEventListener('DOMContentLoaded', function() {
-    // Common options for mini charts
-    const miniChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { display: false },
-            tooltip: {
-                enabled: true,
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                titleColor: '#ffffff',
-                bodyColor: '#ffffff',
-                borderColor: 'rgba(255, 255, 255, 0.3)',
-                borderWidth: 1,
-                padding: 88,
-                displayColors: false,
-                callbacks: {
-                    label: function(context) {
-                        return '₹' + context.parsed.y.toLocaleString('en-IN', {maximumFractionDigits: 2});
-                    }
-                }
-            }
-        },
-        scales: {
-            x: {
-                display: false,
-                grid: { display: false }
-            },
-            y: {
-                display: false,
-                grid: { display: false }
-            }
-        },
-        elements: {
-            point: { radius: 0, hitRadius: 10, hoverRadius: 3 },
-            line: { tension: 1, borderWidth: 2 }
-        }
-    };
-
-    // Total Revenue Chart - Last 12 months from database
-    new Chart(document.getElementById('totalRevenueChart'), {
-        type: 'line',
-        data: {
-            labels: <?php echo json_encode($total_revenue_months); ?>,
-            datasets: [{
-                data: <?php echo json_encode($total_revenue_values); ?>,
-                borderColor: 'rgba(255, 255, 255, 0.9)',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                fill: true
-            }]
-        },
-        options: { miniChartOptions}
-            
-    });
-
-    // Today's Revenue Chart - Hourly from database
-    new Chart(document.getElementById('todayRevenueChart'), {
-        type: 'line',
-        data: {
-            labels: <?php echo json_encode($today_hours); ?>,
-            datasets: [{
-                data: <?php echo json_encode($today_revenue_values); ?>,
-                borderColor: 'rgba(255, 255, 255, 0.9)',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                fill: true
-            }]
-        },
-        options: {miniChartOptions}
-    });
-
-    // This Month Chart - Weekly from database
-    new Chart(document.getElementById('monthRevenueChart'), {
-        type: 'bar',
-        data: {
-            labels: <?php echo json_encode($month_weeks); ?>,
-            datasets: [{
-                data: <?php echo json_encode($month_revenue_values); ?>,
-                backgroundColor: 'rgba(255, 255, 255, 0.3)',
-                borderColor: 'rgba(255, 255, 255, 0.9)',
-                borderWidth: 2,
-                borderRadius: 4
-            }]
-        },
-        options: {miniChartOptions
-            
-        }
-    });
-
-    // Average Order Value Chart - Last 7 days from database
-    new Chart(document.getElementById('avgOrderChart'), {
-        type: 'line',
-        data: {
-            labels: <?php echo json_encode($avg_days); ?>,
-            datasets: [{
-                data: <?php echo json_encode($avg_order_values); ?>,
-                borderColor: 'rgba(255, 255, 255, 0.9)',
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                fill: true
-            }]
-        },
-        options: {miniChartOptions }
-    });
-});
-
-// AUTO HOVER LOOP FOR REVENUE CARDS
-const revenueCards = document.querySelectorAll('.revenue-card');
-let currentIndex = 0;
-
-function autoHoverLoop() {
-    // remove auto-hover from all
-    revenueCards.forEach(card => card.classList.remove('auto-hover'));
-
-    // add auto-hover to current card
-    revenueCards[currentIndex].classList.add('auto-hover');
-
-    // move to next card
-    currentIndex = (currentIndex + 1) % revenueCards.length;
-}
-
-// start loop
-setInterval(autoHoverLoop, 900); // 3 seconds each card
-
-// allow manual hover to override temporarily
-revenueCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        revenueCards.forEach(c => c.classList.remove('auto-hover'));
-    });
-});
-
-</script>
-
-        <!-- Charts Section -->
+        <!-- Detailed Charts -->
         <div class="charts-section">
             <div class="chart-card">
-                <h3>📈 Monthly Revenue (Last 6 Months)</h3>
+                <h3>📈 Monthly Growth</h3>
                 <canvas id="revenueChart"></canvas>
             </div>
 
             <div class="chart-card">
-                <h3>📊 Order Status Distribution</h3>
+                <h3>📊 Order Status</h3>
                 <canvas id="orderStatusChart"></canvas>
             </div>
 
             <div class="chart-card">
-                <h3>🏷️ Product Categories</h3>
+                <h3>🏷️ Categories</h3>
                 <canvas id="categoryChart"></canvas>
             </div>
         </div>
 
-        <!-- Recent Orders -->
+        <!-- Data Tables -->
         <div class="table-section">
             <h3>🛍️ Recent Orders</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Order ID</th>
+                        <th>ID</th>
                         <th>Customer</th>
                         <th>Amount</th>
                         <th>Status</th>
@@ -934,22 +800,21 @@ revenueCards.forEach(card => {
                         <td><?php echo htmlspecialchars($order['customer_name']); ?></td>
                         <td>₹<?php echo number_format($order['total_amount'], 2); ?></td>
                         <td><span class="badge badge-<?php echo $order['order_status']; ?>"><?php echo ucfirst($order['order_status']); ?></span></td>
-                        <td><?php echo date('d M Y, h:i A', strtotime($order['order_date'])); ?></td>
+                        <td><?php echo date('d M, h:i A', strtotime($order['order_date'])); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
 
-        <!-- Top Products -->
         <div class="table-section">
-            <h3>🔥 Top Selling Products</h3>
+            <h3>🔥 Top Top Products</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Product</th>
                         <th>Market</th>
-                        <th>Units Sold</th>
+                        <th>Sold</th>
                         <th>Revenue</th>
                     </tr>
                 </thead>
@@ -965,16 +830,14 @@ revenueCards.forEach(card => {
                 </tbody>
             </table>
         </div>
-
-        <!-- Top Markets -->
+        
         <div class="table-section">
-            <h3>🏪 Top Markets by Revenue</h3>
+            <h3>🏪 Top Markets</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Market</th>
-                        <th>Location</th>
-                        <th>Total Orders</th>
+                        <th>Orders</th>
                         <th>Revenue</th>
                     </tr>
                 </thead>
@@ -982,7 +845,6 @@ revenueCards.forEach(card => {
                     <?php foreach($top_markets as $market): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($market['market_name']); ?></td>
-                        <td><?php echo htmlspecialchars($market['location']); ?></td>
                         <td><?php echo number_format($market['total_orders']); ?></td>
                         <td>₹<?php echo number_format($market['total_revenue'], 2); ?></td>
                     </tr>
@@ -992,22 +854,131 @@ revenueCards.forEach(card => {
         </div>
     </div>
 
+    <!-- Initialization Scripts -->
     <script>
-        // Chart.js defaults for dark theme
-        Chart.defaults.color = '#b0b0b0';
-        Chart.defaults.borderColor = '#2a2a2a';
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- 1. Small Revenue Charts Configuration ---
+        const miniChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false } // Hide tooltip for cleaner loop effect
+            },
+            scales: {
+                x: { display: false },
+                y: { display: false }
+            },
+            elements: {
+                point: { radius: 0 },
+                line: { borderWidth: 2, tension: 0.4 },
+                bar: { borderRadius: 4 }
+            },
+            layout: { padding: 0 }
+        };
 
-        // Monthly Revenue Chart
-        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        new Chart(revenueCtx, {
+        // Total Revenue (Line)
+        new Chart(document.getElementById('totalRevenueChart'), {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($total_revenue_months); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($total_revenue_values); ?>,
+                    borderColor: 'rgba(255, 255, 255, 0.9)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    fill: true
+                }]
+            },
+            options: miniChartOptions
+        });
+
+        // Today Revenue (Line)
+        new Chart(document.getElementById('todayRevenueChart'), {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($today_hours); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($today_revenue_values); ?>,
+                    borderColor: 'rgba(255, 255, 255, 0.9)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    fill: true
+                }]
+            },
+            options: miniChartOptions
+        });
+
+        // Monthly Revenue (Bar)
+        new Chart(document.getElementById('monthRevenueChart'), {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($month_weeks); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($month_revenue_values); ?>,
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: miniChartOptions
+        });
+
+        // Avg Order (Line)
+        new Chart(document.getElementById('avgOrderChart'), {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($avg_days); ?>,
+                datasets: [{
+                    data: <?php echo json_encode($avg_order_values); ?>,
+                    borderColor: 'rgba(255, 255, 255, 0.9)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    fill: true
+                }]
+            },
+            options: miniChartOptions
+        });
+
+        // --- 2. Hover Loop Logic ---
+        const revenueCards = document.querySelectorAll('.revenue-card');
+        let currentIndex = 0;
+
+        function autoHoverLoop() {
+            // Remove active state from all
+            revenueCards.forEach(card => card.classList.remove('auto-hover'));
+            
+            // Add to current
+            if(revenueCards.length > 0) {
+                revenueCards[currentIndex].classList.add('auto-hover');
+                // Move to next
+                currentIndex = (currentIndex + 1) % revenueCards.length;
+            }
+        }
+
+        // Start loop
+        const loopInterval = setInterval(autoHoverLoop, 2000); // 2 seconds per card
+
+        // Pause on manual hover
+        revenueCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                revenueCards.forEach(c => c.classList.remove('auto-hover'));
+                // Optional: clearInterval(loopInterval) to stop permanently
+            });
+        });
+
+        // --- 3. Main Dashboard Charts ---
+        Chart.defaults.color = '#6B7280';
+        Chart.defaults.borderColor = '#E5E7EB';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+
+        // Monthly Growth
+        new Chart(document.getElementById('revenueChart'), {
             type: 'line',
             data: {
                 labels: <?php echo json_encode(array_column($monthly_revenue, 'month')); ?>,
                 datasets: [{
-                    label: 'Revenue (₹)',
+                    label: 'Revenue',
                     data: <?php echo json_encode(array_column($monthly_revenue, 'revenue')); ?>,
-                    borderColor: '#ff6b35',
-                    backgroundColor: 'rgba(255, 107, 53, 0.1)',
+                    borderColor: '#FF4B2B',
+                    backgroundColor: 'rgba(255, 75, 43, 0.1)',
                     tension: 0.4,
                     fill: true,
                     borderWidth: 2
@@ -1015,139 +986,59 @@ revenueCards.forEach(card => {
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false }
-                },
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
                 scales: {
-                    y: {
-                        grid: {
-                            color: '#2a2a2a'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: '#2a2a2a'
-                        }
-                    }
+                    y: { beginAtZero: true }
                 }
             }
         });
 
-        // Order Status Chart
-        const orderStatusCtx = document
-    .getElementById('orderStatusChart')
-    .getContext('2d');
-
-new Chart(orderStatusCtx, {
-    type: 'radar',
-    data: {
-        labels: <?php echo json_encode(array_column($order_status_data, 'order_status')); ?>,
-        datasets: [{
-            label: 'Order Status Distribution',
-            data: <?php echo json_encode(array_column($order_status_data, 'count')); ?>,
-
-            fill: true,
-            backgroundColor: 'rgba(37, 99, 235, 0.15)',
-            borderColor: '#2563eb',
-            borderWidth: 2,
-
-            pointBackgroundColor: '#2563eb',
-            pointBorderColor: '#ffffff',
-            pointHoverRadius: 6
-        }]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-
-        animation: {
-            duration: 800,
-            easing: 'easeOutQuart'
-        },
-
-        plugins: {
-            legend: {
-                position: 'bottom',
-                labels: {
-                    color: '#e5e7eb',
-                    font: {
-                        size: 12,
-                        weight: '500'
-                    }
-                }
-            },
-            tooltip: {
-                backgroundColor: '#111827',
-                titleColor: '#f9fafb',
-                bodyColor: '#f9fafb',
-                borderColor: '#374151',
-                borderWidth: 1,
-                padding: 10,
-                callbacks: {
-                    label(context) {
-                        return `${context.label}: ${context.parsed.r}`;
-                    }
-                }
-            }
-        },
-
-        scales: {
-            r: {
-                angleLines: {
-                    color: '#1f2933'
-                },
-                grid: {
-                    color: '#1f2933'
-                },
-                pointLabels: {
-                    color: '#e5e7eb',
-                    font: {
-                        size: 11,
-                        weight: '500'
-                    }
-                },
-                ticks: {
-                    display: false
-                }
-            }
-        }
-    }
-});
-
-
-        // Category Distribution Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        new Chart(categoryCtx, {
-            type: 'bar',
+        // Order Status (Doughnut - cleaner than Radar for dashboard)
+        new Chart(document.getElementById('orderStatusChart'), {
+            type: 'doughnut',
             data: {
-                labels: <?php echo json_encode(array_column($category_distribution, 'category')); ?>,
+                labels: <?php echo json_encode(array_column($order_status_data, 'order_status')); ?>,
                 datasets: [{
-                    label: 'Products',
-                    data: <?php echo json_encode(array_column($category_distribution, 'count')); ?>,
-                    backgroundColor: '#ff6b35'
+                    data: <?php echo json_encode(array_column($order_status_data, 'count')); ?>,
+                    backgroundColor: [
+                        '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'
+                    ],
+                    borderWidth: 0
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
                 plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            color: '#2a2a2a'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: '#2a2a2a'
-                        }
-                    }
+                    legend: { position: 'right' }
                 }
             }
         });
+
+        // Category (Bar)
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode(array_column($category_distribution, 'category')); ?>,
+                datasets: [{
+                    label: 'Items',
+                    data: <?php echo json_encode(array_column($category_distribution, 'count')); ?>,
+                    backgroundColor: '#FF4B2B',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    });
     </script>
 </body>
 </html>

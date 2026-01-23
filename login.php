@@ -21,252 +21,433 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - ByteShop</title>
     <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        /* CSS reset and fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 18px;
-}
+        :root {
+            --primary: #FF4B2B; /* Vibrant Red/Orange */
+            --secondary: #FF416C;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --bg-light: #F9FAFB;
+            --grid-color: rgba(0, 0, 0, 0.05);
+        }
 
-.login-container {
-    background: rgba(26, 26, 26, 0.8);
-    backdrop-filter: blur(10px);
-    padding: 36px;
-    border-radius: 14px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-    width: 100%;
-    max-width: 360px;
-    border: 1px solid rgba(255, 107, 53, 0.2);
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.logo {
-    text-align: center;
-    margin-bottom: 27px;
-}
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            overflow: hidden;
+        }
 
-.logo h1 {
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-size: 28.8px;
-    margin-bottom: 4.5px;
-    font-weight: 800;
-    filter: drop-shadow(0 2px 6px rgba(255, 107, 53, 0.4));
-}
+        .main-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
 
-.logo p {
-    color: #a0a0a0;
-    font-size: 12.6px;
-}
+        /* Left Side - Visual/Text */
+        .visual-side {
+            flex: 1;
+            background: #f8f9fa;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            overflow: hidden;
+        }
+        
+        /* Grid pattern */
+        .visual-side::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+        }
 
-.form-group {
-    margin-bottom: 18px;
-}
+        /* Decorative Elements to match "compass/pen" tech feel */
+        .decoration-circle {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 50%;
+            top: 50%;
+            right: -200px;
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+        
+        .decoration-line {
+            position: absolute;
+            height: 1px;
+            background: rgba(0,0,0,0.08);
+            width: 100%;
+            top: 30%;
+            left: 0;
+        }
 
-label {
-    display: block;
-    margin-bottom: 7.2px;
-    color: #b0b0b0;
-    font-weight: 600;
-    font-size: 12.6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
+        .content-box {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-left: 10%;
+        }
 
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 10.8px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    border-radius: 7.2px;
-    font-size: 12.6px;
-    transition: all 0.3s ease;
-    color: #e0e0e0;
-}
+        .badge-pill {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+        }
 
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-    color: #666;
-}
+        .visual-side h1 {
+            font-size: 72px;
+            line-height: 1.05;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: #111;
+            letter-spacing: -2.5px;
+        }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-    outline: none;
-    border-color: #ff6b35;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-}
+        .visual-side p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #555;
+            max-width: 500px;
+            font-weight: 400;
+        }
 
-.btn-login {
-    width: 100%;
-    padding: 10.8px;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    border: none;
-    border-radius: 7.2px;
-    font-size: 14.4px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-}
+        .highlight-text {
+            /* color: var(--primary); */ 
+            background: linear-gradient(120deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-.btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-}
+        /* Right Side - Login Form */
+        .form-side {
+            flex: 0 0 550px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px;
+            border-left: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 5;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.02);
+        }
 
-.alert {
-    padding: 10.8px;
-    border-radius: 7.2px;
-    margin-bottom: 18px;
-    font-size: 12.6px;
-    border: 1px solid;
-    font-weight: 500;
-}
+        .login-header {
+            margin-bottom: 48px;
+        }
 
-.alert-error {
-    background: rgba(255, 71, 87, 0.15);
-    color: #ff4757;
-    border-color: rgba(255, 71, 87, 0.3);
-}
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.alert-success {
-    background: rgba(0, 212, 170, 0.15);
-    color: #00d4aa;
-    border-color: rgba(0, 212, 170, 0.3);
-}
+        .logo span {
+            color: var(--primary);
+        }
 
-.links {
-    text-align: center;
-    margin-top: 18px;
-}
+        .login-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #1a1a1a;
+            letter-spacing: -1px;
+        }
 
-.links a {
-    color: #ff6b35;
-    text-decoration: none;
-    font-size: 12.6px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+        .login-header p {
+            color: #888;
+            font-size: 16px;
+        }
 
-.links a:hover {
-    text-decoration: underline;
-    color: #f7931e;
-}
+        .form-group {
+            margin-bottom: 24px;
+        }
 
-.divider {
-    text-align: center;
-    margin: 18px 0;
-    color: #777;
-    font-size: 12.6px;
-}
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-.demo-credentials {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 13.5px;
-    border-radius: 7.2px;
-    margin-top: 18px;
-    font-size: 11.7px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #f9fafb;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            color: #1f2937;
+        }
 
-.demo-credentials h4 {
-    margin-bottom: 9px;
-    color: #ffffff;
-    font-size: 12.6px;
-    font-weight: 700;
-}
+        input[type="email"]::placeholder,
+        input[type="password"]::placeholder {
+            color: #9ca3af;
+        }
 
-.demo-credentials p {
-    margin: 4.5px 0;
-    color: #a0a0a0;
-    font-size: 11.7px;
-}
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 75, 43, 0.1);
+        }
 
-.demo-credentials strong {
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 600;
-}
-</style>
+        .btn-login {
+            width: 100%;
+            padding: 18px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            background: #1f2937;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .alert-error {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #991B1B;
+        }
+
+        .alert-success {
+            background: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            color: #065F46;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 40px 0;
+            color: #9ca3af;
+            font-size: 13px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 12px;
+        }
+
+        .links {
+            text-align: center;
+            font-size: 15px;
+            color: #6b7280;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .links a {
+            color: #111;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .links a:hover {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .visual-side h1 { font-size: 56px; }
+            .form-side { flex: 0 0 450px; padding: 60px 40px; }
+        }
+
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+            }
+            
+            .visual-side {
+                padding: 60px 30px;
+                min-height: 400px;
+                background-position: center;
+            }
+            
+            .content-box { margin-left: 0; text-align: center; margin: 0 auto; }
+            .visual-side h1 { font-size: 48px; }
+            .badge-pill { margin-bottom: 24px; }
+            
+            .form-side {
+                flex: 1;
+                width: 100%;
+                padding: 50px 25px;
+                border-left: none;
+                border-top: 1px solid #eee;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <h1>🛒 Market  X</h1>
-            <p>Multi-Vendor E-Commerce Platform</p>
-        </div>
-
-        <?php if ($error): ?>
-            <div class="alert alert-error">
-                <?php
-                switch($error) {
-                    case 'invalid':
-                        echo 'Invalid email or password!';
-                        break;
-                    case 'empty':
-                        echo 'Please fill in all fields!';
-                        break;
-                    case 'unauthorized':
-                        echo 'You are not authorized to access that page!';
-                        break;
-                    default:
-                        echo 'An error occurred. Please try again.';
-                }
-                ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($success === 'registered'): ?>
-            <div class="alert alert-success">
-                Registration successful! Please login.
-            </div>
-        <?php endif; ?>
-
-        <form id="loginForm" method="POST" action="api/auth.php">
-            <input type="hidden" name="action" value="login">
+    <div class="main-container">
+        <!-- Visual Side -->
+        <div class="visual-side">
+            <div class="decoration-circle"></div>
+            <div class="decoration-line"></div>
             
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
+            <div class="content-box">
+                <div class="badge-pill">Appreciation</div>
+                <h1>You Didn't Just <br>Join. You <br><span class="highlight-text">Believed.</span></h1>
+                <p>To every creative who took the leap, we see your courage, we value your trust. That's the real essence of design, progress over perfection.</p>
             </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit" class="btn-login">Login</button>
-        </form>
-
-        <div class="divider">OR</div>
-
-        <div class="links">
-            <p>Don't have an account? <a href="register.php">Register as Customer</a></p><br>
-            <p> <a href="super_register.php">Register as admin / owner</a></p>
         </div>
 
-        <!-- Demo Credentials -->
-        <!-- <div class="demo-credentials">
-            <h4>🔑 Demo Credentials:</h4>
-            <p><strong>Admin:</strong> admin@byteshop.com / admin123</p>
-            <p><strong>Shop Owner:</strong> john@shop.com / pass123</p>
-            <p><strong>Customer:</strong> alice@mail.com / pass123</p>
-        </div> -->
+        <!-- Form Side -->
+        <div class="form-side">
+            <div class="login-header">
+                <div class="logo">
+                     🛒 Market<span>X</span>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Enter your credentials to access your account.</p>
+            </div>
+
+            <?php if ($error): ?>
+                <div class="alert alert-error">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <span>
+                    <?php
+                    switch($error) {
+                        case 'invalid':
+                            echo 'Invalid email or password!';
+                            break;
+                        case 'empty':
+                            echo 'Please fill in all fields!';
+                            break;
+                        case 'unauthorized':
+                            echo 'You are not authorized to access that page!';
+                            break;
+                        default:
+                            echo 'An error occurred. Please try again.';
+                    }
+                    ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($success === 'registered'): ?>
+                <div class="alert alert-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>Registration successful! Please login.</span>
+                </div>
+            <?php endif; ?>
+
+            <form id="loginForm" method="POST" action="api/auth.php">
+                <input type="hidden" name="action" value="login">
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="name@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-login">Sign In</button>
+            </form>
+
+            <div class="divider"><span>OR</span></div>
+
+            <div class="links">
+                <div>Don't have an account? <a href="register.php">Create Customer Account</a></div>
+                <div><a href="super_register.php" style="color: #6b7280; font-weight: 500;">Register as Admin / Shop Owner</a></div>
+            </div>
+        </div>
     </div>
 
     <script>
