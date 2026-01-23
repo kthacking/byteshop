@@ -369,6 +369,7 @@ $error = isset($_GET['error']) ? $_GET['error'] : '';
     </style>
 </head>
 <body>
+    <?php include 'includes/ui_effects.php'; ?>
     <div class="main-container">
         <!-- Visual Side -->
         <div class="visual-side">
