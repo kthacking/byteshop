@@ -63,540 +63,480 @@ $categories = $categories_stmt->fetchAll(PDO::FETCH_COLUMN);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ByteShop - Explore Markets</title>
-    <link rel="stylesheet" href="../assets/css/customer-style.css">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    /* ===== Global Styles ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== Global Styles ===== */
+        :root {
+            --primary: #FF6B35;
+            --primary-light: #FFF0EB;
+            --secondary: #2D3436;
+            --text-color: #636e72;
+            --bg-color: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 30px;
+        }
 
-body {
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-    color: #e0e0e0;
-    line-height: 1.6;
-    min-height: 100vh;
-}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 18px 18px;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--secondary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
 
-/* ===== Hero Section ===== */
-.hero {
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    padding: 54px 0;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-}
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
 
-.hero h2 {
-    font-size: 2.25rem;
-    margin-bottom: 9px;
-    font-weight: 700;
-}
+        /* ===== Hero Section ===== */
+        .hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(120deg, #FFFFFF 0%, #FFF5F2 100%);
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
 
-.hero p {
-    font-size: 1.08rem;
-    opacity: 0.95;
-}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary-light) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
 
-/* ===== Filter Section ===== */
-.filter-section {
-    background: rgba(26, 26, 26, 0.6);
-    backdrop-filter: blur(10px);
-    padding: 27px 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    border-top: 1px solid rgba(255, 107, 53, 0.15);
-    border-bottom: 1px solid rgba(255, 107, 53, 0.15);
-}
+        .hero-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-.filter-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
+        .hero h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
 
-.search-box {
-    display: flex;
-    max-width: 540px;
-    margin: 0 auto;
-    width: 100%;
-}
+        .hero h2 span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h2 span::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 107, 53, 0.15);
+            z-index: -1;
+            border-radius: 4px;
+        }
 
-.search-box input {
-    flex: 1;
-    padding: 10.8px 18px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    border-radius: 45px 0 0 45px;
-    font-size: 0.9rem;
-    outline: none;
-    transition: all 0.3s ease;
-    color: #e0e0e0;
-}
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 2.5rem;
+        }
 
-.search-box input::placeholder {
-    color: #777;
-}
+        /* Search Box */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
 
-.search-box input:focus {
-    border-color: #ff6b35;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-}
+        .search-container:hover {
+            transform: translateY(-2px);
+        }
 
-.search-box button {
-    padding: 10.8px 27px;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    border: none;
-    border-radius: 0 45px 45px 0;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-}
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: transparent;
+            color: var(--secondary);
+        }
 
-.search-box button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 18px rgba(255, 107, 53, 0.5);
-}
+        .search-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
+        }
 
-.filters {
-    display: flex;
-    gap: 13.5px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+        .search-btn:hover {
+            transform: scale(1.05);
+            background: #ff5722;
+        }
 
-.filters select {
-    padding: 9px 18px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid rgba(255, 255, 255, 0.15);
-    border-radius: 7.2px;
-    font-size: 0.86rem;
-    outline: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #e0e0e0;
-}
+        /* ===== Filter Chips ===== */
+        .filter-scroll {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            margin-top: 1rem;
+            justify-content: center;
+            scrollbar-width: none;
+        }
+        .filter-scroll::-webkit-scrollbar { display: none; }
 
-.filters select option {
-    background: #1a1a1a;
-    color: #e0e0e0;
-}
+        .filter-chip {
+            padding: 0.6rem 1.2rem;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            box-shadow: var(--shadow-sm);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-.filters select:hover,
-.filters select:focus {
-    border-color: #ff6b35;
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-}
+        .filter-chip:hover, .filter-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
 
-.clear-filters {
-    padding: 9px 18px;
-    background: rgba(255, 71, 87, 0.2);
-    color: #ff4757;
-    text-decoration: none;
-    border-radius: 7.2px;
-    font-size: 0.86rem;
-    transition: all 0.3s ease;
-    display: inline-block;
-    font-weight: 600;
-    border: 1px solid rgba(255, 71, 87, 0.3);
-}
+        .filter-chip i { font-size: 0.8rem; }
 
-.clear-filters:hover {
-    background: rgba(255, 71, 87, 0.3);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
-}
+        /* ===== Section Header ===== */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+        }
 
-/* ===== Markets Section ===== */
-.markets-section {
-    padding: 45px 0;
-}
+        .section-title h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+        }
 
-.markets-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
-    gap: 27px;
-}
+        .section-title p {
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
 
-.market-card {
-    background: rgba(26, 26, 26, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 13.5px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+        /* ===== Markets Grid ===== */
+        .markets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
 
-.market-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
-    border-color: rgba(255, 107, 53, 0.3);
-}
+        .market-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
 
-.market-image {
-    position: relative;
-    height: 180px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.05);
-}
+        .market-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+        }
 
-.market-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
+        .market-image-wrapper {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
 
-.market-card:hover .market-image img {
-    transform: scale(1.1);
-}
+        .market-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
 
-.market-badge {
-    position: absolute;
-    top: 13.5px;
-    right: 13.5px;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    padding: 4.5px 13.5px;
-    border-radius: 18px;
-    font-size: 0.77rem;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.5);
-}
+        .market-card:hover .market-image {
+            transform: scale(1.1);
+        }
 
-.market-content {
-    padding: 18px;
-}
+        .market-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .rating-badge {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: white;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .rating-badge i { color: #FFD700; }
 
-.market-content h3 {
-    font-size: 1.26rem;
-    color: #ffffff;
-    margin-bottom: 9px;
-    font-weight: 700;
-}
+        .market-details {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-.market-location {
-    display: flex;
-    align-items: center;
-    gap: 7.2px;
-    color: #a0a0a0;
-    margin-bottom: 9px;
-    font-size: 0.86rem;
-}
+        .market-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
 
-.market-location i {
-    color: #ff6b35;
-}
+        .market-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .market-location i { color: var(--primary); }
 
-.market-rating {
-    display: flex;
-    align-items: center;
-    gap: 4.5px;
-    margin-bottom: 13.5px;
-}
+        .market-desc {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 1rem;
+        }
+        
+        .btn-visit {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.2s;
+        }
+        
+        .market-card:hover .btn-visit { gap: 12px; }
 
-.market-rating i {
-    color: #f7931e;
-    font-size: 0.9rem;
-}
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+        }
+        .no-results i { font-size: 4rem; color: #ddd; margin-bottom: 1rem; }
+        .no-results h3 { font-size: 1.5rem; color: var(--secondary); margin-bottom: 0.5rem; }
 
-.rating-value {
-    margin-left: 7.2px;
-    font-weight: 600;
-    color: #ffffff;
-    font-size: 0.9rem;
-}
-
-.market-description {
-    color: #a0a0a0;
-    font-size: 0.81rem;
-    margin-bottom: 13.5px;
-    line-height: 1.5;
-}
-
-.btn-explore {
-    display: inline-block;
-    width: 100%;
-    padding: 10.8px;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 7.2px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-    font-size: 0.9rem;
-}
-
-.btn-explore:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255, 107, 53, 0.5);
-}
-
-.btn-explore i {
-    margin-left: 7.2px;
-}
-
-/* ===== No Results ===== */
-.no-results {
-    text-align: center;
-    padding: 72px 18px;
-    background: rgba(26, 26, 26, 0.6);
-    backdrop-filter: blur(10px);
-    border-radius: 13.5px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.no-results i {
-    font-size: 3.6rem;
-    color: #444;
-    margin-bottom: 18px;
-}
-
-.no-results h3 {
-    font-size: 1.62rem;
-    color: #ffffff;
-    margin-bottom: 9px;
-    font-weight: 700;
-}
-
-.no-results p {
-    color: #a0a0a0;
-    margin-bottom: 27px;
-    font-size: 0.95rem;
-}
-
-.btn-primary {
-    display: inline-block;
-    padding: 10.8px 27px;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    color: white;
-    text-decoration: none;
-    border-radius: 7.2px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-    font-size: 0.9rem;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(255, 107, 53, 0.5);
-}
-
-/* ===== Footer ===== */
-.footer {
-    background: rgba(26, 26, 26, 0.8);
-    backdrop-filter: blur(10px);
-    color: white;
-    padding: 27px 0;
-    text-align: center;
-    margin-top: 45px;
-    border-top: 1px solid rgba(255, 107, 53, 0.2);
-}
-
-.footer p {
-    color: #a0a0a0;
-    font-size: 0.9rem;
-}
-
-/* ===== Responsive Design ===== */
-@media (max-width: 768px) {
-    .hero h2 {
-        font-size: 1.8rem;
-    }
-
-    .hero p {
-        font-size: 0.9rem;
-    }
-
-    .markets-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .filters {
-        flex-direction: column;
-    }
-
-    .filters select,
-    .clear-filters {
-        width: 100%;
-    }
-
-    .container {
-        padding: 13.5px 13.5px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero h2 {
-        font-size: 1.35rem;
-    }
-
-    .market-content h3 {
-        font-size: 1.08rem;
-    }
-
-    .hero {
-        padding: 36px 0;
-    }
-}
-</style>
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2.2rem; }
+            .filter-scroll { justify-content: flex-start; padding: 1rem 1rem; }
+            .markets-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
     <?php include '../includes/customer_header.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <h2>Discover Amazing Markets</h2>
-            <p>Shop from multiple vendors, all in one place</p>
+        <div class="container hero-content">
+            <h2>Find The Best <br><span>Shops Near You</span></h2>
+            <p>Order from your favorite local markets with just a few clicks.</p>
+            
+            <form method="GET" action="" class="search-container">
+                <input type="text" name="search" placeholder="What are you looking for?" value="<?php echo htmlspecialchars($search); ?>">
+                <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            </form>
+
+            <div class="filter-scroll">
+                <a href="index.php" class="filter-chip <?php echo ($location_filter == '' && $category_filter == '') ? 'active' : ''; ?>">
+                    All Markets
+                </a>
+                
+                <?php foreach ($categories as $cat): ?>
+                    <a href="?category=<?php echo urlencode($cat); ?>" class="filter-chip <?php echo $category_filter == $cat ? 'active' : ''; ?>">
+                        <?php 
+                            $icon = 'fa-tag';
+                            if(stripos($cat, 'elect') !== false) $icon = 'fa-laptop';
+                            elseif(stripos($cat, 'fash') !== false) $icon = 'fa-tshirt';
+                            elseif(stripos($cat, 'food') !== false) $icon = 'fa-utensils';
+                            elseif(stripos($cat, 'groc') !== false) $icon = 'fa-carrot';
+                        ?>
+                        <i class="fas <?php echo $icon; ?>"></i> <?php echo htmlspecialchars($cat); ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </div>
     </section>
 
-    <!-- Search & Filter Section -->
-    <section class="filter-section">
-        <div class="container">
-            <form method="GET" action="" class="filter-form">
-                <!-- Search Bar -->
-                <div class="search-box">
-                    <input type="text" name="search" placeholder="Search markets..." 
-                           value="<?php echo htmlspecialchars($search); ?>">
-                    <button type="submit"><i class="fas fa-search"></i></button>
-                </div>
-
-                <!-- Filters -->
-                <div class="filters">
-                    <select name="location" onchange="this.form.submit()">
-                        <option value="">All Locations</option>
-                        <?php foreach ($locations as $location): ?>
-                            <option value="<?php echo htmlspecialchars($location); ?>" 
-                                    <?php echo $location_filter == $location ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($location); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-
-                    <select name="category" onchange="this.form.submit()">
-                        <option value="">All Categories</option>
-                        <?php foreach ($categories as $category): ?>
-                            <option value="<?php echo htmlspecialchars($category); ?>" 
-                                    <?php echo $category_filter == $category ? 'selected' : ''; ?>>
-                                <?php echo htmlspecialchars($category); ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-
-                    <select name="rating" onchange="this.form.submit()">
-                        <option value="">All Ratings</option>
-                        <option value="4.5" <?php echo $rating_filter == '4.5' ? 'selected' : ''; ?>>4.5+ Stars</option>
-                        <option value="4.0" <?php echo $rating_filter == '4.0' ? 'selected' : ''; ?>>4.0+ Stars</option>
-                        <option value="3.5" <?php echo $rating_filter == '3.5' ? 'selected' : ''; ?>>3.5+ Stars</option>
-                        <option value="3.0" <?php echo $rating_filter == '3.0' ? 'selected' : ''; ?>>3.0+ Stars</option>
-                    </select>
-
-                    <?php if ($search || $location_filter || $category_filter || $rating_filter): ?>
-                        <a href="index.php" class="clear-filters">Clear Filters</a>
-                    <?php endif; ?>
-                </div>
+    <!-- Markets Section -->
+    <div class="container">
+        <div class="section-header">
+            <div class="section-title">
+                <h3>Popular Markets</h3>
+                <p><?php echo count($markets); ?> markets available</p>
+            </div>
+            
+             <form method="GET" class="mobile-hidden">
+                <select name="location" onchange="this.form.submit()" style="padding: 10px; border-radius: 10px; border: 1px solid #ddd; outline:none;">
+                    <option value="">📍 All Locations</option>
+                    <?php foreach ($locations as $loc): ?>
+                        <option value="<?php echo htmlspecialchars($loc); ?>" <?php echo $location_filter == $loc ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($loc); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </form>
         </div>
-    </section>
 
-    <!-- Markets Grid -->
-    <section class="markets-section">
-        <div class="container">
-            <?php if (count($markets) > 0): ?>
-                <div class="markets-grid">
-                    <?php foreach ($markets as $market): ?>
-                        <div class="market-card">
-                            <div class="market-image">
-                                <?php if (!empty($market['market_image'])): ?>
-                                    <?php
-        $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
-        $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market['market_image'];
-        ?>
-
-     <img src="<?php echo htmlspecialchars($image_src); ?>" 
-     alt="<?php echo htmlspecialchars($market['market_name']); ?>"
-     onerror="this.src='../assets/images/placeholder.jpg'">
-                                <?php else: ?>
-                                    <img src="../assets/images/default-market.jpg" alt="Default Market">
-                                <?php endif; ?>
-                                <div class="market-badge"><?php echo htmlspecialchars($market['market_category']); ?></div>
+        <?php if (count($markets) > 0): ?>
+            <div class="markets-grid">
+                <?php foreach ($markets as $market): ?>
+                    <a href="market.php?id=<?php echo $market['market_id']; ?>" class="market-card">
+                        <div class="market-image-wrapper">
+                            <?php 
+                                $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
+                                $image_src = $is_url ? $market['market_image'] : '../uploads/markets/' . $market['market_image'];
+                            ?>
+                            <img src="<?php echo htmlspecialchars($image_src); ?>" 
+                                 alt="<?php echo htmlspecialchars($market['market_name']); ?>" 
+                                 class="market-image"
+                                 onerror="this.src='../assets/images/default-market.jpg'">
+                                 
+                            <div class="market-badge">
+                                <i class="fas fa-store"></i> <?php echo htmlspecialchars($market['market_category']); ?>
                             </div>
                             
-                            <div class="market-content">
-                                <h3><?php echo htmlspecialchars($market['market_name']); ?></h3>
-                                
-                                <div class="market-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <?php echo htmlspecialchars($market['location']); ?>
-                                </div>
-                                
-                                <div class="market-rating">
-                                    <?php 
-                                    $rating = $market['rating'];
-                                    for ($i = 1; $i <= 5; $i++) {
-                                        if ($i <= floor($rating)) {
-                                            echo '<i class="fas fa-star"></i>';
-                                        } elseif ($i - 0.5 <= $rating) {
-                                            echo '<i class="fas fa-star-half-alt"></i>';
-                                        } else {
-                                            echo '<i class="far fa-star"></i>';
-                                        }
-                                    }
-                                    ?>
-                                    <span class="rating-value"><?php echo number_format($rating, 1); ?></span>
-                                </div>
-
-                                <?php if (!empty($market['description'])): ?>
-                                    <p class="market-description">
-                                        <?php echo htmlspecialchars(substr($market['description'], 0, 100)); ?>
-                                        <?php echo strlen($market['description']) > 100 ? '...' : ''; ?>
-                                    </p>
-                                <?php endif; ?>
-
-                                <a href="market.php?id=<?php echo $market['market_id']; ?>" class="btn-explore">
-                                    Explore Market <i class="fas fa-arrow-right"></i>
-                                </a>
+                            <div class="rating-badge">
+                                <i class="fas fa-star"></i> <?php echo number_format($market['rating'], 1); ?>
                             </div>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <div class="no-results">
-                    <i class="fas fa-search"></i>
-                    <h3>No markets found</h3>
-                    <p>Try adjusting your search or filters</p>
-                    <a href="index.php" class="btn-primary">View All Markets</a>
-                </div>
-            <?php endif; ?>
-        </div>
-    </section>
+                        
+                        <div class="market-details">
+                            <div class="market-title"><?php echo htmlspecialchars($market['market_name']); ?></div>
+                            <div class="market-location">
+                                <i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($market['location']); ?>
+                            </div>
+                            
+                            <?php if (!empty($market['description'])): ?>
+                                <p class="market-desc">
+                                    <?php echo htmlspecialchars($market['description']); ?>
+                                </p>
+                            <?php endif; ?>
+                            
+                            <div class="card-footer">
+                                <span class="btn-visit">Visit Market <i class="fas fa-arrow-right"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <div class="no-results">
+                <i class="fas fa-store-slash"></i>
+                <h3>No markets found</h3>
+                <p>Try changing your search terms or filters.</p>
+                <a href="index.php" style="display:inline-block; margin-top:1rem; padding:10px 20px; background:var(--primary); color:white; text-decoration:none; border-radius:50px;">Clear Filters</a>
+            </div>
+        <?php endif; ?>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 ByteShop. All rights reserved.</p>
-        </div>
-    </footer>
-
-<script src="../assets/js/customer.js"></script>
+    <!-- Footer Space -->
+    <div style="height: 50px;"></div>
 
 </body>
 </html>

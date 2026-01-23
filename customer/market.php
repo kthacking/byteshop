@@ -100,97 +100,76 @@ $price_range = $stmt->fetch();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($market['market_name']); ?> - ByteShop</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    /* Light Theme Variables */
+    :root {
+        --primary: #FF6B35;
+        --secondary: #2D3436;
+        --bg-color: #FAFAFA;
+        --card-bg: #FFFFFF;
+        --text-main: #333333;
+        --text-sub: #666666;
+        --border-color: #EEEEEE;
+        --shadow: 0 5px 20px rgba(0,0,0,0.05);
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-        font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #0a0a0a;
-        color: #e0e0e0;
-        font-size: 14.4px; /* 90% of 16px */
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-size: 14px;
+        line-height: 1.5;
     }
 
-    /* Header */
-    .header {
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-        color: white;
-        padding: 0.9rem 0; /* 90% of 1rem */
-        box-shadow: 0 1.8px 9px rgba(0, 0, 0, 0.3); /* 90% scale */
+    /* Market Header */
+    .market-header {
+        background: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        border-bottom: 1px solid var(--border-color);
     }
 
-    .header-content {
-        max-width: 1260px; /* 90% of 1400px */
+    .header-container {
+        max-width: 1200px;
         margin: 0 auto;
-        padding: 0 1.8rem; /* 90% of 2rem */
+        padding: 0 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
-    .logo {
-        font-size: 1.62rem; /* 90% of 1.8rem */
-        font-weight: bold;
-        text-decoration: none;
-        color: white;
+    .market-info h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--secondary);
     }
 
-    .nav-links {
-        display: flex;
-        gap: 1.8rem; /* 90% of 2rem */
-        align-items: center;
-    }
-
-    .nav-links a {
-        color: white;
-        text-decoration: none;
-        transition: opacity 0.3s;
-        font-size: 0.9rem;
-    }
-
-    .nav-links a:hover {
-        opacity: 0.8;
-    }
-
-    .cart-icon {
-        position: relative;
-    }
-
-    .cart-count {
-        position: absolute;
-        top: -7.2px; /* 90% of -8px */
-        right: -7.2px; /* 90% of -8px */
-        background: #f44336;
-        color: white;
-        border-radius: 50%;
-        width: 18px; /* 90% of 20px */
-        height: 18px; /* 90% of 20px */
+    .market-info p {
+        color: var(--text-sub);
         display: flex;
         align-items: center;
-        justify-content: center;
-        font-size: 0.63rem; /* 90% of 0.7rem */
-        font-weight: bold;
+        gap: 0.5rem;
     }
 
     /* Filters Section */
     .filters-section {
-        background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
-        padding: 1.35rem; /* 90% of 1.5rem */
-        margin: 1.8rem auto; /* 90% of 2rem */
-        max-width: 1260px; /* 90% of 1400px */
-        border-radius: 14.4px; /* 90% of 16px */
-        box-shadow: 0 3.6px 14.4px rgba(0, 0, 0, 0.4); /* 90% scale */
-        border: 1px solid #2a2a2a;
+        background: white;
+        padding: 1.5rem;
+        margin: 0 auto 2rem;
+        max-width: 1200px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
     }
 
     .filters-form {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-        gap: 0.9rem; /* 90% of 1rem */
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
         align-items: end;
     }
 
@@ -200,459 +179,299 @@ $price_range = $stmt->fetch();
     }
 
     .form-group label {
-        margin-bottom: 0.45rem; /* 90% of 0.5rem */
+        margin-bottom: 0.3rem;
         font-weight: 600;
-        color: #909090;
-        font-size: 0.81rem; /* 90% of 0.9rem */
+        color: var(--text-sub);
+        font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 0.45px; /* 90% of 0.5px */
     }
 
     .form-group input,
     .form-group select {
-        padding: 0.63rem; /* 90% of 0.7rem */
-        border: 1px solid #2a2a2a;
-        border-radius: 7.2px; /* 90% of 8px */
-        font-size: 0.855rem; /* 90% of 0.95rem */
-        background: #0f0f0f;
-        color: #e0e0e0;
+        padding: 0.7rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        background: #F9FAFB;
+        color: var(--text-main);
         transition: all 0.3s;
+        font-family: inherit;
     }
 
     .form-group input:focus,
     .form-group select:focus {
         outline: none;
-        border-color: #ff6b35;
-        box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.1); /* 90% of 3px */
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
     }
 
     .btn {
-        padding: 0.63rem 1.35rem; /* 90% of 0.7rem 1.5rem */
+        padding: 0.7rem 1.5rem;
         border: none;
-        border-radius: 7.2px; /* 90% of 8px */
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 0.855rem; /* 90% of 0.95rem */
+        font-size: 0.9rem;
         transition: all 0.3s;
         font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        background: var(--primary);
         color: white;
     }
 
     .btn-primary:hover {
-        transform: translateY(-1.8px); /* 90% of -2px */
-        box-shadow: 0 5.4px 18px rgba(255, 107, 53, 0.4); /* 90% scale */
+        background: #e55e2d;
+        transform: translateY(-2px);
     }
 
     .btn-secondary {
-        background: #2a2a2a;
-        color: white;
+        background: #F1F1F1;
+        color: var(--text-main);
     }
 
     .btn-secondary:hover {
-        background: #3a3a3a;
+        background: #e1e1e1;
     }
 
     /* Results Info */
     .results-info {
-        max-width: 1260px; /* 90% of 1400px */
-        margin: 0.9rem auto; /* 90% of 1rem */
-        padding: 0 1.8rem; /* 90% of 2rem */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: #909090;
+        max-width: 1200px;
+        margin: 1rem auto;
+        padding: 0 1.5rem;
+        color: var(--text-sub);
         font-size: 0.9rem;
+        font-weight: 500;
     }
 
     /* Products Grid */
     .products-container {
-        max-width: 100%;
-        margin: 1.8rem auto; /* 90% of 2rem */
-        padding: 0 1.8rem; /* 90% of 2rem */
+        max-width: 1200px;
+        margin: 0 auto 3rem;
+        padding: 0 1.5rem;
     }
 
     .products-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(252px, 1fr)); /* 90% of 280px */
-        gap: 1.8rem; /* 90% of 2rem */
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 2rem;
     }
 
+    /* Updated Card Style */
     .product-card {
-        background: black;
-        border-radius: 14.4px; /* 90% of 16px */
+        background: white;
+        border-radius: 20px;
         overflow: hidden;
-        max-height: 495px; /* 90% of 550px */
         position: relative;
-        box-shadow: 0 3.6px 14.4px rgba(226, 152, 16, 0); /* 90% scale */
+        box-shadow: var(--shadow);
         transition: transform 0.3s, box-shadow 0.3s;
-        border: 1px solid #2a2a2a;
+        border: 1px solid rgba(0,0,0,0.03);
     }
 
     .product-card:hover {
-        transform: translateY(-4.5px); /* 90% of -5px */
-        box-shadow: 0 7.2px 27px rgba(255, 145, 0, 0.96); /* 90% scale */
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .image-wrapper {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
     }
 
     .product-image {
         width: 100%;
-        height: 225px; /* 90% of 250px */
+        height: 100%;
         object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .product-card:hover .product-image {
+        transform: scale(1.1);
     }
 
     .product-content {
-        padding: 1.35rem; /* 90% of 1.5rem */
+        padding: 1.5rem;
     }
 
     .product-category {
-        display: inline-block;
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-        color: white;
-        top: -54px; /* 90% of -60px */
-        left: 180px; /* 90% of 200px */
-        position: relative;
-        padding: 0.27rem 0.72rem; /* 90% of 0.3rem 0.8rem */
-        border-radius: 18px 0px 18px 0px; /* 90% of 20px */
-        font-size: 0.72rem; /* 90% of 0.8rem */
-        margin-bottom: 0.45rem; /* 90% of 0.5rem */
+        font-size: 0.75rem;
         font-weight: 600;
         text-transform: uppercase;
-        letter-spacing: 0.45px; /* 90% of 0.5px */
+        color: var(--primary);
+        letter-spacing: 0.5px;
+        display: block;
+        margin-bottom: 0.5rem;
     }
 
     .product-name {
-        font-size: 1.08rem; /* 90% of 1.2rem */
-        font-weight: 600;
-        margin: 0.45rem 0; /* 90% of 0.5rem */
-        color: #ffffffff;
-        position: relative;
-        top: -54px; /* 90% of -60px */
-        max-width: 100%;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        display: -webkit-box;
-        word-break: break-word;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--secondary);
+        white-space: nowrap;
         overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .product-price {
-        font-size: 1.35rem; 
-        font-weight: bold;
-        background: linear-gradient(135deg, #98f34eff 0%, rgba(255, 115, 1, 1) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin: 0.45rem 0; 
-        position: relative;
-        top: -67px; 
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .product-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+        color: var(--text-sub);
     }
 
-     .product-rating {
-            color: #ffa502;
-            margin: 0.5rem 0;
-            position: relative;
-             top:25px;
-             right:-8px;
-             font-weight: 600;
-
-        }
-
-        .product-stock {
-            font-size: 0.9rem;
-            margin: 0.5rem 0;
-             position: relative;
-             top:20px;
-             font-weight: 600;
-        }
-
-        .stock-in {
-            color: #27ae60;
-        }
-
-        .stock-out {
-            color: #e74d3cdc;
-            opacity: 0;
-        }
-    /* .product-rating {
-        color: #eeb141ff;
-        margin: 0.45rem 0; 
-        position: relative;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        left: -22.5px; 
-        top: -94.2px; 
-        z-index: 12;
-        font-size: 0.9rem;
-    }
-
-    .product-stock {
-        font-size: 0.81rem;
-        margin: 0.45rem 0; 
-        position: relative;
-        transform: rotate(-90deg);
-        transform-origin: left top;
-        left: -19.8px; 
-        top: -55px; 
-        z-index: 12;
+    .stock-badge {
         font-weight: 600;
-    } */
-
-    .stock-in {
-        color: #4caf50;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
     }
-
-    .stock-out {
-        color: #f44336;
-    }
-
-    .product-details {
-        background: #0f0f0f;
-        padding: 0.72rem; /* 90% of 0.8rem */
-        border-radius: 7.2px; /* 90% of 8px */
-        margin: 0.9rem 0; /* 90% of 1rem */
-        max-height: 81px; /* 90% of 90px */
-        overflow: hidden;
-        text-align: justify;
-        font-size: 0.765rem; /* 90% of 0.85rem */
-        color: #909090;
-        line-height: 1.4;
-        position: relative;
-        top: -140px; /* 90% of -150px */
-        max-width: 100%;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        display: -webkit-box;
-        word-break: break-word;
-        border: 1px solid #2a2a2a;
-    }
-/* 
-    .cbb {
-        height: 126px; 
-        width: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url("https://i.pinimg.com/736x/07/ed/1e/07ed1e95ff590083faa79917266969bb.jpg");
-        padding: 18px 0 9px 0; 
-        position: relative;
-        top: -263.7px; 
-        transition: transform .2s;
-    }
-
-    .cbb:hover {
-        transform: scale(1.5);
-        height: 135px; 
-        top: -274.5px;
-        left: 9px; 
-    } */
+    .stock-in { background: #E8F5E9; color: #2E7D32; }
+    .stock-out { background: #FFEBEE; color: #C62828; }
 
     .product-actions {
         display: flex;
-        justify-content: center;
-        gap: 18px; /* 90% of 20px */
-        position: relative;
-        top: -113px; /* 90% of -120px */
-        z-index: 10;
-        left: 28px; /* 90% of 20px */
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--border-color);
     }
 
-    /* Super Styles - Cart Button */
+    /* Cart Button Animation (Preserved logic, updated style) */
     .btn-cart {
         cursor: pointer;
         border: none;
-        background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
+        background: var(--primary);
         color: #fff;
-        width: 72px; /* 90% of 80px */
-        height: 72px; /* 90% of 80px */
-        top: -27px; 
-        
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
-        overflow: hidden;
-        position: relative;
-        display: grid;
-        place-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         font-weight: 700;
-        padding: 0;
-        font-size: 9.9px; /* 90% of 11px */
-        box-shadow: 0 9px 18px rgba(255, 0, 188, 0.3); /* 90% scale */
+        box-shadow: 0 4px 10px rgba(255, 107, 53, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .btn-cart:hover {
+        width: 120px;
+        border-radius: 25px;
+        transform: scale(1.05);
+    }
+    
+    .btn-cart .icon {
+        font-size: 1.1rem;
+        transition: 0.2s;
+    }
+    
+    .btn-cart .text {
+        position: absolute;
+        opacity: 0;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        font-weight: 600;
+        transform: translateX(10px);
+        transition: 0.2s;
+    }
+    
+    .btn-cart:hover .icon {
+        transform: translateX(-40px);
+        opacity: 0;
+    }
+    
+    .btn-cart:hover .text {
+        opacity: 1;
+        transform: translateX(0);
     }
 
     .btn-cart:disabled {
-        background: #2a2a2a;
+        background: #ccc;
         cursor: not-allowed;
-        width: auto;
-        height: auto;
-        color:#ff6b35;
-        padding: 9px 18px; /* 90% of 10px 20px */
-        border-radius: 7.2px; /* 90% of 8px */
-        top: -3px;
-        font-size: 12.6px; /* 90% of 14px */
         box-shadow: none;
+        width: 45px !important;
     }
+    .btn-cart:disabled:hover { pointer-events: none; }
 
-    .button__text {
-        position: absolute;
-        inset: 0;
-        animation: text-rotation 8s linear infinite;
-    }
-
-    .button__text>span {
-        position: absolute;
-        transform: rotate(calc(28deg * var(--index)));
-        inset: 3.6px; /* 90% of 4px */
-        text-shadow: 0 1.8px 4.5px rgba(255, 196, 0, 0.2); /* 90% scale */
-    }
-
-    .button__circle {
-        position: relative;
-        width: 28.8px; /* 90% of 32px */
-        height: 28.8px; /* 90% of 32px */
-        overflow: hidden;
-        background: #fff;
-        color: #6e00ff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-        box-shadow: inset 0 0 4.5px rgba(0, 0, 0, 0.1); /* 90% scale */
-    }
-
-    .button__icon {
-        width: 10.8px; /* 90% of 12px */
-    }
-
-    .button__icon--copy {
-        position: absolute;
-        transform: translate(-150%, 150%);
-    }
-
-    .btn-cart:hover:not(:disabled) {
-        background: #111;
-        transform: scale(1.1) translateY(-4.5px); /* 90% of -5px */
-        box-shadow: 0 13.5px 27px rgba(110, 0, 255, 0.4); /* 90% scale */
-    }
-
-    .btn-cart:hover:not(:disabled) .button__circle {
-        background: #111;
-        color: #fff;
-    }
-
-    .btn-cart:hover:not(:disabled) .button__icon:first-child {
-        transition: transform 0.3s ease-in-out;
-        transform: translate(150%, -150%);
-    }
-
-    .btn-cart:hover:not(:disabled) .button__icon--copy {
-        transition: transform 0.3s ease-in-out 0.1s;
-        transform: translate(0);
-    }
-
-    @keyframes text-rotation {
-        to {
-            rotate: 360deg;
-        }
-    }
-
-    /* View Button */
     .btn-view {
-        width: 45px; /* 90% of 50px */
-        height: 45px; /* 90% of 50px */
+        background: white;
+        border: 1px solid var(--border-color);
+        width: 45px;
+        height: 45px;
         border-radius: 50%;
-        background: linear-gradient(135deg, #6e00ff 0%, #ff00bc 100%);
-        border: none;
-        font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4.5px 13.5px rgba(255, 0, 188, 0.4); /* 90% scale */
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        overflow: hidden;
-        position: relative;
-        top:-4px;
+        color: var(--text-main);
+        transition: all 0.3s;
         text-decoration: none;
     }
-
-    .svgIcon {
-        width: 10.8px; /* 90% of 12px */
-        transition-duration: 0.3s;
-    }
-
-    .svgIcon path {
-        fill: white;
-    }
-
+    
     .btn-view:hover {
-        width: 126px; /* 90% of 140px */
-        border-radius: 45px; /* 90% of 50px */
-        background: #000;
-        align-items: center;
-        box-shadow: 0 9px 22.5px rgba(110, 0, 255, 0.5); /* 90% scale */
-        transform: scale(1.05);
+        background: #F5F5F5;
+        border-color: #ddd;
     }
 
-    .btn-view:hover .svgIcon {
-        transition-duration: 0.3s;
-        transform: translateY(-200%);
-    }
-
-    .btn-view::before {
-        position: absolute;
-        bottom: -18px; /* 90% of -20px */
-        content: "View Details";
-        color: white;
-        font-size: 0px;
-        white-space: nowrap;
-    }
-
-    .btn-view:hover::before {
-        font-size: 11.7px; /* 90% of 13px */
-        opacity: 1;
-        bottom: unset;
-        transition-duration: 0.3s;
-    }
-
-    /* Empty State */
     .empty-state {
         text-align: center;
-        padding: 3.6rem 1.8rem; /* 90% of 4rem 2rem */
-        color: #707070;
-        background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
-        border-radius: 14.4px; /* 90% of 16px */
-        border: 1px solid #2a2a2a;
+        padding: 4rem 2rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        color: var(--text-sub);
     }
 
-    .empty-state h2 {
-        font-size: 1.8rem; /* 90% of 2rem */
-        margin-bottom: 0.9rem; /* 90% of 1rem */
-        color: #909090;
-    }
-
-    .empty-state p {
-        color: #707070;
-        font-size: 0.9rem;
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
         .filters-form {
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
         }
-
         .products-grid {
-            grid-template-columns: repeat(auto-fill, minmax(225px, 1fr)); /* 90% of 250px */
-            gap: 0.9rem; /* 90% of 1rem */
+            grid-template-columns: repeat(2, 1fr);
         }
+        .market-header { padding: 1.5rem 0; }
+        .market-info h1 { font-size: 1.5rem; }
     }
-</style>
+    
+    @media (max-width: 480px) {
+        .products-grid { grid-template-columns: 1fr; }
+        .filters-form { grid-template-columns: 1fr; }
+    }
+    </style>
 </head>
 
 <body>
     <?php include '../includes/customer_header.php'; ?>
+
+    <!-- Market Header -->
+     <div class="market-header">
+         <div class="header-container">
+             <div class="market-info">
+                 <h1><?php echo htmlspecialchars($market['market_name']); ?></h1>
+                 <p><i class="fas fa-map-marker-alt" style="color:var(--primary);"></i> <?php echo htmlspecialchars($market['location']); ?></p>
+             </div>
+             <div>
+                <!-- Could add market banner or owner info here -->
+             </div>
+         </div>
+     </div>
 
     <!-- Filters Section -->
     <div class="filters-section">
@@ -660,18 +479,16 @@ $price_range = $stmt->fetch();
             <input type="hidden" name="id" value="<?php echo $market_id; ?>">
 
             <div class="form-group">
-                <label>Search Products</label>
-                <input type="text" name="search" placeholder="Search by product name..."
-                    value="<?php echo htmlspecialchars($search); ?>">
+                <label>Search</label>
+                <input type="text" name="search" placeholder="Product name..." value="<?php echo htmlspecialchars($search); ?>">
             </div>
 
             <div class="form-group">
                 <label>Category</label>
                 <select name="category">
-                    <option value="">All Categories</option>
+                    <option value="">All</option>
                     <?php foreach ($categories as $cat): ?>
-                    <option value="<?php echo htmlspecialchars($cat); ?>"
-                        <?php echo $category === $cat ? 'selected' : ''; ?>>
+                    <option value="<?php echo htmlspecialchars($cat); ?>" <?php echo $category === $cat ? 'selected' : ''; ?>>
                         <?php echo htmlspecialchars($cat); ?>
                     </option>
                     <?php endforeach; ?>
@@ -680,50 +497,43 @@ $price_range = $stmt->fetch();
 
             <div class="form-group">
                 <label>Min Price</label>
-                <input type="number" name="min_price" min="0" step="0.01"
-                    value="<?php echo $min_price > 0 ? $min_price : ''; ?>" placeholder="₹0">
+                <input type="number" name="min_price" min="0" step="0.01" value="<?php echo $min_price > 0 ? $min_price : ''; ?>" placeholder="0">
             </div>
 
             <div class="form-group">
                 <label>Max Price</label>
-                <input type="number" name="max_price" min="0" step="0.01"
-                    value="<?php echo $max_price < 999999 ? $max_price : ''; ?>" placeholder="₹999999">
+                <input type="number" name="max_price" min="0" step="0.01" value="<?php echo $max_price < 999999 ? $max_price : ''; ?>" placeholder="Max">
             </div>
 
             <div class="form-group">
                 <label>Stock</label>
                 <select name="stock">
-                    <option value="">All</option>
-                    <option value="in_stock" <?php echo $stock_filter === 'in_stock' ? 'selected' : ''; ?>>
-                        In Stock
-                    </option>
-                    <option value="out_of_stock" <?php echo $stock_filter === 'out_of_stock' ? 'selected' : ''; ?>>
-                        Out of Stock
-                    </option>
+                    <option value="">Any</option>
+                    <option value="in_stock" <?php echo $stock_filter === 'in_stock' ? 'selected' : ''; ?>>In Stock</option>
+                    <option value="out_of_stock" <?php echo $stock_filter === 'out_of_stock' ? 'selected' : ''; ?>>Out of Stock</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Sort By</label>
                 <select name="sort">
-                    <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Newest First</option>
-                    <option value="price_low" <?php echo $sort === 'price_low' ? 'selected' : ''; ?>>Price: Low to High
-                    </option>
-                    <option value="price_high" <?php echo $sort === 'price_high' ? 'selected' : ''; ?>>Price: High to
-                        Low</option>
-                    <option value="rating" <?php echo $sort === 'rating' ? 'selected' : ''; ?>>Highest Rated</option>
-                    <option value="name" <?php echo $sort === 'name' ? 'selected' : ''; ?>>Name: A to Z</option>
+                    <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Newest</option>
+                    <option value="price_low" <?php echo $sort === 'price_low' ? 'selected' : ''; ?>>Price: Low-High</option>
+                    <option value="price_high" <?php echo $sort === 'price_high' ? 'selected' : ''; ?>>Price: High-Low</option>
+                    <option value="rating" <?php echo $sort === 'rating' ? 'selected' : ''; ?>>Top Rated</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Apply Filters</button>
-            <a href="market.php?id=<?php echo $market_id; ?>" class="btn btn-secondary">Reset</a>
+            <div style="grid-column: 1 / -1; display:flex; gap:10px;">
+                <button type="submit" class="btn btn-primary" style="flex:1;">Apply Filters</button>
+                <a href="market.php?id=<?php echo $market_id; ?>" class="btn btn-secondary">Reset</a>
+            </div>
         </form>
     </div>
 
     <!-- Results Info -->
     <div class="results-info">
-        <span><?php echo count($products); ?> products found</span>
+        <span>Showing <?php echo count($products); ?> products</span>
     </div>
 
     <!-- Products Grid -->
@@ -732,106 +542,49 @@ $price_range = $stmt->fetch();
         <div class="products-grid">
             <?php foreach ($products as $product): ?>
             <div class="product-card">
-                <?php if ($product['product_image']): ?>
-                <?php
+                <div class="image-wrapper">
+                    <?php if ($product['product_image']): ?>
+                        <?php
                             $is_url = preg_match('/^https?:\/\//i', $product['product_image']);
                             $product_image_src = $is_url ? htmlspecialchars($product['product_image']) : '../uploads/products/' . htmlspecialchars($product['product_image']);
-                            ?>
-                <img src="<?php echo $product_image_src; ?>"
-                    alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="product-image"
-                    onerror="this.src='../assets/images/default-product.jpg'">
-                <?php else: ?>
-                <img src="../assets/images/default-product.jpg" alt="Product" class="product-image">
-                <?php endif; ?>
+                        ?>
+                        <img src="<?php echo $product_image_src; ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="product-image" onerror="this.src='../assets/images/default-product.jpg'">
+                    <?php else: ?>
+                        <img src="../assets/images/default-product.jpg" alt="Product" class="product-image">
+                    <?php endif; ?>
+                </div>
 
                 <div class="product-content">
-                    <span class="product-category">
-                        <?php echo htmlspecialchars($product['category']); ?>
-                    </span>
+                    <span class="product-category"><?php echo htmlspecialchars($product['category']); ?></span>
+                    <h3 class="product-name"><?php echo htmlspecialchars($product['product_name']); ?></h3>
+                    <div class="product-price">₹<?php echo number_format($product['price'], 2); ?></div>
 
-                    <h3 class="product-name">
-                        <?php echo htmlspecialchars($product['product_name']); ?>
-                    </h3>
-
-                    <div class="product-price">
-                        ₹<?php echo number_format($product['price'], 2); ?>
-                    </div>
-
-                    <div class="product-rating">
-                        <?php 
+                    <div class="product-meta">
+                        <div class="product-rating">
+                            <?php 
                                 $rating = $product['rating'];
-                                for ($i = 1; $i <= 5; $i++) {
-                                    echo $i <= $rating ? '⭐' : '☆';
-                                }
-                                ?>
+                                echo $rating > 0 ? str_repeat('⭐', round($rating)) : 'No ratings';
+                            ?>
+                        </div>
+                        <div class="product-stock">
+                            <?php if ($product['stock'] > 0): ?>
+                                <span class="stock-badge stock-in">In Stock</span>
+                            <?php else: ?>
+                                <span class="stock-badge stock-out">Out of Stock</span>
+                            <?php endif; ?>
+                        </div>
                     </div>
-
-                    <div class="product-stock">
-                        <?php if ($product['stock'] > 0): ?>
-                        <span class="stock-in">✓ In Stock</span>
-                        <?php else: ?>
-                        <span class="stock-out">✗ Out of Stock</span>
-                        <?php endif; ?>
-                    </div>
-
-                    <?php if ($product['has_details'] && $product['details']): ?>
-                    <div class="product-details">
-                        <?php echo htmlspecialchars($product['details']); ?>
-                    </div>
-                    <?php endif; ?>
 
                     <div class="product-actions">
-                        <button class="btn-cart" onclick="addToCart(<?php echo $product['product_id']; ?>)"
-                            <?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
-
-                            <?php if ($product['stock'] > 0): ?>
-                            <p class="button__text">
-                                <span style="--index: 0;">A</span>
-                                <span style="--index: 1;">D</span>
-                                <span style="--index: 2;">D</span>
-                                <span style="--index: 3;"> </span>
-                                <span style="--index: 4;">T</span>
-                                <span style="--index: 5;">O</span>
-                                <span style="--index: 6;"> </span>
-                                <span style="--index: 7;">C</span>
-                                <span style="--index: 8;">A</span>
-                                <span style="--index: 9;">R</span>
-                                <span style="--index: 10;">T</span>
-                                <span style="--index: 11;"> </span>
-                                <span style="--index: 12;">•</span>
-                            </p>
-
-                            <div class="button__circle">
-                                <svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                    class="button__icon" width="14">
-                                    <path
-                                        d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
-                                        fill="currentColor"></path>
-                                </svg>
-                                <svg viewBox="0 0 14 15" fill="none" width="14" xmlns="http://www.w3.org/2000/svg"
-                                    class="button__icon button__icon--copy">
-                                    <path
-                                        d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
-                                        fill="currentColor"></path>
-                                </svg>
-                            </div>
-                            <?php else: ?>
-                            Out of Stock
-                            <?php endif; ?>
-
-                        </button>
-                        <a href="product.php?id=<?php echo $product['product_id']; ?>" class="btn-view">
-                            <svg class="svgIcon" viewBox="0 0 576 512">
-                                <path
-                                    d="M288 32c-80.8 0-145.5 46.8-192.8 80.6C48.3 156 16 205.8 16 256c0 50.2 32.3 100 79.2 143.4C142.5 433.2 207.2 480 288 480s145.5-46.8 192.8-80.6c46.9-33.5 79.2-83.3 79.2-133.4 0-50.2-32.3-100-79.2-143.4C433.5 78.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1-288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z">
-                                </path>
-                            </svg>
+                        <a href="product.php?id=<?php echo $product['product_id']; ?>" class="btn-view" title="View Details">
+                            <i class="fas fa-eye"></i>
                         </a>
+                        
+                        <button class="btn-cart" onclick="addToCart(<?php echo $product['product_id']; ?>)" <?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
+                            <span class="icon"><i class="fas fa-shopping-cart"></i></span>
+                            <span class="text">Add to Cart</span>
+                        </button>
                     </div>
-
-                </div>
-                <div class="cbb">
-
                 </div>
             </div>
             <?php endforeach; ?>
@@ -839,11 +592,8 @@ $price_range = $stmt->fetch();
         <?php else: ?>
         <div class="empty-state">
             <h2>No Products Found</h2>
-            <p>Try adjusting your filters or search criteria.</p>
-            <a href="market.php?id=<?php echo $market_id; ?>" class="btn btn-primary"
-                style="display: inline-block; margin-top: 0.9rem;">
-                Clear Filters
-            </a>
+            <p>We couldn't find any products matching your criteria.</p>
+            <a href="market.php?id=<?php echo $market_id; ?>" class="btn btn-primary" style="margin-top: 1rem;">Clear Filters</a>
         </div>
         <?php endif; ?>
     </div>
@@ -853,13 +603,21 @@ $price_range = $stmt->fetch();
     window.addEventListener('DOMContentLoaded', updateCartCount);
 
     function updateCartCount() {
+        // Safe check for element existence
+        const cartBadge = document.getElementById('customerCartCount');
+        
         fetch('../api/cart.php?action=count')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    document.getElementById('cartCount').textContent = data.data.count;
+                    // Update header badge if it exists
+                    if (cartBadge) {
+                        cartBadge.textContent = data.data.count;
+                        if(data.data.count > 0) cartBadge.style.display = 'flex';
+                    }
                 }
-            });
+            })
+            .catch(e => console.log('Cart update skipped'));
     }
 
     function addToCart(productId) {
@@ -877,18 +635,27 @@ $price_range = $stmt->fetch();
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('✓ Product added to cart!');
+                    // Create a nice toast or alert
+                    const btn = event.currentTarget;
+                    if(btn) {
+                        const originalContent = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-check"></i>';
+                        btn.style.background = '#4CAF50';
+                        setTimeout(() => {
+                            btn.innerHTML = originalContent;
+                            btn.style.background = '';
+                        }, 2000);
+                    }
                     updateCartCount();
                 } else {
-                    alert('✗ ' + data.message);
+                    alert('Note: ' + data.message);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Failed to add product to cart');
+                alert('Connection error');
             });
     }
 </script>
 </body>
-
 </html>

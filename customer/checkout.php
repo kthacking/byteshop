@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             
         } catch (Exception $e) {
             $pdo->rollBack();
-            $error_message = "Failed to place order. Please try again!";
+            $error_message = "Failed to place order. Please try again! " . $e->getMessage();
         }
     }
 }
@@ -167,289 +167,256 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - ByteShop</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-   <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2D3436;
+            --bg-color: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --border-color: #EEEEEE;
+            --shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            font-size: 14.4px; /* 90% of 16px */
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            font-size: 14px;
         }
 
         .container {
-            max-width: 1080px; /* 90% of 1200px */
-            margin: 1.8rem auto; /* 90% of 2rem */
-            padding: 0 0.9rem; /* 90% of 1rem */
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
         }
 
         .container > h2 {
-            font-size: 1.8rem; /* 90% of 2rem */
-            color: #e0e0e0;
+            font-size: 1.8rem;
+            color: var(--secondary);
             font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
         }
 
         .checkout-grid {
             display: grid;
-            grid-template-columns: 1fr 360px; /* 90% of 400px */
-            gap: 1.8rem; /* 90% of 2rem */
-            margin-top: 1.8rem; /* 90% of 2rem */
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
         }
 
         .checkout-section {
-            background: linear-gradient(135deg, #1a1a1a 0%, #161616 100%);
-            padding: 1.8rem; /* 90% of 2rem */
-            border-radius: 14.4px; /* 90% of 16px */
-            box-shadow: 0 3.6px 14.4px rgba(0,0,0,0.4); /* 90% scale */
-            border: 1px solid #2a2a2a;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.03);
+            margin-bottom: 2rem;
         }
+        
+        .checkout-section:last-child { margin-bottom: 0; }
 
         .section-title {
-            font-size: 1.35rem; /* 90% of 1.5rem */
-            margin-bottom: 1.35rem; /* 90% of 1.5rem */
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            border-bottom: 2px solid #2a2a2a;
-            padding-bottom: 0.45rem; /* 90% of 0.5rem */
-            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .form-group {
-            margin-bottom: 1.35rem; /* 90% of 1.5rem */
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.45rem; /* 90% of 0.5rem */
-            font-weight: 600;
-            color: #909090;
-            font-size: 0.81rem; /* 90% of 0.9rem */
-            text-transform: uppercase;
-            letter-spacing: 0.45px; /* 90% of 0.5px */
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--secondary);
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.675rem; /* 90% of 0.75rem */
-            border: 2px solid #2a2a2a;
-            border-radius: 7.2px; /* 90% of 8px */
-            font-size: 0.9rem; /* 90% of 1rem */
-            transition: border-color 0.3s;
-            background: #0f0f0f;
-            color: #e0e0e0;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: #fff;
+            color: var(--text-main);
+            font-family: inherit;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #ff6b35;
-            box-shadow: 0 0 0 2.7px rgba(255, 107, 53, 0.1); /* 90% of 3px */
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: #5a5a5a;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.9rem; /* 90% of 1rem */
+            gap: 1.2rem;
         }
 
         .cart-item {
             display: flex;
-            gap: 0.9rem; /* 90% of 1rem */
-            padding: 0.9rem; /* 90% of 1rem */
-            border-bottom: 1px solid #2a2a2a;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
             align-items: center;
-             background: #3a3a3a;
         }
 
-        .cart-item:last-child {
-            border-bottom: none;
-        }
+        .cart-item:last-child { border-bottom: none; }
 
         .cart-item img {
-            width: 54px; /* 90% of 60px */
-            height: 54px; /* 90% of 60px */
+            width: 60px;
+            height: 60px;
             object-fit: cover;
-            border-radius: 7.2px; /* 90% of 8px */
-            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            border: 1px solid #eee;
         }
 
-        .cart-item-info {
-            flex: 1;
-        }
+        .cart-item-info { flex: 1; }
 
         .cart-item-name {
             font-weight: 600;
-            color: #e0e0e0;
-            font-size: 0.9rem;
+            color: var(--secondary);
+            font-size: 0.95rem;
         }
 
         .cart-item-market {
-            font-size: 0.765rem; /* 90% of 0.85rem */
-            color: #909090;
-            margin-top: 0.225rem; /* 90% of 0.25rem */
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            margin-top: 3px;
         }
 
         .cart-item-price {
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 1.08rem; /* 90% of 1.2rem */
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1rem;
         }
 
-        .order-summary {
-            background: #0f0f0f;
-            padding: 1.35rem; /* 90% of 1.5rem */
-            border-radius: 7.2px; /* 90% of 8px */
-            margin-top: 0.9rem; /* 90% of 1rem */
-            border: 1px solid #2a2a2a;
+        .order-summary-box {
+            background: #F9F9F9;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            border: 1px solid #eee;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.9rem; /* 90% of 1rem */
-            font-size: 0.9rem; /* 90% of 1rem */
-            color: #b0b0b0;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            color: var(--text-sub);
         }
 
         .summary-row.total {
-            font-size: 1.17rem; /* 90% of 1.3rem */
+            font-size: 1.2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            border-top: 2px solid #2a2a2a;
-            padding-top: 0.9rem; /* 90% of 1rem */
-            margin-top: 0.9rem; /* 90% of 1rem */
+            color: var(--secondary);
+            border-top: 1px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 0;
         }
+        .summary-row.total span:last-child { color: var(--primary); }
 
         .btn {
-            padding: 0.9rem 1.8rem; /* 90% of 1rem 2rem */
+            display: block;
+            width: 100%;
+            padding: 1rem;
             border: none;
-            border-radius: 7.2px; /* 90% of 8px */
-            font-size: 0.9rem; /* 90% of 1rem */
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
             text-align: center;
+            text-decoration: none;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            background: var(--primary);
             color: white;
-            width: 100%;
-            margin-top: 0.9rem; /* 90% of 1rem */
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-1.8px); /* 90% of -2px */
-            box-shadow: 0 4.5px 13.5px rgba(255, 107, 53, 0.4); /* 90% scale */
+            background: #e55e2d;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
         }
 
         .btn-secondary {
-            background: #2a2a2a;
-            color: #b0b0b0;
+            background: #f1f1f1;
+            color: var(--text-sub);
+            margin-top: 1rem;
         }
 
         .btn-secondary:hover {
-            background: #3a3a3a;
-            color: #e0e0e0;
+            background: #e1e1e1;
+            color: var(--secondary);
         }
 
         .alert {
-            padding: 0.9rem; /* 90% of 1rem */
-            border-radius: 7.2px; /* 90% of 8px */
-            margin-bottom: 0.9rem; /* 90% of 1rem */
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
         }
 
         .alert-error {
-            background: rgba(244, 67, 54, 0.15);
-            color: #f44336;
-            border-left: 3.6px solid #f44336; /* 90% of 4px */
-        }
-
-        .alert-success {
-            background: rgba(76, 175, 80, 0.15);
-            color: #4caf50;
-            border-left: 3.6px solid #4caf50; /* 90% of 4px */
+            background: #FFEBEE;
+            color: #C62828;
+            border: 1px solid #e57373;
         }
 
         .empty-cart {
             text-align: center;
-            padding: 2.7rem; /* 90% of 3rem */
-            color: #707070;
+            padding: 4rem;
         }
+        .empty-cart-icon { font-size: 4rem; color: #ddd; margin-bottom: 1rem; }
 
-        .empty-cart-icon {
-            font-size: 3.6rem; /* 90% of 4rem */
-            margin-bottom: 0.9rem; /* 90% of 1rem */
-        }
-
-        .empty-cart h3 {
-            color: #909090;
-            margin-bottom: 0.9rem; /* 90% of 1rem */
-            font-size: 1.62rem; /* 90% of 1.8rem */
-        }
-
-        .empty-cart p {
-            margin: 0.9rem 0; /* 90% of 1rem */
-            color: #707070;
-            font-size: 0.9rem;
-        }
-
-        .cart-item > div:last-child {
-            margin-top: 0.225rem; /* 90% of 0.25rem */
-            color: #909090;
-            font-size: 0.81rem; /* 90% of 0.9rem */
-        }
-
-        @media (max-width: 968px) {
-            .checkout-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 900px) {
+            .checkout-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-        <?php include '../includes/customer_header.php'; ?>
+    <?php include '../includes/customer_header.php'; ?>
     <div class="container">
-        <h2>Checkout</h2>
+        <h2><i class="fas fa-lock" style="color:#2ecc71; font-size: 0.8em; margin-right:10px;"></i> Secure Checkout</h2>
 
         <?php if ($error_message): ?>
-            <div class="alert alert-error"><?php echo $error_message; ?></div>
+            <div class="alert alert-error"><i class="fas fa-exclamation-circle"></i> <?php echo $error_message; ?></div>
         <?php endif; ?>
 
         <?php if ($cart_empty): ?>
             <div class="checkout-section">
                 <div class="empty-cart">
-                    <div class="empty-cart-icon">🛒</div>
+                    <div class="empty-cart-icon"><i class="fas fa-shopping-cart"></i></div>
                     <h3>Your cart is empty!</h3>
                     <p>Add some products to proceed with checkout.</p>
-                    <a href="index.php" class="btn btn-primary" style="width: auto;">Browse Markets</a>
+                    <a href="index.php" class="btn btn-primary" style="width: auto; display: inline-block;">Browse Markets</a>
                 </div>
             </div>
         <?php else: ?>
@@ -457,97 +424,104 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
                 <div class="checkout-grid">
                     <!-- Delivery Details -->
                     <div class="checkout-section">
-                        <h3 class="section-title">Delivery Details</h3>
+                        <h3 class="section-title"><i class="fas fa-map-marker-alt"></i> Delivery Details</h3>
 
                         <div class="form-group">
-                            <label>Full Name *</label>
-                            <input type="text" name="full_name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                            <label>Full Name</label>
+                            <input type="text" name="full_name" value="<?php echo htmlspecialchars($user['name']); ?>" required placeholder="Enter your full name">
                         </div>
 
                         <div class="form-group">
-                            <label>Phone Number *</label>
+                            <label>Phone Number</label>
                             <input type="tel" name="phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>" placeholder="10-digit mobile number" maxlength="10" required>
                         </div>
 
                         <div class="form-group">
-                            <label>Delivery Address *</label>
+                            <label>Address</label>
                             <textarea name="address" rows="3" placeholder="House No., Building, Street" required></textarea>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label>City *</label>
-                                <input type="text" name="city" required>
+                                <label>City</label>
+                                <input type="text" name="city" required placeholder="City">
                             </div>
 
                             <div class="form-group">
-                                <label>State *</label>
-                                <input type="text" name="state" required>
+                                <label>State</label>
+                                <input type="text" name="state" required placeholder="State">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Pincode *</label>
+                            <label>Pincode</label>
                             <input type="text" name="pincode" placeholder="6-digit pincode" maxlength="6" required>
                         </div>
 
+                        <h3 class="section-title" style="margin-top: 2rem;"><i class="fas fa-credit-card"></i> Payment</h3>
+                        
                         <div class="form-group">
-                            <label>Payment Method *</label>
+                            <label>Select Payment Method</label>
                             <select name="payment_method" required>
-                                <option value="COD">Cash on Delivery (COD)</option>
-                                <option value="UPI">UPI</option>
-                                <option value="Card">Debit/Credit Card</option>
+                                <option value="COD">💵 Cash on Delivery (COD)</option>
+                                <option value="UPI">📱 UPI (GPay/PhonePe)</option>
+                                <option value="Card">💳 Debit/Credit Card</option>
                             </select>
                         </div>
                     </div>
 
                     <!-- Order Summary -->
                     <div>
-                        <div class="checkout-section">
-                            <h3 class="section-title">Order Summary</h3>
+                        <div class="checkout-section" style="position: sticky; top: 100px;">
+                            <h3 class="section-title"><i class="fas fa-receipt"></i> Order Summary</h3>
 
-                            <?php foreach ($cart_items as $item): ?>
-                                <div class="cart-item">
-                            <?php
-                            // Detect if image is URL or local file
-                            $cart_item_image = $item['product_image'] ?: 'default.jpg';
-                            $is_cart_url = preg_match('/^https?:\/\//i', $cart_item_image);
-                            $cart_image_src = $is_cart_url ? htmlspecialchars($cart_item_image) : '../uploads/products/' . htmlspecialchars($cart_item_image);
-                            ?>
-                            <img src="<?php echo $cart_image_src; ?>" 
-                                 alt="<?php echo htmlspecialchars($item['product_name']); ?>" 
-                                 class="item-image"
-                                 onerror="this.src='../assets/images/default-product.jpg'">
-                                    <div class="cart-item-info">
-                                        <div class="cart-item-name"><?php echo htmlspecialchars($item['product_name']); ?></div>
-                                        <div class="cart-item-market">From: <?php echo htmlspecialchars($item['market_name']); ?></div>
-                                        <div style="margin-top: 0.225rem;">Qty: <?php echo $item['quantity']; ?></div>
+                            <div style="max-height: 300px; overflow-y: auto; padding-right: 5px;">
+                                <?php foreach ($cart_items as $item): ?>
+                                    <div class="cart-item">
+                                        <?php
+                                        // Detect if image is URL or local file
+                                        $cart_item_image = $item['product_image'] ?: 'default.jpg';
+                                        $is_cart_url = preg_match('/^https?:\/\//i', $cart_item_image);
+                                        $cart_image_src = $is_cart_url ? htmlspecialchars($cart_item_image) : '../uploads/products/' . htmlspecialchars($cart_item_image);
+                                        ?>
+                                        <img src="<?php echo $cart_image_src; ?>" 
+                                            alt="<?php echo htmlspecialchars($item['product_name']); ?>" 
+                                            onerror="this.src='../assets/images/default-product.jpg'">
+                                        <div class="cart-item-info">
+                                            <div class="cart-item-name"><?php echo htmlspecialchars($item['product_name']); ?></div>
+                                            <div class="cart-item-market"><?php echo htmlspecialchars($item['market_name']); ?></div>
+                                            <div style="font-size: 0.8rem; color: #888;">Qty: <?php echo $item['quantity']; ?></div>
+                                        </div>
+                                        <div class="cart-item-price">₹<?php echo number_format($item['subtotal'], 2); ?></div>
                                     </div>
-                                    <div class="cart-item-price">₹<?php echo number_format($item['subtotal'], 2); ?></div>
-                                </div>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            </div>
 
-                            <div class="order-summary">
+                            <div class="order-summary-box">
                                 <div class="summary-row">
                                     <span>Subtotal (<?php echo count($cart_items); ?> items)</span>
                                     <span>₹<?php echo number_format($total_amount, 2); ?></span>
                                 </div>
                                 <div class="summary-row">
                                     <span>Delivery Charges</span>
-                                    <span style="color: #4caf50; font-weight: 600;">FREE</span>
+                                    <span style="color: #27ae60; font-weight: 600;">FREE</span>
                                 </div>
                                 <div class="summary-row total">
                                     <span>Total Amount</span>
                                     <span>₹<?php echo number_format($total_amount, 2); ?></span>
                                 </div>
                             </div>
+                            
+                            <div style="margin-top: 1rem; font-size: 0.8rem; color: #666; text-align: center;">
+                                By placing this order, you agree to our Terms of Service.
+                            </div>
 
                             <button type="submit" name="place_order" class="btn btn-primary">
-                                Place Order
+                                Confirm & Place Order
                             </button>
 
-                            <a href="cart.php" class="btn btn-secondary" style="width: 100%; margin-top: 0.45rem;">
-                                ← Back to Cart
+                            <a href="cart.php" class="btn btn-secondary">
+                                Return to Cart
                             </a>
                         </div>
                     </div>

@@ -67,117 +67,67 @@ $reviews = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($product['product_name']); ?> - ByteShop</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2D3436;
+            --bg-color: #FAFAFA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --border-color: #EEEEEE;
+            --shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-main);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        /* Header */
-        /* .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-
-        .cart-icon {
-            position: relative;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #ff4757;
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: bold;
-        }
-        */
-        
         /* Breadcrumb */
         .breadcrumb {
-            max-width: 1400px;
-            margin: 2rem auto 1rem;
-            padding: 0 2rem;
-            color: #666;
+            max-width: 1200px;
+            margin: 1.5rem auto;
+            padding: 0 1.5rem;
+            color: var(--text-sub);
+            font-size: 0.9rem;
         }
 
         .breadcrumb a {
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
+            font-weight: 500;
         }
 
-        .breadcrumb a:hover {
-            text-decoration: underline;
-        } 
+        .breadcrumb a:hover { text-decoration: underline; }
 
         /* Product Detail Container */
         .product-detail {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 1.5rem;
         }
 
         .product-main {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        /* Product Image Section */
+        /* Product Image */
         .product-image-section {
             display: flex;
             flex-direction: column;
@@ -186,262 +136,261 @@ $reviews = $stmt->fetchAll();
 
         .main-product-image {
             width: 100%;
-            height: 500px;
+            height: 450px;
             object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s;
         }
+        
+        .main-product-image:hover { transform: scale(1.02); }
 
-        .image-placeholder {
-            width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 4rem;
-        }
-
-        /* Product Info Section */
+        /* Product Info */
         .product-info-section {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
 
         .product-category-badge {
             display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
             font-weight: 600;
             width: fit-content;
+            text-transform: uppercase;
         }
 
         .product-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #333;
-            line-height: 1.3;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            line-height: 1.2;
         }
 
         .product-rating-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
-        .rating-stars {
-            color: #ffa502;
-            font-size: 1.5rem;
-        }
-
-        .rating-text {
-            color: #666;
-            font-size: 1.1rem;
-        }
+        .rating-stars { color: #FFC107; font-size: 1.2rem; }
+        .rating-text { color: var(--text-sub); font-size: 0.9rem; font-weight: 500; }
 
         .product-price-section {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-          .product-image {
-            width: 100%;
-            height:100% ;
-            object-fit: cover;
-            border-radius: 10px;
+            margin: 1rem 0;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .product-price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .currency {
+            font-size: 1.5rem;
+            color: var(--text-sub);
+            font-weight: 500;
         }
 
         .product-stock {
-            margin-top: 1rem;
-            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
             font-weight: 600;
         }
 
-        .stock-available {
-            color: #27ae60;
-        }
-
-        .stock-unavailable {
-            color: #e74c3c;
-        }
+        .stock-available { color: #4CAF50; }
+        .stock-unavailable { color: #F44336; }
 
         .product-description {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
+            color: var(--text-sub);
             line-height: 1.8;
-            color: #555;
-        }
-
-        .product-description h3 {
             margin-bottom: 1rem;
-            color: #333;
+        }
+        
+        .product-description h3 {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Quantity Selector */
         .quantity-section {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .quantity-section label {
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
+        .quantity-section label { font-weight: 600; font-size: 1rem; color: var(--secondary); }
 
         .quantity-controls {
             display: flex;
             align-items: center;
-            border: 2px solid #ddd;
-            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
             overflow: hidden;
+            background: #F9FAFB;
         }
 
         .quantity-btn {
-            background: #f0f0f0;
+            background: transparent;
             border: none;
-            padding: 0.7rem 1.2rem;
+            padding: 0.6rem 1.2rem;
             font-size: 1.2rem;
             cursor: pointer;
-            transition: background 0.3s;
+            color: var(--secondary);
+            transition: all 0.2s;
         }
 
-        .quantity-btn:hover {
-            background: #e0e0e0;
-        }
+        .quantity-btn:hover { background: #eee; }
 
         .quantity-input {
             border: none;
             text-align: center;
-            width: 60px;
-            font-size: 1.1rem;
+            width: 50px;
+            font-size: 1rem;
             font-weight: 600;
-            padding: 0.7rem 0;
+            background: transparent;
+            color: var(--secondary);
         }
+        
+        .quantity-input:focus { outline: none; }
 
         /* Action Buttons */
         .product-actions {
             display: flex;
             gap: 1rem;
+            margin-top: 0.5rem;
         }
 
         .btn {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
+            border-radius: 50px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
             text-decoration: none;
-            display: inline-block;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: var(--primary);
             color: white;
             flex: 2;
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
         }
 
         .btn-primary:hover {
-            background: #5568d3;
+            background: #e55e2d;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
         }
+        
+        .btn-primary:active { transform: translateY(0); }
 
         .btn-primary:disabled {
-            background: #95a5a6;
+            background: #ccc;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .btn-secondary {
-            background: #ecf0f1;
-            color: #333;
+            background: white;
+            color: var(--secondary);
+            border: 1px solid var(--border-color);
             flex: 1;
         }
 
         .btn-secondary:hover {
-            background: #bdc3c7;
+            background: #f8f8f8;
+            border-color: #ddd;
         }
 
-        /* Market Info Section */
+        /* Market Info */
         .market-info-box {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #764ba2;
-        }
-
-        .market-info-box h3 {
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .market-info-item {
+            margin-top: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
-            color: #555;
+            gap: 1rem;
+        }
+        
+        .market-avatar {
+             width: 50px; 
+             height: 50px; 
+             border-radius: 50%; 
+             background: #eee;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 1.5rem;
+        }
+        
+        .market-details h4 {
+            font-size: 1rem;
+            color: var(--secondary);
+            margin-bottom: 2px;
+        }
+        
+        .market-details p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
         }
 
         .market-link {
-            color: #667eea;
+            color: var(--primary);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        .market-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Related Products Section */
-        .related-products-section {
-            background: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
+        /* Related Products */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            color: #333;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .related-products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .related-product-card {
             background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 16px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            text-decoration: none;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
         .related-product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .related-product-image {
@@ -450,39 +399,38 @@ $reviews = $stmt->fetchAll();
             object-fit: cover;
         }
 
-        .related-product-info {
-            padding: 1rem;
-        }
+        .related-product-info { padding: 1.2rem; }
 
         .related-product-name {
             font-weight: 600;
             margin-bottom: 0.5rem;
-            color: #333;
+            color: var(--secondary);
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .related-product-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        /* Reviews Section */
+        /* Reviews */
         .reviews-section {
             background: white;
-            border-radius: 10px;
+            border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-top: 2rem;
+            box-shadow: var(--shadow);
         }
 
         .review-item {
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid var(--border-color);
             padding: 1.5rem 0;
         }
 
-        .review-item:last-child {
-            border-bottom: none;
-        }
+        .review-item:last-child { border-bottom: none; }
 
         .review-header {
             display: flex;
@@ -490,93 +438,41 @@ $reviews = $stmt->fetchAll();
             margin-bottom: 0.5rem;
         }
 
-        .reviewer-name {
-            font-weight: 600;
-            color: #333;
-        }
+        .reviewer-name { font-weight: 600; color: var(--secondary); }
+        .review-date { color: var(--text-sub); font-size: 0.85rem; }
+        .review-rating { color: #FFC107; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .review-text { color: var(--text-sub); line-height: 1.6; }
 
-        .review-date {
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .review-rating {
-            color: #ffa502;
-            margin-bottom: 0.5rem;
-        }
-
-        .review-text {
-            color: #555;
-            line-height: 1.6;
-        }
-
-        /* Alert Messages */
+        /* Alert */
         .alert {
-            padding: 1rem 1.5rem;
-            border-radius: 5px;
+            padding: 1rem;
+            border-radius: 8px;
             margin-bottom: 1rem;
             display: none;
+            font-weight: 500;
+            text-align: center;
         }
+        .alert.show { display: block; animation: fadeIn 0.3s; }
+        .alert-success { background: #E8F5E9; color: #2E7D32; }
+        .alert-error { background: #FFEBEE; color: #C62828; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .alert.show {
-            display: block;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            .product-main {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .product-title {
-                font-size: 1.8rem;
-            }
-
-            .product-price {
-                font-size: 2rem;
-            }
-
-            .product-actions {
-                flex-direction: column;
-            }
-
-            .related-products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
+            .product-main { grid-template-columns: 1fr; padding: 1.5rem; gap: 2rem; }
+            .product-title { font-size: 1.8rem; }
+            .product-price { font-size: 2rem; }
+            .product-actions { flex-direction: column; }
+            .related-products-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        }
+        @media (max-width: 480px) {
+             .related-products-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Header
-    <header class="header">
-        <div class="header-content">
-            <a href="index.php" class="logo">🛒 ByteShop</a>
-            <nav class="nav-links">
-                <a href="index.php">Markets</a>
-                <a href="orders.php">My Orders</a>
-                <a href="cart.php" class="cart-icon">
-                    🛒 Cart
-                    <span class="cart-count" id="cartCount">0</span>
-                </a>
-                <span>Hi, <?php echo htmlspecialchars(get_user_name()); ?></span>
-                <a href="../logout.php">Logout</a>
-            </nav>
-        </div>
-    </header> -->
-        <?php include '../includes/customer_header.php'; ?>
+    <?php include '../includes/customer_header.php'; ?>
+
     <!-- Breadcrumb -->
     <div class="breadcrumb">
         <a href="index.php">Home</a> / 
@@ -598,7 +494,6 @@ $reviews = $stmt->fetchAll();
             <div class="product-image-section">
                 <?php if ($product['product_image']): ?>
                     <?php
-                    // Detect if image is URL or local file
                     $is_url = preg_match('/^https?:\/\//i', $product['product_image']);
                     $product_image_src = $is_url ? htmlspecialchars($product['product_image']) : '../uploads/products/' . htmlspecialchars($product['product_image']);
                     ?>
@@ -613,40 +508,39 @@ $reviews = $stmt->fetchAll();
 
             <!-- Product Info Section -->
             <div class="product-info-section">
-                <span class="product-category-badge">
-                    <?php echo htmlspecialchars($product['category']); ?>
-                </span>
-
-                <h1 class="product-title">
-                    <?php echo htmlspecialchars($product['product_name']); ?>
-                </h1>
+                <div>
+                     <span class="product-category-badge">
+                        <?php echo htmlspecialchars($product['category']); ?>
+                    </span>
+                    <h1 class="product-title" style="margin-top:10px;">
+                        <?php echo htmlspecialchars($product['product_name']); ?>
+                    </h1>
+                </div>
 
                 <div class="product-rating-section">
                     <span class="rating-stars">
                         <?php 
                         $rating = $product['rating'];
-                        for ($i = 1; $i <= 5; $i++) {
-                            echo $i <= $rating ? '⭐' : '☆';
-                        }
+                        echo $rating > 0 ? str_repeat('⭐', round($rating)) : '☆☆☆☆☆';
                         ?>
                     </span>
                     <span class="rating-text">
-                        <?php echo number_format($rating, 1); ?> out of 5
+                        <?php echo number_format($rating, 1); ?> (<?php echo count($reviews); ?> reviews)
                     </span>
                 </div>
 
                 <div class="product-price-section">
                     <div class="product-price">
-                        ₹<?php echo number_format($product['price'], 2); ?>
+                        <span class="currency">₹</span><?php echo number_format($product['price'], 2); ?>
                     </div>
                     <div class="product-stock">
                         <?php if ($product['stock'] > 0): ?>
                             <span class="stock-available">
-                                ✓ In Stock (<?php echo $product['stock']; ?> available)
+                                <i class="fas fa-check-circle"></i> In Stock (<?php echo $product['stock']; ?> available)
                             </span>
                         <?php else: ?>
                             <span class="stock-unavailable">
-                                ✗ Currently Out of Stock
+                                <i class="fas fa-times-circle"></i> Currently Out of Stock
                             </span>
                         <?php endif; ?>
                     </div>
@@ -654,7 +548,7 @@ $reviews = $stmt->fetchAll();
 
                 <?php if ($product['has_details'] && $product['details']): ?>
                     <div class="product-description">
-                        <h3>📝 Product Details</h3>
+                        <h3>Description</h3>
                         <p><?php echo nl2br(htmlspecialchars($product['details'])); ?></p>
                     </div>
                 <?php endif; ?>
@@ -662,7 +556,7 @@ $reviews = $stmt->fetchAll();
                 <!-- Quantity Selector -->
                 <?php if ($product['stock'] > 0): ?>
                     <div class="quantity-section">
-                        <label>Quantity:</label>
+                        <label>Quantity</label>
                         <div class="quantity-controls">
                             <button class="quantity-btn" onclick="decrementQuantity()">−</button>
                             <input type="number" id="quantity" class="quantity-input" 
@@ -674,15 +568,12 @@ $reviews = $stmt->fetchAll();
                     <!-- Action Buttons -->
                     <div class="product-actions">
                         <button class="btn btn-primary" onclick="addToCart()">
-                            🛒 Add to Cart
+                            <i class="fas fa-shopping-bag"></i> Add to Cart
                         </button>
-                        <a href="cart.php" class="btn btn-secondary">
-                            View Cart
-                        </a>
                     </div>
                 <?php else: ?>
                     <div class="product-actions">
-                        <button class="btn btn-primary" disabled>
+                        <button class="btn btn-primary" disabled style="background:#ccc; box-shadow:none;">
                             Out of Stock
                         </button>
                     </div>
@@ -690,21 +581,15 @@ $reviews = $stmt->fetchAll();
 
                 <!-- Market Info -->
                 <div class="market-info-box">
-                    <h3>🏪 Sold By</h3>
-                    <div class="market-info-item">
-                        <strong>Market:</strong>
-                        <a href="market.php?id=<?php echo $product['market_id']; ?>" class="market-link">
-                            <?php echo htmlspecialchars($product['market_name']); ?>
-                        </a>
+                    <div class="market-avatar">
+                         <i class="fas fa-store" style="color:#ccc;"></i>
                     </div>
-                    <div class="market-info-item">
-                        <span>📍 <?php echo htmlspecialchars($product['market_location']); ?></span>
-                    </div>
-                    <div class="market-info-item">
-                        <span>🏷️ <?php echo htmlspecialchars($product['market_category']); ?></span>
-                    </div>
-                    <div class="market-info-item">
-                        <span>⭐ <?php echo number_format($product['market_rating'], 1); ?> Market Rating</span>
+                    <div class="market-details">
+                        <h4>Sold by <a href="market.php?id=<?php echo $product['market_id']; ?>" class="market-link"><?php echo htmlspecialchars($product['market_name']); ?></a></h4>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($product['market_location']); ?> • 
+                            ⭐ <?php echo number_format($product['market_rating'], 1); ?> Rating
+                        </p>
                     </div>
                 </div>
             </div>
@@ -713,14 +598,12 @@ $reviews = $stmt->fetchAll();
         <!-- Related Products -->
         <?php if (count($related_products) > 0): ?>
             <div class="related-products-section">
-                <h2 class="section-title">🔍 Related Products</h2>
+                <h2 class="section-title"><i class="fas fa-layer-group" style="color:var(--primary);"></i> Similar Products</h2>
                 <div class="related-products-grid">
                     <?php foreach ($related_products as $related): ?>
-                        <a href="product.php?id=<?php echo $related['product_id']; ?>" 
-                           class="related-product-card" style="text-decoration: none; color: inherit;">
+                        <a href="product.php?id=<?php echo $related['product_id']; ?>" class="related-product-card">
                             <?php if ($related['product_image']): ?>
                                 <?php
-                                // Detect if image is URL or local file
                                 $is_related_url = preg_match('/^https?:\/\//i', $related['product_image']);
                                 $related_image_src = $is_related_url ? htmlspecialchars($related['product_image']) : '../uploads/products/' . htmlspecialchars($related['product_image']);
                                 ?>
@@ -748,7 +631,7 @@ $reviews = $stmt->fetchAll();
         <!-- Reviews Section -->
         <?php if (count($reviews) > 0): ?>
             <div class="reviews-section">
-                <h2 class="section-title">⭐ Customer Reviews</h2>
+                <h2 class="section-title"><i class="fas fa-comments" style="color:var(--primary);"></i> Customer Reviews</h2>
                 <?php foreach ($reviews as $review): ?>
                     <div class="review-item">
                         <div class="review-header">
@@ -786,10 +669,13 @@ $reviews = $stmt->fetchAll();
             fetch('../api/cart.php?action=count')
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        document.getElementById('cartCount').textContent = data.data.count;
+                    const badge = document.getElementById('customerCartCount');
+                    if (data.success && badge) {
+                         badge.textContent = data.data.count;
+                         if(data.data.count > 0) badge.style.display = 'flex';
                     }
-                });
+                })
+                .catch(err => console.log('Cart update skipped'));
         }
 
         function incrementQuantity() {
@@ -810,6 +696,7 @@ $reviews = $stmt->fetchAll();
 
         function addToCart() {
             const quantity = parseInt(document.getElementById('quantity').value);
+            const alertBox = document.getElementById('alertMessage');
             
             fetch('../api/cart.php', {
                 method: 'POST',
@@ -824,36 +711,30 @@ $reviews = $stmt->fetchAll();
             })
             .then(response => response.json())
             .then(data => {
-                const alertDiv = document.getElementById('alertMessage');
                 if (data.success) {
-                    alertDiv.className = 'alert alert-success show';
-                    alertDiv.textContent = '✓ ' + quantity + ' item(s) added to cart successfully!';
+                    showAlert('success', '✓ Product added to cart successfully!');
                     updateCartCount();
-                    
-                    // Reset quantity to 1
-                    document.getElementById('quantity').value = 1;
                 } else {
-                    alertDiv.className = 'alert alert-error show';
-                    alertDiv.textContent = '✗ ' + data.message;
+                    showAlert('error', '✗ ' + data.message);
                 }
-                
-                // Hide alert after 3 seconds
-                setTimeout(() => {
-                    alertDiv.classList.remove('show');
-                }, 3000);
-
-                // Scroll to top to show alert
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             })
             .catch(error => {
                 console.error('Error:', error);
-                const alertDiv = document.getElementById('alertMessage');
-                alertDiv.className = 'alert alert-error show';
-                alertDiv.textContent = '✗ Failed to add product to cart';
-                setTimeout(() => {
-                    alertDiv.classList.remove('show');
-                }, 3000);
+                showAlert('error', 'Failed to add product to cart');
             });
+        }
+
+        function showAlert(type, message) {
+            const alertBox = document.getElementById('alertMessage');
+            alertBox.className = 'alert show ' + (type === 'success' ? 'alert-success' : 'alert-error');
+            alertBox.textContent = message;
+            
+            // Scroll to alert
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(() => {
+                alertBox.className = 'alert';
+            }, 3000);
         }
     </script>
 </body>
