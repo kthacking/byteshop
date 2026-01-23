@@ -143,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -151,622 +150,257 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Orders - ByteShop</title>
-  <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <title>My Orders - MarketX</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #FF4B2B;
+            --primary-dark: #cc3a20;
+            --bg-light: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --border-color: #e5e7eb;
+            --card-radius: 16px;
         }
-        
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-dark);
             min-height: 100vh;
-            padding: 0px;
-            color: #e0e0e0;
         }
-        
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            
-        }
-        
-        .header {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 22.5px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            margin-bottom: 27px;
-            border: 1px solid rgba(255, 107, 53, 0.15);
-        }
-        
-        .header h1 {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 28.8px;
-            margin-bottom: 9px;
-            font-weight: 700;
-        }
-        
-        .header .market-info {
-            color: #a0a0a0;
-            font-size: 14.4px;
-        }
-        
-        .header .market-info strong {
-            color: #ff6b35;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
-            gap: 18px;
-            margin-bottom: 27px;
-        }
-        
-        .stat-card {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 22.5px;
-            border-radius: 13.5px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
-            border-color: rgba(255, 107, 53, 0.3);
-        }
-        
-        .stat-card h3 {
-            color: #a0a0a0;
-            font-size: 12.6px;
-            text-transform: uppercase;
-            margin-bottom: 9px;
-            letter-spacing: 1px;
-            font-weight: 600;
-        }
-         .content-box {
-        background: rgba(26, 26, 26, 0.6);
-        backdrop-filter: blur(10px);
-        padding: 27px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        margin-bottom: 0px;
-        border: 1px solid rgba(255, 107, 53, 0.15);
-    }
 
-    .content-box h2 {
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 18px;
-        padding-bottom: 9px;
-        border-bottom: 2px solid rgba(255, 107, 53, 0.3);
-        font-size: 18px;
-        font-weight: 700;
-    }
-
-    .content-box h1 {
-        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-size: 25.2px;
-        font-weight: 700;
-        margin-bottom: 9px;
-    }
-
-    .content-box p {
-        color: #a0a0a0;
-        margin-top: 4.5px;
-    }
-        .stat-card .value {
-            font-size: 32.4px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .filters-section {
-            background: rgba(26, 26, 26, 0.6);
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            padding: 22.5px;
-            border-radius: 13.5px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            margin-bottom: 27px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .filters-section h3 {
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        
-        .filter-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 13.5px;
-            margin-bottom: 18px;
-        }
-        
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .filter-group label {
-            margin-bottom: 4.5px;
-            color: #b0b0b0;
-            font-size: 12.6px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .filter-group input,
-        .filter-group select {
-            padding: 9px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 7.2px;
-            font-size: 12.6px;
-            transition: all 0.3s ease;
-            color: #e0e0e0;
-        }
-        
-        .filter-group input:focus,
-        .filter-group select:focus {
-            outline: none;
-            border-color: #ff6b35;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-        }
-        
-        .filter-group select option {
-            background: #1a1a1a;
-            color: #e0e0e0;
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: 9px;
-        }
-        
-        .btn {
-            padding: 10.8px 22.5px;
-            border: none;
-            border-radius: 7.2px;
-            font-size: 12.6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            box-shadow: 0 4px 14px rgba(255, 107, 53, 0.3);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-        }
-        
-        .btn-secondary {
-            background: rgba(224, 224, 224, 0.1);
-            color: #a0a0a0;
-            border: 1px solid rgba(224, 224, 224, 0.2);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(224, 224, 224, 0.15);
-        }
-        
-        .orders-section {
-            background: rgba(26, 26, 26, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 22.5px;
-            border-radius: 13.5px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .orders-section h3 {
-            margin-bottom: 18px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 18px;
-            font-weight: 700;
-        }
-        
-        .orders-table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow-x: auto;
-            display: block;
-        }
-        
-        .orders-table table {
-            width: 100%;
-            min-width: 900px;
-        }
-        
-        .orders-table th {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 13.5px;
-            text-align: left;
-            font-weight: 600;
-            color: #b0b0b0;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            font-size: 12.6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .orders-table td {
-            padding: 13.5px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #e0e0e0;
-            font-size: 12.6px;
-        }
-        
-        .orders-table tr:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-        
-        .orders-table td small {
-            color: #777;
-            font-size: 11.7px;
-        }
-        
-        .status-badge {
-            padding: 4.5px 10.8px;
-            border-radius: 18px;
-            font-size: 10.8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            border: 1px solid;
-        }
-        
-        .status-placed {
-            background: rgba(255, 193, 7, 0.15);
-            color: #ffc107;
-            border-color: rgba(255, 193, 7, 0.3);
-        }
-        
-        .status-packed {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        
-        .status-shipped {
-            background: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-        
-        .status-delivered {
-            background: rgba(0, 212, 170, 0.15);
-            color: #00d4aa;
-            border-color: rgba(0, 212, 170, 0.3);
-        }
-        
-        .status-cancelled {
-            background: rgba(255, 71, 87, 0.15);
-            color: #ff4757;
-            border-color: rgba(255, 71, 87, 0.3);
-        }
-        
-        .action-btn {
-            padding: 5.4px 10.8px;
-            margin: 0 2.7px;
-            border: none;
-            border-radius: 4.5px;
-            font-size: 10.8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-        
-        .btn-view {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
-        }
-        
-        .btn-view:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.5);
-        }
-        
-        .alert {
-            padding: 13.5px 18px;
-            border-radius: 7.2px;
-            margin-bottom: 18px;
-            font-weight: 500;
-            font-size: 12.6px;
-            border: 1px solid;
-        }
-        
-        .alert-success {
-            background: rgba(0, 212, 170, 0.15);
-            color: #00d4aa;
-            border-color: rgba(0, 212, 170, 0.3);
-        }
-        
-        .alert-error {
-            background: rgba(255, 71, 87, 0.15);
-            color: #ff4757;
-            border-color: rgba(255, 71, 87, 0.3);
-        }
-        
-        .alert-warning {
-            background: rgba(255, 193, 7, 0.15);
-            color: #ffc107;
-            border-color: rgba(255, 193, 7, 0.3);
-        }
-        
-        .no-orders {
-            text-align: center;
-            padding: 36px;
-            color: #777;
-        }
-        
-        .no-orders i {
-            font-size: 57.6px;
-            margin-bottom: 18px;
-        }
-        
-        .no-orders div {
-            font-size: 57.6px;
-            margin-bottom: 18px;
-        }
-        
-        .no-orders h3 {
-            color: #ffffff;
-            font-size: 18px;
-            margin-bottom: 9px;
-        }
-        
-        .back-link {
-            display: inline-block;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 18px;
-            padding: 9px 18px;
-            background: rgba(255, 107, 53, 0.2);
-            border-radius: 7.2px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-        }
-        
-        .back-link:hover {
-            background: rgba(255, 107, 53, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 27px;
-            border-radius: 13.5px;
-            max-width: 720px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-        }
-        
-        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 18px;
-            padding-bottom: 13.5px;
-            border-bottom: 2px solid rgba(255, 107, 53, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        
-        .modal-header h2 {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 21.6px;
-            font-weight: 700;
-        }
-        
-        .close-modal {
-            font-size: 25.2px;
-            cursor: pointer;
-            color: #a0a0a0;
-            background: none;
-            border: none;
-            transition: all 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            color: #ff6b35;
-            transform: rotate(90deg);
-        }
-        
-        .order-details-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            margin-bottom: 18px;
-        }
-        
-        .detail-item {
-            padding: 13.5px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 7.2px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .detail-item label {
-            display: block;
-            font-size: 10.8px;
-            color: #a0a0a0;
-            margin-bottom: 4.5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-        
-        .detail-item .value {
-            font-size: 14.4px;
-            color: #ffffff;
-            font-weight: 600;
-        }
-        
-        .order-items-table {
-            width: 100%;
-            margin-top: 18px;
-        }
-        
-        .order-items-table th {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 9px;
-            text-align: left;
-            font-size: 11.7px;
-            color: #b0b0b0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-        
-        .order-items-table td {
-            padding: 9px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            color: #e0e0e0;
-            font-size: 12.6px;
-        }
-        
-        #orderDetailsContent h3 {
-            margin-top: 27px;
-            margin-bottom: 13.5px;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 16.2px;
-            font-weight: 700;
-        }
-        
-        #orderDetailsContent form {
-            margin-top: 27px;
-        }
-        
-        #orderDetailsContent form > div {
+
+        .navbar h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
             display: flex;
-            gap: 9px;
             align-items: center;
+            gap: 8px;
         }
         
-        #orderDetailsContent form select {
-            flex: 1;
-            padding: 9px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 7.2px;
-            color: #e0e0e0;
-            font-size: 12.6px;
+        .navbar h1 span { color: var(--primary); }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
+
+        .logout-btn {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+        .logout-btn:hover { background: #FFF5F5; color: var(--primary); border-color: var(--primary); }
+
+        /* Container & Nav Pill */
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
         
-        #orderDetailsContent form select option {
-            background: #1a1a1a;
-            color: #e0e0e0;
+        .nav-links {
+            display: inline-flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: #fff;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            flex-wrap: wrap;
         }
+        .nav-links a {
+            padding: 0.5rem 1.2rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-dark); background: #f3f4f6; }
+        .nav-links a.active { background: #000; color: #fff; }
+
+        .header { margin-bottom: 2rem; }
+        .header h2 { font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: 0.5rem; }
+        .header p { color: var(--text-gray); }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        
+        .stat-card {
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            min-height: 140px;
+        }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .stat-card h3 { font-size: 0.8rem; font-weight: 600; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; position: relative; z-index: 2; }
+        .stat-card .value { font-size: 2rem; font-weight: 800; position: relative; z-index: 2; letter-spacing: -1px; }
+        .stat-card .icon-overlay { position: absolute; right: -10px; bottom: -10px; font-size: 6rem; opacity: 0.1; transform: rotate(-15deg); }
+
+        .bg-gradient-blue { background: linear-gradient(135deg, #2563EB 0%, #60A5FA 100%); }
+        .bg-gradient-orange { background: linear-gradient(135deg, #EA580C 0%, #FB923C 100%); }
+        .bg-gradient-purple { background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%); }
+
+        /* Filters */
+        .card { background: #fff; border-radius: var(--card-radius); padding: 1.5rem; border: 1px solid var(--border-color); box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-bottom: 2rem; }
+        .card-header { font-size: 1.1rem; font-weight: 700; color: #111; margin-bottom: 1.5rem; border-bottom: 1px solid #f3f4f6; padding-bottom: 1rem; }
+
+        .filter-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .filter-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .filter-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-gray); }
+        .filter-group input, .filter-group select {
+            padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit; font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .filter-group input:focus, .filter-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255, 75, 43, 0.1); }
+
+        .btn { padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-primary { background: #111; color: #fff; }
+        .btn-primary:hover { background: var(--primary); transform: translateY(-2px); }
+        .btn-secondary { background: #f3f4f6; color: var(--text-dark); margin-left: 0.5rem; }
+        .btn-secondary:hover { background: #e5e7eb; }
+        .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+
+        /* Table */
+        .table-responsive { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 1rem; background: #F9FAFB; color: var(--text-gray); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom: 1px solid #E5E7EB; }
+        td { padding: 1rem; border-bottom: 1px solid #E5E7EB; font-size: 0.9rem; color: #1F2937; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: #F9FAFB; }
+
+        .status { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; display: inline-block; }
+        .status.placed { background: #EFF6FF; color: #1D4ED8; }
+        .status.packed { background: #FFF7ED; color: #C2410C; }
+        .status.shipped { background: #F3E8FF; color: #7C3AED; }
+        .status.delivered { background: #ECFDF5; color: #059669; }
+        .status.cancelled { background: #FEF2F2; color: #DC2626; }
+
+        .alert { padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 500; font-size: 0.9rem; }
+        .alert-success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+        .alert-error { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+        .alert-warning { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+        .modal.active { display: flex; }
+        .modal-content { background: #fff; border-radius: 16px; padding: 2rem; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #f3f4f6; }
+        .modal-header h2 { font-size: 1.5rem; font-weight: 800; color: #111; }
+        .close-modal { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--text-gray); }
+        .close-modal:hover { color: var(--primary); }
+
+        .order-details-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .detail-item label { display: block; font-size: 0.75rem; color: var(--text-gray); text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem; }
+        .detail-item .value { font-size: 1rem; color: #111; font-weight: 500; }
+
+        .action-select { padding: 0.6rem; border: 1px solid #d1d5db; border-radius: 6px; flex: 1; margin-right: 10px; }
+
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <h1>🛒 Market<span>X</span> Owner</h1>
+        <div class="user-info">
+            <span>👋 <?php echo htmlspecialchars($user_name); ?></span>
+            <a href="../logout.php" class="logout-btn">Log Output</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <?php include '../includes/shop_owner_header.php'; ?>
-        <div class="content-box">
+        <!-- Nav Pills -->
+        <div class="nav-links">
+            <a href="index.php">Dashboard</a>
+            <a href="my_market.php">My Market</a>
+            <a href="products.php">Products</a>
+            <a href="orders.php" class="active">Orders</a>
+        </div>
+
         <div class="header">
-            <h1 style="margin-bottom:79px;">📦 My Orders</h1>
-        
-        
+            <h2>Order Management</h2>
+            <p>Track and manage your customer orders.</p>
+        </div>
+
         <?php if (isset($_SESSION['success_message'])): ?>
             <div class="alert alert-success">
-                ✓ <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                ✅ <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
             </div>
         <?php endif; ?>
         
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-error">
-                ✗ <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                ❌ <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
             </div>
         <?php endif; ?>
         
         <?php if (isset($error_message)): ?>
             <div class="alert alert-warning">
-                ⚠ <?php echo $error_message; ?>
+                ⚠️ <?php echo $error_message; ?>
             </div>
         <?php endif; ?>
-        
+
         <?php if ($market_id): ?>
+            <!-- Stats -->
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card bg-gradient-orange">
+                    <div class="icon-overlay">🛍️</div>
                     <h3>Total Orders</h3>
                     <div class="value"><?php echo $total_orders; ?></div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card bg-gradient-blue">
+                    <div class="icon-overlay">💰</div>
                     <h3>Total Revenue</h3>
                     <div class="value">₹<?php echo number_format($total_revenue, 2); ?></div>
                 </div>
-                <div class="stat-card">
-                    <h3>Average Order</h3>
+                <div class="stat-card bg-gradient-purple">
+                    <div class="icon-overlay">📊</div>
+                    <h3>Avg Order Value</h3>
                     <div class="value">₹<?php echo $total_orders > 0 ? number_format($total_revenue / $total_orders, 2) : '0.00'; ?></div>
                 </div>
             </div>
-            </div>
-            <div class="filters-section">
-                <h3>🔍 Filter Orders</h3>
+
+            <!-- Filters -->
+            <div class="card">
+                <div class="card-header">Filter Orders</div>
                 <form method="GET" action="">
                     <div class="filter-row">
                         <div class="filter-group">
-                            <label>Order Status</label>
+                            <label>Status</label>
                             <select name="status">
                                 <option value="all" <?php echo (!isset($_GET['status']) || $_GET['status'] === 'all') ? 'selected' : ''; ?>>All Status</option>
                                 <option value="placed" <?php echo (isset($_GET['status']) && $_GET['status'] === 'placed') ? 'selected' : ''; ?>>Placed</option>
@@ -776,45 +410,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                                 <option value="cancelled" <?php echo (isset($_GET['status']) && $_GET['status'] === 'cancelled') ? 'selected' : ''; ?>>Cancelled</option>
                             </select>
                         </div>
-                        
                         <div class="filter-group">
-                            <label>From Date</label>
+                            <label>From</label>
                             <input type="date" name="date_from" value="<?php echo isset($_GET['date_from']) ? $_GET['date_from'] : ''; ?>">
                         </div>
-                        
                         <div class="filter-group">
-                            <label>To Date</label>
+                            <label>To</label>
                             <input type="date" name="date_to" value="<?php echo isset($_GET['date_to']) ? $_GET['date_to'] : ''; ?>">
                         </div>
-                        
                         <div class="filter-group">
                             <label>Search</label>
-                            <input type="text" name="search" placeholder="Order ID, Customer..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+                            <input type="text" name="search" placeholder="Order ID, Client..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
                         </div>
                     </div>
-                    
-                    <div class="filter-buttons">
+                    <div>
                         <button type="submit" class="btn btn-primary">Apply Filters</button>
-                        <a href="orders.php" class="btn btn-secondary">Clear Filters</a>
+                        <a href="orders.php" class="btn btn-secondary">Reset</a>
                     </div>
                 </form>
             </div>
-            
-            <div class="orders-section">
-                <h3>📋 Orders List (<?php echo $total_orders; ?> orders)</h3>
-                
+
+            <!-- Orders Table -->
+            <div class="card">
+                <div class="card-header">Orders List (<?php echo $total_orders; ?>)</div>
                 <?php if (count($orders) > 0): ?>
-                    <div class="orders-table">
+                    <div class="table-responsive">
                         <table>
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
                                     <th>Customer</th>
                                     <th>Items</th>
-                                    <th>Amount</th>
+                                    <th>Total</th>
                                     <th>Status</th>
                                     <th>Date</th>
-                                    <th>Actions</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -822,21 +452,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                                     <tr>
                                         <td><strong>#<?php echo $order['order_id']; ?></strong></td>
                                         <td>
-                                            <?php echo htmlspecialchars($order['customer_name']); ?><br>
-                                            <small style="color: #999;"><?php echo htmlspecialchars($order['customer_email']); ?></small>
+                                            <div style="font-weight:600;"><?php echo htmlspecialchars($order['customer_name']); ?></div>
+                                            <div style="font-size:0.8rem; color:#6B7280;"><?php echo htmlspecialchars($order['customer_email']); ?></div>
                                         </td>
-                                        <td><?php echo $order['items_count']; ?> items</td>
-                                        <td><strong>₹<?php echo number_format($order['market_subtotal'], 2); ?></strong></td>
+                                        <td><?php echo $order['items_count']; ?></td>
+                                        <td>₹<?php echo number_format($order['market_subtotal'], 2); ?></td>
                                         <td>
-                                            <span class="status-badge status-<?php echo $order['order_status']; ?>">
+                                            <span class="status <?php echo $order['order_status']; ?>">
                                                 <?php echo ucfirst($order['order_status']); ?>
                                             </span>
                                         </td>
-                                        <td><?php echo date('d M Y, h:i A', strtotime($order['order_date'])); ?></td>
+                                        <td><?php echo date('d M, h:i A', strtotime($order['order_date'])); ?></td>
                                         <td>
-                                            <button class="action-btn btn-view" onclick="viewOrder(<?php echo $order['order_id']; ?>)">
-                                                View Details
-                                            </button>
+                                            <button class="btn btn-primary btn-sm" onclick="viewOrder(<?php echo $order['order_id']; ?>)">View</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -844,37 +472,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                         </table>
                     </div>
                 <?php else: ?>
-                    <div class="no-orders">
-                        <div style="font-size: 64px;">📭</div>
-                        <h3>No Orders Found</h3>
-                        <p>No orders match your current filters.</p>
+                    <div style="text-align:center; padding:3rem; color:#6B7280;">
+                        <h3 style="margin-bottom:0.5rem;">No orders found</h3>
+                        <p>Try adjusting your search or filters.</p>
                     </div>
                 <?php endif; ?>
             </div>
+
         <?php endif; ?>
-        </div>
     </div>
-    
-    <!-- Order Details Modal -->
+
+    <!-- Details Modal -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Order Details</h2>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
+                <button class="close-modal" onclick="closeModal()">×</button>
             </div>
             <div id="orderDetailsContent">
-                <!-- Content loaded via JavaScript -->
+                <!-- Content via JS -->
             </div>
         </div>
     </div>
-    
+
     <script>
         function viewOrder(orderId) {
             const modal = document.getElementById('orderModal');
             const content = document.getElementById('orderDetailsContent');
             
             modal.classList.add('active');
-            content.innerHTML = '<p style="text-align: center; padding: 40px;">Loading...</p>';
+            content.innerHTML = '<div style="text-align:center; padding:2rem;">Loading details...</div>';
             
             fetch(`get_order_details.php?order_id=${orderId}`)
                 .then(response => response.json())
@@ -882,11 +509,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     if (data.success) {
                         content.innerHTML = generateOrderHTML(data.order, data.items);
                     } else {
-                        content.innerHTML = '<p style="color: red; text-align: center;">Error loading order details</p>';
+                        content.innerHTML = '<div class="alert alert-error">Error loading order details</div>';
                     }
                 })
                 .catch(error => {
-                    content.innerHTML = '<p style="color: red; text-align: center;">Error loading order details</p>';
+                    content.innerHTML = '<div class="alert alert-error">Connection error</div>';
                 });
         }
         
@@ -903,6 +530,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 `;
             });
             
+            // Build status options for select
+            const statuses = ['placed', 'packed', 'shipped', 'delivered', 'cancelled'];
+            let optionsHTML = '';
+            statuses.forEach(s => {
+                const selected = order.order_status === s ? 'selected' : '';
+                const label = s.charAt(0).toUpperCase() + s.slice(1);
+                optionsHTML += `<option value="${s}" ${selected}>${label}</option>`;
+            });
+
             return `
                 <div class="order-details-grid">
                     <div class="detail-item">
@@ -910,72 +546,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                         <div class="value">#${order.order_id}</div>
                     </div>
                     <div class="detail-item">
-                        <label>Order Date</label>
+                        <label>Date</label>
                         <div class="value">${order.order_date}</div>
                     </div>
                     <div class="detail-item">
-                        <label>Customer Name</label>
+                        <label>Customer</label>
                         <div class="value">${order.customer_name}</div>
                     </div>
                     <div class="detail-item">
-                        <label>Customer Email</label>
+                        <label>Email</label>
                         <div class="value">${order.customer_email}</div>
                     </div>
                     <div class="detail-item">
-                        <label>Customer Phone</label>
-                        <div class="value">${order.customer_phone || 'N/A'}</div>
-                    </div>
-                    <div class="detail-item">
-                        <label>Payment Method</label>
-                        <div class="value">${order.payment_method}</div>
-                    </div>
-                    <div class="detail-item" style="grid-column: 1 / -1;">
-                        <label>Delivery Address</label>
+                        <label>Address</label>
                         <div class="value">${order.delivery_address}</div>
                     </div>
                     <div class="detail-item">
-                        <label>Order Status</label>
-                        <div class="value">
-                            <span class="status-badge status-${order.order_status}">
-                                ${order.order_status.charAt(0).toUpperCase() + order.order_status.slice(1)}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="detail-item">
                         <label>Total Amount</label>
-                        <div class="value" style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 18px;">₹${parseFloat(order.market_subtotal).toFixed(2)}</div>
+                        <div class="value" style="color:var(--primary); font-size:1.2rem;">₹${parseFloat(order.market_subtotal).toFixed(2)}</div>
                     </div>
                 </div>
                 
-                <h3 style="margin-top: 30px; margin-bottom: 15px;">Order Items</h3>
-                <table class="order-items-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${itemsHTML}
-                    </tbody>
-                </table>
+                <h3 style="margin-bottom:1rem; font-size:1.1rem;">Items Ordered</h3>
+                <div class="table-responsive" style="margin-bottom:2rem; border-radius:8px; border:1px solid #e5e7eb;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHTML}
+                        </tbody>
+                    </table>
+                </div>
                 
-                <div style="margin-top: 30px;">
-                    <h3 style="margin-bottom: 15px;">Update Order Status</h3>
+                <div style="background:#f9fafb; padding:1.5rem; border-radius:12px; border:1px solid #e5e7eb;">
+                    <h3 style="margin-bottom:1rem; font-size:1rem;">Update Status</h3>
                     <form method="POST" action="">
                         <input type="hidden" name="action" value="update_status">
                         <input type="hidden" name="order_id" value="${order.order_id}">
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <select name="new_status" style="flex: 1; padding: 10px; border: 2px solid rgba(255, 255, 255, 0.15); border-radius: 8px; background: rgba(255, 255, 255, 0.05); color: #e0e0e0;">
-                                <option value="placed" ${order.order_status === 'placed' ? 'selected' : ''}>Placed</option>
-                                <option value="packed" ${order.order_status === 'packed' ? 'selected' : ''}>Packed</option>
-                                <option value="shipped" ${order.order_status === 'shipped' ? 'selected' : ''}>Shipped</option>
-                                <option value="delivered" ${order.order_status === 'delivered' ? 'selected' : ''}>Delivered</option>
-                                <option value="cancelled" ${order.order_status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                        <div style="display: flex; align-items: center;">
+                            <select name="new_status" class="action-select">
+                                ${optionsHTML}
                             </select>
-                            <button type="submit" class="btn btn-primary">Update Status</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

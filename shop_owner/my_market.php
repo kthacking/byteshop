@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch available locations and categories for dropdowns (from existing data)
+// Fetch available locations and categories for dropdowns
 $locations = $pdo->query("SELECT DISTINCT location FROM markets ORDER BY location")->fetchAll(PDO::FETCH_COLUMN);
 $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY market_category")->fetchAll(PDO::FETCH_COLUMN);
 ?>
@@ -157,512 +157,296 @@ $categories = $pdo->query("SELECT DISTINCT market_category FROM markets ORDER BY
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Market - ByteShop</title>
-   <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <title>My Market - MarketX</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #FF4B2B;
+            --primary-dark: #cc3a20;
+            --bg-light: #F9FAFB;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --border-color: #e5e7eb;
+            --card-radius: 16px;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-dark);
             min-height: 100vh;
-            color: #e0e0e0;
         }
 
-       .container {
-            max-width: 100%;
-        }
-
-        .card {
-            background: rgba(26, 26, 26, 0.6);
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            padding: 27px 117px;
-            margin-top: 0px;
-            border-radius: 0px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 107, 53, 0.15);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .card h2 {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 18px;
-            font-size: 21.6px;
-            font-weight: 700;
+        .navbar h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        
+        .navbar h1 span { color: var(--primary); }
 
-        .alert {
-            padding: 10.8px 13.5px;
-            border-radius: 9px;
-            margin-bottom: 18px;
-            font-size: 12.6px;
-            border: 1px solid;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
-        .alert-success {
-            background: rgba(0, 212, 170, 0.15);
-            color: #00d4aa;
-            border-color: rgba(0, 212, 170, 0.3);
-        }
-
-        .alert-error {
-            background: rgba(255, 71, 87, 0.15);
-            color: #ff4757;
-            border-color: rgba(255, 71, 87, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 7.2px;
-            color: #b0b0b0;
+        .logout-btn {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            color: var(--text-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            text-decoration: none;
             font-weight: 600;
-            font-size: 12.6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
         }
+        .logout-btn:hover { background: #FFF5F5; color: var(--primary); border-color: var(--primary); }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10.8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 9px;
-            font-size: 12.6px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            color: #e0e0e0;
+        /* Container & Nav Pill */
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        
+        .nav-links {
+            display: inline-flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            background: #fff;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            flex-wrap: wrap;
         }
+        .nav-links a {
+            padding: 0.5rem 1.2rem;
+            color: var(--text-gray);
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-dark); background: #f3f4f6; }
+        .nav-links a.active { background: #000; color: #fff; }
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: #666;
-        }
+        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+        .header h2 { font-size: 1.8rem; font-weight: 800; color: #111; margin-bottom: 0.5rem; }
+        .header p { color: var(--text-gray); }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ff6b35;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-        }
+        .btn { padding: 0.8rem 1.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; text-align: center; }
+        .btn-primary { background: #111; color: #fff; }
+        .btn-primary:hover { background: var(--primary); transform: translateY(-2px); }
 
-        .form-group select option {
-            background: #1a1a1a;
-            color: #e0e0e0;
-        }
+        /* Form Card */
+        .card { background: #fff; border-radius: var(--card-radius); padding: 2.5rem; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); max-width: 800px; margin: 0 auto; }
+        
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); ring: 2px solid rgba(255, 75, 43, 0.1); }
+        .info-text { font-size: 0.8rem; color: var(--text-gray); margin-top: 0.5rem; }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 90px;
-        }
+        /* File Upload */
+        .file-upload-wrapper { border: 2px dashed #d1d5db; border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.2s; background: #f9fafb; }
+        .file-upload-wrapper:hover { border-color: var(--primary); background: #fff; }
+        .file-upload-input { display: none; }
+        .file-upload-label { cursor: pointer; color: var(--text-gray); font-size: 0.9rem; }
+        .file-name { margin-top: 0.5rem; font-weight: 600; color: var(--primary); }
 
-        .file-upload-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
+        .current-image { max-width: 200px; border-radius: 8px; margin-top: 1rem; border: 1px solid #e5e7eb; padding: 0.5rem; background: #fff; }
 
-        .file-upload-input {
-            opacity: 0;
-            position: absolute;
-            z-index: -1;
-        }
-
-        .file-upload-label {
-            display: inline-block;
-            padding: 10.8px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed rgba(255, 107, 53, 0.3);
-            border-radius: 9px;
-            cursor: pointer;
-            text-align: center;
-            width: 100%;
-            transition: all 0.3s ease;
-            color: #a0a0a0;
-            font-size: 12.6px;
-        }
-
-        .file-upload-label:hover {
-            background: rgba(255, 107, 53, 0.1);
-            border-color: #ff6b35;
-            color: #ff6b35;
-        }
-
-        .file-name {
-            margin-top: 9px;
-            font-size: 11.7px;
-            color: #00d4aa;
-            font-style: italic;
-        }
-
-        .current-image {
-            margin-top: 9px;
-            max-width: 180px;
-            border-radius: 9px;
-            border: 2px solid rgba(255, 107, 53, 0.3);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn {
-            padding: 10.8px 27px;
-            border: none;
-            border-radius: 9px;
-            font-size: 14.4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-            border: 1px solid rgba(255, 107, 53, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-
-        .info-text {
-            font-size: 11.7px;
-            color: #777;
-            margin-top: 4.5px;
-        }
-
-        /* Radio button styling */
-        .form-group input[type="radio"] {
-            width: auto;
-            margin-right: 7.2px;
-            cursor: pointer;
-            accent-color: #ff6b35;
-        }
-
-        .form-group label[style*="font-weight: normal"] {
-            font-weight: normal !important;
-            text-transform: none;
-            letter-spacing: normal;
-            color: #e0e0e0;
-            font-size: 12.6px;
-        }
-
-        /* URL input section styling */
-        #url-input-section input {
-            width: 100%;
-            padding: 10.8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 9px;
-            font-size: 12.6px;
-            color: #e0e0e0;
-        }
-
-        #url-input-section input:focus {
-            outline: none;
-            border-color: #ff6b35;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
-        }
-
-        /* Current image section */
-        .form-group > div[style*="margin-top: 15px"] {
-            margin-top: 13.5px !important;
-        }
-
-        .form-group > div[style*="margin-top: 15px"] p {
-            font-size: 11.7px;
-            color: #a0a0a0;
-            margin-bottom: 4.5px;
-        }
-
-        .form-group > div[style*="margin-top: 15px"] p[style*="font-size: 11px"] {
-            font-size: 9.9px !important;
-            color: #777;
-            margin-top: 4.5px;
-        }
-
-        /* Image source selector */
-        .form-group > div[style*="margin-bottom: 15px"] {
-            margin-bottom: 13.5px !important;
-        }
+        .alert { padding: 1rem; border-radius: 8px; margin-bottom: 2rem; font-weight: 500; font-size: 0.9rem; }
+        .alert-success { background: #ECFDF5; color: #065F46; border: 1px solid #A7F3D0; }
+        .alert-error { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
 
         @media (max-width: 768px) {
-            .card {
-                padding: 18px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .card h2 {
-                font-size: 18px;
-            }
-
-            .current-image {
-                max-width: 150px;
-            }
+            .form-row { grid-template-columns: 1fr; }
+            .card { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
+    <nav class="navbar">
+        <h1>🛒 Market<span>X</span> Owner</h1>
+        <div class="user-info">
+            <span>👋 <?php echo htmlspecialchars($user_id); ?></span>
+            <a href="../logout.php" class="logout-btn">Log Output</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <?php include '../includes/shop_owner_header.php'; ?>
+        <!-- Nav Pills -->
+        <div class="nav-links">
+            <a href="index.php">Dashboard</a>
+            <a href="my_market.php" class="active">My Market</a>
+            <a href="products.php">Products</a>
+            <a href="orders.php">Orders</a>
+        </div>
 
-        <!-- Market Form Card -->
+        <div style="text-align:center; margin-bottom:2rem;">
+            <h2 style="font-size:2rem; font-weight:800; color:#111; margin-bottom:0.5rem;">
+                <?php echo $market ? 'Edit Your Market' : 'Create Your Market'; ?>
+            </h2>
+            <p style="color:#6B7280;">Manage your market details and appearance.</p>
+        </div>
+
         <div class="card">
-            <h2><?php echo $market ? 'Edit Market' : 'Create Your Market'; ?></h2>
-
             <?php if ($success_message): ?>
-                <div class="alert alert-success"><?php echo $success_message; ?></div>
+                <div class="alert alert-success">✅ <?php echo $success_message; ?></div>
             <?php endif; ?>
-
             <?php if ($error_message): ?>
-                <div class="alert alert-error"><?php echo $error_message; ?></div>
+                <div class="alert alert-error">❌ <?php echo $error_message; ?></div>
             <?php endif; ?>
 
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="market_name">Market Name *</label>
-                        <input 
-                            type="text" 
-                            id="market_name" 
-                            name="market_name" 
-                            placeholder="e.g., TechHub Electronics"
-                            value="<?php echo $market ? htmlspecialchars($market['market_name']) : ''; ?>"
-                            required
-                        >
+                        <label>Market Name</label>
+                        <input type="text" name="market_name" placeholder="e.g. Best Shop" value="<?php echo $market ? htmlspecialchars($market['market_name']) : ''; ?>" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="location">Location *</label>
-                        <input 
-                            type="text" 
-                            id="location" 
-                            name="location" 
-                            placeholder="e.g., Mumbai"
-                            value="<?php echo $market ? htmlspecialchars($market['location']) : ''; ?>"
-                            list="location-list"
-                            required
-                        >
+                        <label>Location</label>
+                        <input type="text" name="location" list="location-list" placeholder="e.g. Mumbai" value="<?php echo $market ? htmlspecialchars($market['location']) : ''; ?>" required>
                         <datalist id="location-list">
-                            <?php foreach ($locations as $loc): ?>
-                                <option value="<?php echo htmlspecialchars($loc); ?>">
-                            <?php endforeach; ?>
-                            <option value="Mumbai">
-                            <option value="Delhi">
-                            <option value="Bangalore">
-                            <option value="Pune">
-                            <option value="Chennai">
+                            <?php foreach ($locations as $loc): ?><option value="<?php echo htmlspecialchars($loc); ?>"><?php endforeach; ?>
+                            <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
                         </datalist>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="market_category">Market Category *</label>
-                    <input 
-                        type="text" 
-                        id="market_category" 
-                        name="market_category" 
-                        placeholder="e.g., Electronics"
-                        value="<?php echo $market ? htmlspecialchars($market['market_category']) : ''; ?>"
-                        list="category-list"
-                        required
-                    >
+                    <label>Category</label>
+                    <input type="text" name="market_category" list="category-list" placeholder="e.g. Electronics" value="<?php echo $market ? htmlspecialchars($market['market_category']) : ''; ?>" required>
                     <datalist id="category-list">
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?php echo htmlspecialchars($cat); ?>">
-                        <?php endforeach; ?>
-                        <option value="Electronics">
-                        <option value="Fashion">
-                        <option value="Books">
-                        <option value="Home & Kitchen">
-                        <option value="Sports">
-                        <option value="Toys">
+                        <?php foreach ($categories as $cat): ?><option value="<?php echo htmlspecialchars($cat); ?>"><?php endforeach; ?>
+                        <option value="Electronics"><option value="Fashion"><option value="Groceries">
                     </datalist>
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Market Description</label>
-                    <textarea 
-                        id="description" 
-                        name="description" 
-                        placeholder="Describe your market..."
-                    ><?php echo $market ? htmlspecialchars($market['description']) : ''; ?></textarea>
-                    <p class="info-text">Tell customers what makes your market special</p>
+                    <label>Description</label>
+                    <textarea name="description" rows="4" placeholder="Tell customers about your shop..."><?php echo $market ? htmlspecialchars($market['description']) : ''; ?></textarea>
                 </div>
 
                 <div class="form-group">
                     <label>Market Image</label>
-                    
-                    <!-- Image Source Selector -->
-                    <div style="margin-bottom: 15px;">
-                        <label style="font-weight: normal; display: inline-flex; align-items: center; margin-right: 20px; cursor: pointer;">
-                            <input 
-                                type="radio" 
-                                name="image_source" 
-                                value="file" 
-                                checked 
-                                onchange="toggleImageInput()"
-                                style="margin-right: 8px; cursor: pointer;"
-                            >
-                            <span>📁 Upload from Device</span>
+                    <div style="margin-bottom:1rem; display:flex; gap:1.5rem;">
+                        <label style="cursor:pointer; display:flex; align-items:center; gap:0.5rem;">
+                            <input type="radio" name="image_source" value="file" checked onchange="toggleImageInput()"> 📁 Upload File
                         </label>
-                        
-                        <label style="font-weight: normal; display: inline-flex; align-items: center; cursor: pointer;">
-                            <input 
-                                type="radio" 
-                                name="image_source" 
-                                value="url" 
-                                onchange="toggleImageInput()"
-                                style="margin-right: 8px; cursor: pointer;"
-                            >
-                            <span>🔗 Use Image URL</span>
+                        <label style="cursor:pointer; display:flex; align-items:center; gap:0.5rem;">
+                            <input type="radio" name="image_source" value="url" onchange="toggleImageInput()"> 🔗 Image URL
                         </label>
                     </div>
-                    
-                    <!-- File Upload Section -->
+
                     <div id="file-upload-section">
-                        <div class="file-upload-wrapper">
-                            <input 
-                                type="file" 
-                                id="market_image" 
-                                name="market_image" 
-                                accept="image/*"
-                                class="file-upload-input"
-                                onchange="displayFileName(this)"
-                            >
-                            <label for="market_image" class="file-upload-label">
-                                📷 Choose Market Image (JPG, PNG, GIF - Max 5MB)
-                            </label>
-                        </div>
+                        <label class="file-upload-wrapper">
+                            <input type="file" name="market_image" id="market_image" accept="image/*" class="file-upload-input" onchange="displayFileName(this)">
+                            <div class="file-upload-label">Click to upload image (Max 5MB)</div>
+                        </label>
                         <div id="file-name" class="file-name"></div>
                     </div>
-                    
-                    <!-- URL Input Section (Hidden by default) -->
-                    <div id="url-input-section" style="display: none;">
-                        <input 
-                            type="url" 
-                            id="market_image_url" 
-                            name="market_image_url" 
-                            placeholder="https://example.com/image.jpg"
-                            style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px;"
-                        >
-                        <p class="info-text" style="margin-top: 8px;">
-                            ℹ️ Enter direct link to image (must end with .jpg, .png, .gif, or .webp)
-                        </p>
+
+                    <div id="url-input-section" style="display:none;">
+                        <input type="url" name="market_image_url" id="market_image_url" placeholder="https://example.com/shop.jpg">
+                        <p class="info-text">Enter a direct link to a JPG/PNG image.</p>
                     </div>
-                    
-                    <!-- Current Image Display -->
+
                     <?php if ($market && $market['market_image']): ?>
-                        <div style="margin-top: 15px;">
-                            <p style="font-size: 13px; color: #666; margin-bottom: 5px;">Current Image:</p>
+                        <div style="margin-top:1rem;">
+                            <p style="font-size:0.85rem; font-weight:600; color:#374151;">Current Image:</p>
                             <?php 
-                            // Check if current image is URL or file
-                            $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
-                            $image_src = $is_url ? htmlspecialchars($market['market_image']) : '../uploads/markets/' . htmlspecialchars($market['market_image']);
+                                $is_url = preg_match('/^https?:\/\//i', $market['market_image']);
+                                $image_src = $is_url ? htmlspecialchars($market['market_image']) : '../uploads/markets/' . htmlspecialchars($market['market_image']);
                             ?>
-                            <img 
-                                src="<?php echo $image_src; ?>" 
-                                alt="Current market image" 
-                                class="current-image"
-                                onerror="this.src='../assets/images/default-market.jpg'; this.onerror=null;"
-                            >
-                            <?php if ($is_url): ?>
-                                <p style="font-size: 11px; color: #999; margin-top: 5px;">🔗 External URL</p>
-                            <?php endif; ?>
+                            <img src="<?php echo $image_src; ?>" class="current-image" onerror="this.src='../assets/images/default-market.jpg'">
                         </div>
                     <?php endif; ?>
                 </div>
-                
 
-                <button type="submit" class="btn btn-primary">
-                    <?php echo $market ? '💾 Update Market' : '✨ Create Market'; ?>
-                </button>
+                <div style="margin-top:2rem;">
+                    <button type="submit" class="btn btn-primary" style="width:100%;">
+                        <?php echo $market ? 'Save Changes' : 'Create Market'; ?>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
-  <script>
+    <script>
         function displayFileName(input) {
             const fileNameDiv = document.getElementById('file-name');
             if (input.files && input.files[0]) {
-                fileNameDiv.textContent = '📎 Selected: ' + input.files[0].name;
+                fileNameDiv.textContent = 'Selected: ' + input.files[0].name;
             } else {
                 fileNameDiv.textContent = '';
             }
         }
-        
+
         function toggleImageInput() {
             const imageSource = document.querySelector('input[name="image_source"]:checked').value;
             const fileSection = document.getElementById('file-upload-section');
             const urlSection = document.getElementById('url-input-section');
             const fileInput = document.getElementById('market_image');
             const urlInput = document.getElementById('market_image_url');
-            
+
             if (imageSource === 'file') {
                 fileSection.style.display = 'block';
                 urlSection.style.display = 'none';
-                urlInput.value = ''; // Clear URL input
+                urlInput.value = '';
                 urlInput.removeAttribute('required');
-                fileInput.removeAttribute('required');
             } else {
                 fileSection.style.display = 'none';
                 urlSection.style.display = 'block';
-                fileInput.value = ''; // Clear file input
+                fileInput.value = '';
                 document.getElementById('file-name').textContent = '';
                 fileInput.removeAttribute('required');
-                urlInput.removeAttribute('required');
             }
         }
-        
-        // Form validation before submit
+
+        // Validate on submit
         document.querySelector('form').addEventListener('submit', function(e) {
             const imageSource = document.querySelector('input[name="image_source"]:checked').value;
-            const fileInput = document.getElementById('market_image');
             const urlInput = document.getElementById('market_image_url');
-            
+
             if (imageSource === 'url') {
                 const urlValue = urlInput.value.trim();
-                
                 if (urlValue === '') {
                     e.preventDefault();
-                    alert('⚠️ Please enter an image URL or switch to file upload.');
+                    alert('Please enter an image URL.');
                     return false;
                 }
-                
-                // Validate URL format
                 if (!urlValue.match(/^https?:\/\/.+/i)) {
                     e.preventDefault();
-                    alert('⚠️ URL must start with http:// or https://');
-                    return false;
-                }
-                
-                // Validate image extension
-                if (!urlValue.match(/\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i)) {
-                    e.preventDefault();
-                    alert('⚠️ URL must point to an image file (.jpg, .png, .gif, .webp)');
+                    alert('URL must start with http:// or https://');
                     return false;
                 }
             }
