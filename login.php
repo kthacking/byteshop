@@ -365,6 +365,7 @@ $success = isset($_GET['success']) ? $_GET['success'] : '';
     </style>
 </head>
 <body>
+    <?php include 'includes/ui_effects.php'; ?>
     <div class="main-container">
         <!-- Visual Side -->
         <div class="visual-side">

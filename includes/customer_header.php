@@ -18,6 +18,10 @@ if (isset($_SESSION['user_id'])) {
 ?>
 
 <!DOCTYPE html>
+
+<!-- Include UI Effects (Cursor, Preloader) -->
+<?php include __DIR__ . '/ui_effects.php'; ?>
+
 <style>
     /* Reset and Base Styles */
     * {
@@ -193,6 +197,9 @@ if (isset($_SESSION['user_id'])) {
     }
 
     @media (max-width: 768px) {
+        .cursor-dot, .cursor-circle { display: none; }
+        body { cursor: auto; }
+        
         .customer-menu-toggle {
             display: block;
         }
@@ -283,6 +290,7 @@ if (isset($_SESSION['user_id'])) {
 </header>
 
 <script>
+// Toggle Mobile Menu
 function toggleCustomerMenu() {
     const nav = document.getElementById('customerNav');
     nav.classList.toggle('active');
@@ -313,3 +321,5 @@ document.addEventListener('click', function(event) {
     }
 });
 </script>
+
+
